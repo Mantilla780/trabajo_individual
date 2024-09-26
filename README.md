@@ -1,2 +1,2 @@
-# trabajo_individual
+# PROYECTO_INTEGRADOR
 [Inserte texto]
