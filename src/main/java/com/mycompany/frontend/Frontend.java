@@ -10,7 +10,7 @@ package com.mycompany.frontend;
  */
 public class Frontend {
     public static void main(String[] args) {
-        System.out.println("Hola!");
+        System.out.println("Holi!");
         
     }
 }
