@@ -9,8 +9,8 @@ package com.mycompany.frontend;
  * @author omaci
  */
 public class Frontend {
-
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        System.out.println("Hola!");
+        
     }
 }
