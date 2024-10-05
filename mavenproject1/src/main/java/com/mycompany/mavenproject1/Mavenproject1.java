@@ -4,13 +4,12 @@
 
 package com.mycompany.mavenproject1;
 
-/**
- *
- * @author USER
- */
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Mavenproject1 {
 
     public static void main(String[] args) {
-        System.out.println("Hello Worldsss!");
+        System.out.println("Hello Worlss!");
     }
 }
