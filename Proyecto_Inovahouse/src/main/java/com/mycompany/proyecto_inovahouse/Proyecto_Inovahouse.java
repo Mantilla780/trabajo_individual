@@ -4,6 +4,8 @@
 
 package com.mycompany.proyecto_inovahouse;
 
+import Vista.Login;
+
 /**
  *
  * @author omaci
@@ -11,6 +13,8 @@ package com.mycompany.proyecto_inovahouse;
 public class Proyecto_Inovahouse {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        
+       Login Vlogin = new Login();
+       Vlogin.setVisible(true);
     }
 }

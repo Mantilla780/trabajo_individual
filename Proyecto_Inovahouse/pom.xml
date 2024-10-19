@@ -17,6 +17,12 @@
 
     <dependencies>
         <!-- Aquí puedes agregar otras dependencias que necesites -->
+        <dependency>
+            <groupId>org.netbeans.external</groupId>
+            <artifactId>AbsoluteLayout</artifactId>
+            <version>RELEASE230</version>
+        </dependency>
+       
     </dependencies>
 
     <build>
@@ -26,3 +32,4 @@
     </build>
 
 </project>
+
