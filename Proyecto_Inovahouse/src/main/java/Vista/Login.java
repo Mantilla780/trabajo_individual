@@ -56,39 +56,51 @@ public class Login extends javax.swing.JFrame {
         Inovahouse.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         Inovahouse.setForeground(new java.awt.Color(255, 255, 255));
         Inovahouse.setText("INOVAHOUSE");
-        PanelLogin.add(Inovahouse, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, -1, -1));
+        PanelLogin.add(Inovahouse, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, -1, -1));
 
         Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/image1.png"))); // NOI18N
-        PanelLogin.add(Logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 0, -1, -1));
+        PanelLogin.add(Logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, -1, -1));
 
-        TextFieldUsuario.setText("Usuario");
+        TextFieldUsuario.setText("Usuario:");
         TextFieldUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TextFieldUsuarioActionPerformed(evt);
             }
         });
-        PanelLogin.add(TextFieldUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 270, 300, 40));
+        PanelLogin.add(TextFieldUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 300, 60));
 
-        TextFieldcontraseña.setText("Contraseña");
+        TextFieldcontraseña.setText("Contraseña:");
         TextFieldcontraseña.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TextFieldcontraseñaActionPerformed(evt);
             }
         });
-        PanelLogin.add(TextFieldcontraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 360, 300, 40));
+        PanelLogin.add(TextFieldcontraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 370, 300, 60));
 
-        jRadioButton1.setText("jRadioButton1");
-        PanelLogin.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 450, -1, -1));
+        jRadioButton1.setBackground(new java.awt.Color(39, 33, 105));
+        jRadioButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButton1.setText("Mostrar Contraseña");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+        PanelLogin.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 480, -1, -1));
 
-        jButton1.setText("jButton1");
-        jButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 5, true));
+        jButton1.setBackground(new java.awt.Color(5, 10, 48));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Login");
+        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton1.setFocusPainted(false);
         jButton1.setMargin(new java.awt.Insets(20, 14, 3, 14));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        PanelLogin.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 530, 200, 50));
+        PanelLogin.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 530, 200, 50));
 
         getContentPane().add(PanelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, 500, 650));
 
@@ -109,6 +121,10 @@ public class Login extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     /**
      * @param args the command line arguments
