@@ -15,6 +15,10 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        setLocationRelativeTo(null);
+        
+        
+        //TextFieldUsuario.putClientProperty("JComponent.rountReact", 100);
     }
 
     /**
@@ -26,21 +30,101 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        PanelLogin = new Vista.PanelRound();
+        Inovahouse = new javax.swing.JLabel();
+        Logo = new javax.swing.JLabel();
+        TextFieldUsuario = new javax.swing.JTextField();
+        TextFieldcontraseña = new javax.swing.JTextField();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jButton1 = new javax.swing.JButton();
+        Fondo = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        PanelLogin.setBackground(new java.awt.Color(39, 33, 105));
+        PanelLogin.setForeground(new java.awt.Color(39, 33, 105));
+        PanelLogin.setPreferredSize(new java.awt.Dimension(500, 650));
+        PanelLogin.setRoundBottomLeft(50);
+        PanelLogin.setRoundBottomRight(50);
+        PanelLogin.setRoundTopLeft(50);
+        PanelLogin.setRoundTopRight(50);
+        PanelLogin.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Inovahouse.setBackground(new java.awt.Color(255, 255, 255));
+        Inovahouse.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        Inovahouse.setForeground(new java.awt.Color(255, 255, 255));
+        Inovahouse.setText("INOVAHOUSE");
+        PanelLogin.add(Inovahouse, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, -1, -1));
+
+        Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/image1.png"))); // NOI18N
+        PanelLogin.add(Logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, -1, -1));
+
+        TextFieldUsuario.setText("Usuario:");
+        TextFieldUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TextFieldUsuarioActionPerformed(evt);
+            }
+        });
+        PanelLogin.add(TextFieldUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 300, 60));
+
+        TextFieldcontraseña.setText("Contraseña:");
+        TextFieldcontraseña.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TextFieldcontraseñaActionPerformed(evt);
+            }
+        });
+        PanelLogin.add(TextFieldcontraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 370, 300, 60));
+
+        jRadioButton1.setBackground(new java.awt.Color(39, 33, 105));
+        jRadioButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButton1.setText("Mostrar Contraseña");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+        PanelLogin.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 480, -1, -1));
+
+        jButton1.setBackground(new java.awt.Color(5, 10, 48));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Login");
+        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton1.setFocusPainted(false);
+        jButton1.setMargin(new java.awt.Insets(20, 14, 3, 14));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        PanelLogin.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 530, 200, 50));
+
+        getContentPane().add(PanelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, 500, 650));
+
+        Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/fondo.png"))); // NOI18N
+        getContentPane().add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void TextFieldcontraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldcontraseñaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TextFieldcontraseñaActionPerformed
+
+    private void TextFieldUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TextFieldUsuarioActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -73,10 +157,19 @@ public class Login extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Login().setVisible(true);
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Fondo;
+    private javax.swing.JLabel Inovahouse;
+    private javax.swing.JLabel Logo;
+    private Vista.PanelRound PanelLogin;
+    private javax.swing.JTextField TextFieldUsuario;
+    private javax.swing.JTextField TextFieldcontraseña;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JRadioButton jRadioButton1;
     // End of variables declaration//GEN-END:variables
 }
