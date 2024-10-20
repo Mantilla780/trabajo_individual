@@ -171,6 +171,6 @@ public class RSButtonMetro extends JButton implements MouseListener, MouseMotion
         
         this.setBorder(bordeMoved);
     }
-    
+
     
 }
