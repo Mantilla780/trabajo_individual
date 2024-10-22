@@ -4,6 +4,8 @@
  */
 package Vista;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author omaci
@@ -58,6 +60,11 @@ public class Login extends javax.swing.JFrame {
         rButtonProyecto1.setColorPressed(new java.awt.Color(39, 33, 105));
         rButtonProyecto1.setFocusPainted(false);
         rButtonProyecto1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        rButtonProyecto1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rButtonProyecto1MouseClicked(evt);
+            }
+        });
         rButtonProyecto1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rButtonProyecto1ActionPerformed(evt);
@@ -150,10 +157,25 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_PasswordFieldContraseñaMouseClicked
 
     private void rButtonProyecto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto1ActionPerformed
-        MenuAdministrador menuAdmin  = new MenuAdministrador();
-        menuAdmin.setVisible(true);
-        this.dispose();
+        
     }//GEN-LAST:event_rButtonProyecto1ActionPerformed
+
+    private void rButtonProyecto1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto1MouseClicked
+        String Usuario="Admin";
+        String Contraseña="123";
+        
+        String pass=new String(PasswordFieldContraseña.getPassword());
+        
+        if(TextFieldUsuario.getText().equals(Usuario)&& pass.equals(Contraseña)){
+            
+            MenuAdministrador MA= new MenuAdministrador();
+            MA.setVisible(true);
+            this.dispose();
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Usuario / Contraseña incorrecta");
+        }
+    }//GEN-LAST:event_rButtonProyecto1MouseClicked
 
     /**
      * @param args the command line arguments
