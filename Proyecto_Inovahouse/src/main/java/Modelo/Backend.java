@@ -1,4 +1,4 @@
-package com.mycompany.proyectointegrador.modelo;
+package Modelo;
 
 import java.util.ArrayList;
 import java.util.Scanner;
