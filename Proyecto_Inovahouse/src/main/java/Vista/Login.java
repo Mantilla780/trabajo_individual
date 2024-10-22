@@ -4,6 +4,8 @@
  */
 package Vista;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author omaci
@@ -30,7 +32,6 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-<<<<<<< Updated upstream
         PanelLogin = new Vista.PanelRound();
         rButtonProyecto1 = new Vista.RSButtonMetro();
         Inovahouse = new javax.swing.JLabel();
@@ -38,15 +39,12 @@ public class Login extends javax.swing.JFrame {
         TextFieldUsuario = new javax.swing.JTextField();
         jRadioButton1 = new javax.swing.JRadioButton();
         PasswordFieldContraseña = new javax.swing.JPasswordField();
-=======
->>>>>>> Stashed changes
         Fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-<<<<<<< Updated upstream
         PanelLogin.setBackground(new java.awt.Color(39, 33, 105));
         PanelLogin.setForeground(new java.awt.Color(39, 33, 105));
         PanelLogin.setPreferredSize(new java.awt.Dimension(500, 650));
@@ -62,6 +60,11 @@ public class Login extends javax.swing.JFrame {
         rButtonProyecto1.setColorPressed(new java.awt.Color(39, 33, 105));
         rButtonProyecto1.setFocusPainted(false);
         rButtonProyecto1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        rButtonProyecto1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rButtonProyecto1MouseClicked(evt);
+            }
+        });
         rButtonProyecto1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rButtonProyecto1ActionPerformed(evt);
@@ -122,15 +125,12 @@ public class Login extends javax.swing.JFrame {
 
         getContentPane().add(PanelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, 500, 650));
 
-=======
->>>>>>> Stashed changes
         Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/fondo.png"))); // NOI18N
         getContentPane().add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-<<<<<<< Updated upstream
     private void TextFieldUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TextFieldUsuarioActionPerformed
@@ -157,13 +157,26 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_PasswordFieldContraseñaMouseClicked
 
     private void rButtonProyecto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto1ActionPerformed
-        MenuAdministrador menuAdmin  = new MenuAdministrador();
-        menuAdmin.setVisible(true);
-        this.dispose();
+        
     }//GEN-LAST:event_rButtonProyecto1ActionPerformed
 
-=======
->>>>>>> Stashed changes
+    private void rButtonProyecto1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto1MouseClicked
+        String Usuario="Admin";
+        String Contraseña="123";
+        
+        String pass=new String(PasswordFieldContraseña.getPassword());
+        
+        if(TextFieldUsuario.getText().equals(Usuario)&& pass.equals(Contraseña)){
+            
+            MenuAdministrador MA= new MenuAdministrador();
+            MA.setVisible(true);
+            this.dispose();
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Usuario / Contraseña incorrecta");
+        }
+    }//GEN-LAST:event_rButtonProyecto1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -202,7 +215,6 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Fondo;
-<<<<<<< Updated upstream
     private javax.swing.JLabel Inovahouse;
     private javax.swing.JLabel Logo;
     private Vista.PanelRound PanelLogin;
@@ -210,7 +222,5 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JTextField TextFieldUsuario;
     private javax.swing.JRadioButton jRadioButton1;
     private Vista.RSButtonMetro rButtonProyecto1;
-=======
->>>>>>> Stashed changes
     // End of variables declaration//GEN-END:variables
 }
