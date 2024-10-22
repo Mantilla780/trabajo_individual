@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 C:\Users\omaci\Documents\Integrador\trabajo_individual\Proyecto_Inovahouse\src\main\java\com\mycompany\proyecto_inovahouse\Proyecto_Inovahouse.java
 C:\Users\omaci\Documents\Integrador\trabajo_individual\Proyecto_Inovahouse\src\main\java\Controlador\ApartamentoJpaController.java
 C:\Users\omaci\Documents\Integrador\trabajo_individual\Proyecto_Inovahouse\src\main\java\Controlador\ClienteJPAController.java
@@ -12,18 +11,13 @@ C:\Users\omaci\Documents\Integrador\trabajo_individual\Proyecto_Inovahouse\src\m
 C:\Users\omaci\Documents\Integrador\trabajo_individual\Proyecto_Inovahouse\src\main\java\Modelo\Apartamento.java
 C:\Users\omaci\Documents\Integrador\trabajo_individual\Proyecto_Inovahouse\src\main\java\Modelo\Backend.java
 C:\Users\omaci\Documents\Integrador\trabajo_individual\Proyecto_Inovahouse\src\main\java\Modelo\Cliente.java
+C:\Users\omaci\Documents\Integrador\trabajo_individual\Proyecto_Inovahouse\src\main\java\Modelo\Deuda.java
 C:\Users\omaci\Documents\Integrador\trabajo_individual\Proyecto_Inovahouse\src\main\java\Modelo\Pago.java
 C:\Users\omaci\Documents\Integrador\trabajo_individual\Proyecto_Inovahouse\src\main\java\Modelo\Proyecto_vivienda.java
 C:\Users\omaci\Documents\Integrador\trabajo_individual\Proyecto_Inovahouse\src\main\java\Modelo\Torre.java
+C:\Users\omaci\Documents\Integrador\trabajo_individual\Proyecto_Inovahouse\src\main\java\Modelo\Usuario.java
 C:\Users\omaci\Documents\Integrador\trabajo_individual\Proyecto_Inovahouse\src\main\java\Modelo\Venta.java
 C:\Users\omaci\Documents\Integrador\trabajo_individual\Proyecto_Inovahouse\src\main\java\Vista\Login.java
 C:\Users\omaci\Documents\Integrador\trabajo_individual\Proyecto_Inovahouse\src\main\java\Vista\MenuAdministrador.java
 C:\Users\omaci\Documents\Integrador\trabajo_individual\Proyecto_Inovahouse\src\main\java\Vista\PanelRound.java
 C:\Users\omaci\Documents\Integrador\trabajo_individual\Proyecto_Inovahouse\src\main\java\Vista\RSButtonMetro.java
-=======
-C:\Users\Admin\Documents\GitHub\trabajo_individual\Proyecto_Inovahouse\src\main\java\com\mycompany\proyecto_inovahouse\Proyecto_Inovahouse.java
-C:\Users\Admin\Documents\GitHub\trabajo_individual\Proyecto_Inovahouse\src\main\java\Vista\Login.java
-C:\Users\Admin\Documents\GitHub\trabajo_individual\Proyecto_Inovahouse\src\main\java\Vista\MenuAdministrador.java
-C:\Users\Admin\Documents\GitHub\trabajo_individual\Proyecto_Inovahouse\src\main\java\Vista\PanelRound.java
-C:\Users\Admin\Documents\GitHub\trabajo_individual\Proyecto_Inovahouse\src\main\java\Vista\RSButtonMetro.java
->>>>>>> main
