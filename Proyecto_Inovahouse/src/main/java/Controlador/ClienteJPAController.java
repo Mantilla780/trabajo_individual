@@ -1,7 +1,7 @@
-package com.mycompany.proyectointegrador.logica.persistencia;
+package Controlador;
 
-import com.mycompany.proyectointegrador.modelo.Cliente;
-import com.mycompany.proyectointegrador.logica.persistencia.exceptions.NonexistentEntityException;
+import Modelo.Cliente;
+import Controlador.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;

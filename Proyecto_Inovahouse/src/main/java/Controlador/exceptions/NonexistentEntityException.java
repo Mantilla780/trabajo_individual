@@ -1,4 +1,4 @@
-package com.mycompany.proyectointegrador.logica.persistencia.exceptions;
+package Controlador.exceptions;
 
 public class NonexistentEntityException extends Exception {
     public NonexistentEntityException(String message, Throwable cause) {

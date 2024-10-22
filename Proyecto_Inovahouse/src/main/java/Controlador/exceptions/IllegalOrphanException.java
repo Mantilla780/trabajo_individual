@@ -1,4 +1,4 @@
-package com.mycompany.proyectointegrador.logica.persistencia.exceptions;
+package Controlador.exceptions;
 
 import java.util.ArrayList;
 import java.util.List;
