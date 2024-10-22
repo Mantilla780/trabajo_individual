@@ -31,12 +31,12 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         PanelLogin = new Vista.PanelRound();
+        rButtonProyecto1 = new Vista.RSButtonMetro();
         Inovahouse = new javax.swing.JLabel();
         Logo = new javax.swing.JLabel();
         TextFieldUsuario = new javax.swing.JTextField();
-        TextFieldcontraseña = new javax.swing.JTextField();
         jRadioButton1 = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
+        PasswordFieldContraseña = new javax.swing.JPasswordField();
         Fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -52,6 +52,19 @@ public class Login extends javax.swing.JFrame {
         PanelLogin.setRoundTopRight(50);
         PanelLogin.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        rButtonProyecto1.setBackground(new java.awt.Color(5, 10, 48));
+        rButtonProyecto1.setText("Login");
+        rButtonProyecto1.setColorNormal(new java.awt.Color(5, 10, 48));
+        rButtonProyecto1.setColorPressed(new java.awt.Color(39, 33, 105));
+        rButtonProyecto1.setFocusPainted(false);
+        rButtonProyecto1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        rButtonProyecto1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rButtonProyecto1ActionPerformed(evt);
+            }
+        });
+        PanelLogin.add(rButtonProyecto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 540, 200, 50));
+
         Inovahouse.setBackground(new java.awt.Color(255, 255, 255));
         Inovahouse.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         Inovahouse.setForeground(new java.awt.Color(255, 255, 255));
@@ -61,21 +74,21 @@ public class Login extends javax.swing.JFrame {
         Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/image1.png"))); // NOI18N
         PanelLogin.add(Logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, -1, -1));
 
+        TextFieldUsuario.setBackground(new java.awt.Color(177, 175, 201));
+        TextFieldUsuario.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
         TextFieldUsuario.setText("Usuario:");
+        TextFieldUsuario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        TextFieldUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TextFieldUsuarioMouseClicked(evt);
+            }
+        });
         TextFieldUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TextFieldUsuarioActionPerformed(evt);
             }
         });
         PanelLogin.add(TextFieldUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 300, 60));
-
-        TextFieldcontraseña.setText("Contraseña:");
-        TextFieldcontraseña.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TextFieldcontraseñaActionPerformed(evt);
-            }
-        });
-        PanelLogin.add(TextFieldcontraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 370, 300, 60));
 
         jRadioButton1.setBackground(new java.awt.Color(39, 33, 105));
         jRadioButton1.setForeground(new java.awt.Color(255, 255, 255));
@@ -87,20 +100,21 @@ public class Login extends javax.swing.JFrame {
         });
         PanelLogin.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 480, -1, -1));
 
-        jButton1.setBackground(new java.awt.Color(5, 10, 48));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Login");
-        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton1.setFocusPainted(false);
-        jButton1.setMargin(new java.awt.Insets(20, 14, 3, 14));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        PasswordFieldContraseña.setBackground(new java.awt.Color(177, 175, 201));
+        PasswordFieldContraseña.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
+        PasswordFieldContraseña.setText("Contraseña:");
+        PasswordFieldContraseña.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        PasswordFieldContraseña.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PasswordFieldContraseñaMouseClicked(evt);
             }
         });
-        PanelLogin.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 530, 200, 50));
+        PasswordFieldContraseña.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PasswordFieldContraseñaActionPerformed(evt);
+            }
+        });
+        PanelLogin.add(PasswordFieldContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 370, 300, 60));
 
         getContentPane().add(PanelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, 500, 650));
 
@@ -110,21 +124,36 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TextFieldcontraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldcontraseñaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TextFieldcontraseñaActionPerformed
-
     private void TextFieldUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TextFieldUsuarioActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
+        if (jRadioButton1.isSelected()) {
+            PasswordFieldContraseña.setEchoChar((char) 0);
+        } else {
+            PasswordFieldContraseña.setEchoChar('*');
+        }
     }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void TextFieldUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextFieldUsuarioMouseClicked
+        TextFieldUsuario.setText("");
+// TODO add your handling code here:
+    }//GEN-LAST:event_TextFieldUsuarioMouseClicked
+
+    private void PasswordFieldContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PasswordFieldContraseñaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PasswordFieldContraseñaActionPerformed
+
+    private void PasswordFieldContraseñaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PasswordFieldContraseñaMouseClicked
+        PasswordFieldContraseña.setText("");
+    }//GEN-LAST:event_PasswordFieldContraseñaMouseClicked
+
+    private void rButtonProyecto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto1ActionPerformed
+        MenuAdministrador menuAdmin  = new MenuAdministrador();
+        menuAdmin.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_rButtonProyecto1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -167,9 +196,9 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel Inovahouse;
     private javax.swing.JLabel Logo;
     private Vista.PanelRound PanelLogin;
+    private javax.swing.JPasswordField PasswordFieldContraseña;
     private javax.swing.JTextField TextFieldUsuario;
-    private javax.swing.JTextField TextFieldcontraseña;
-    private javax.swing.JButton jButton1;
     private javax.swing.JRadioButton jRadioButton1;
+    private Vista.RSButtonMetro rButtonProyecto1;
     // End of variables declaration//GEN-END:variables
 }
