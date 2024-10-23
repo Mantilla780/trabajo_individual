@@ -17,7 +17,7 @@ public class Deuda implements Serializable {
     @Id
     private String idDeuda;
     private String tipoDeuda;
-    private int = ccCliente;
+    private int    ccCliente;
     
     
     @ManyToOne

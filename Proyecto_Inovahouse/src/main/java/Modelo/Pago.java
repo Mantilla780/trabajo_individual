@@ -24,7 +24,7 @@ public class Pago {
     
     @OneToOne
     @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario")
-    private Usuario idUsuario;
+    private Usuario usuario;
     
     @ManyToOne
       @JoinColumn(name = "idVenta", referencedColumnName = "idVenta")
@@ -33,17 +33,17 @@ public class Pago {
     @ManyToOne
       @JoinColumn(name = "cccedula", referencedColumnName = "cedula")
     private Cliente cliente;
-    
+
     public Pago() {
     }
 
-    public Pago(String idPago, String fechaPago, int valorPago, String idUsuario, long ccCliente, Usuario idUsuario, Venta venta, Cliente cliente) {
+    public Pago(String idPago, String fechaPago, int valorPago, String idUsuario, long ccCliente, Usuario usuario, Venta venta, Cliente cliente) {
         this.idPago = idPago;
         this.fechaPago = fechaPago;
         this.valorPago = valorPago;
         this.idUsuario = idUsuario;
         this.ccCliente = ccCliente;
-        this.idUsuario = idUsuario;
+        this.usuario = usuario;
         this.venta = venta;
         this.cliente = cliente;
     }
@@ -88,12 +88,12 @@ public class Pago {
         this.ccCliente = ccCliente;
     }
 
-    public Usuario getIdUsuario() {
-        return idUsuario;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setIdUsuario(Usuario idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public Venta getVenta() {
@@ -111,7 +111,6 @@ public class Pago {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-
     
-  
+   
 }
