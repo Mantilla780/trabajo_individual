@@ -4,6 +4,8 @@
  */
 package Vista.MenuAdminProyectos;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author omaci
@@ -130,7 +132,13 @@ public class Proyectos extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    private void formWindowOpened(java.awt.event.WindowEvent evt){
+        
+        cargarTabla();
+        
+    }
+    
     private void rButtonProyecto1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto1MouseClicked
         
     }//GEN-LAST:event_rButtonProyecto1MouseClicked
@@ -165,4 +173,20 @@ public class Proyectos extends javax.swing.JPanel {
     private Vista.RSButtonMetro rButtonProyecto2;
     private Vista.RSButtonMetro rButtonProyecto3;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarTabla() {
+        DefaultTableModel tabla = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column){
+                return false;
+            }
+        };
+    
+    //establecer nombres de las columnas
+    String titulos[]={"Id","Nombre","Numero_Torres"};
+    tabla.setColumnIdentifiers(titulos);
+    
+    //carga de los datos desde la BD
+    
+    }
 }
