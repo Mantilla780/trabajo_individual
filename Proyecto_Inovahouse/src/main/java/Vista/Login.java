@@ -161,20 +161,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_rButtonProyecto1ActionPerformed
 
     private void rButtonProyecto1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto1MouseClicked
-        String Usuario="Admin";
-        String Contraseña="123";
         
-        String pass=new String(PasswordFieldContraseña.getPassword());
-        
-        if(TextFieldUsuario.getText().equals(Usuario)&& pass.equals(Contraseña)){
-            
-            MenuAdministrador MA= new MenuAdministrador();
-            MA.setVisible(true);
-            this.dispose();
-        }
-        else{
-            JOptionPane.showMessageDialog(this, "Usuario / Contraseña incorrecta");
-        }
     }//GEN-LAST:event_rButtonProyecto1MouseClicked
 
     /**
