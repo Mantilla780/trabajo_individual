@@ -23,6 +23,7 @@ public class Usuario {
    private String nombreUsuario;
    private int telefonoUsuario;
    private String correoUsuario;
+   private String contrasena;
    private String tipoUsuario;
    
    @OneToMany(mappedBy="usuario")
@@ -35,13 +36,15 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(String idUsuario, String nombreUsuario, int telefonoUsuario, String correoUsuario, String tipoUsuario, ArrayList<Venta> listaVentas) {
+    public Usuario(String idUsuario, String nombreUsuario, int telefonoUsuario, String correoUsuario, String contraseña, String tipoUsuario, ArrayList<Venta> listaVentas, ArrayList<Venta> listaProyectos) {
         this.idUsuario = idUsuario;
         this.nombreUsuario = nombreUsuario;
         this.telefonoUsuario = telefonoUsuario;
         this.correoUsuario = correoUsuario;
+        this.contrasena = contraseña;
         this.tipoUsuario = tipoUsuario;
         this.listaVentas = listaVentas;
+        this.listaProyectos = listaProyectos;
     }
 
     public String getIdUsuario() {
@@ -76,6 +79,14 @@ public class Usuario {
         this.correoUsuario = correoUsuario;
     }
 
+    public String getContraseña() {
+        return contrasena;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contrasena = contraseña;
+    }
+
     public String getTipoUsuario() {
         return tipoUsuario;
     }
@@ -91,6 +102,15 @@ public class Usuario {
     public void setListaVentas(ArrayList<Venta> listaVentas) {
         this.listaVentas = listaVentas;
     }
-   
+
+    public ArrayList<Venta> getListaProyectos() {
+        return listaProyectos;
+    }
+
+    public void setListaProyectos(ArrayList<Venta> listaProyectos) {
+        this.listaProyectos = listaProyectos;
+    }
+
+
    
 }
