@@ -15,6 +15,7 @@ public class ActualizarProyecto extends javax.swing.JFrame {
      */
     public ActualizarProyecto() {
         initComponents();
+         setLocationRelativeTo(null);
     }
 
     /**
