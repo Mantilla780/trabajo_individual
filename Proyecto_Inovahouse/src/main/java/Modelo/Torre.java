@@ -4,34 +4,84 @@
  */
 package Modelo;
 
+import java.util.ArrayList;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "Torre")
 public class Torre {
     @Id
-    public String Numero_Torre;
-    public int Numero_Apartamentos;
+    private String numeroTorre;
+    private int numeroApartamento;
+    private String idProyecto;
     
-    public Torre(){
-        
+    @ManyToOne
+      @JoinColumn(name = "idProyecto", referencedColumnName = "idProyecto")
+    private ProyectoVivienda proyecto;
+    
+    @OneToMany(mappedBy="Torre")
+   private ArrayList<Venta> listaApartamentos;
+
+    public Torre() {
     }
 
-    public Torre(String Numero_Torre, int Numero_Apartamentos) {
-        this.Numero_Torre = Numero_Torre;
-        this.Numero_Apartamentos = Numero_Apartamentos;
+    public Torre(String numeroTorre, int numeroApartamento, String idProyecto, ProyectoVivienda proyecto, ArrayList<Venta> listaApartamentos) {
+        this.numeroTorre = numeroTorre;
+        this.numeroApartamento = numeroApartamento;
+        this.idProyecto = idProyecto;
+        this.proyecto = proyecto;
+        this.listaApartamentos = listaApartamentos;
     }
+
+    public String getNumeroTorre() {
+        return numeroTorre;
+    }
+
+    public void setNumeroTorre(String numeroTorre) {
+        this.numeroTorre = numeroTorre;
+    }
+
+    public int getNumeroApartamento() {
+        return numeroApartamento;
+    }
+
+    public void setNumeroApartamento(int numeroApartamento) {
+        this.numeroApartamento = numeroApartamento;
+    }
+
+    public String getIdProyecto() {
+        return idProyecto;
+    }
+
+    public void setIdProyecto(String idProyecto) {
+        this.idProyecto = idProyecto;
+    }
+
+    public ProyectoVivienda getProyecto() {
+        return proyecto;
+    }
+
+    public void setProyecto(ProyectoVivienda proyecto) {
+        this.proyecto = proyecto;
+    }
+
+    public ArrayList<Venta> getListaApartamentos() {
+        return listaApartamentos;
+    }
+
+    public void setListaApartamentos(ArrayList<Venta> listaApartamentos) {
+        this.listaApartamentos = listaApartamentos;
+    }
+
+   
+
+  
     
-    public void CrearTorre(){
-        
-    }
-    public void VisualizarTorre(){
-        
-    }
-    public void EditarTorre(){
-        
-    }
-    public void EliminarTorre(){
-        
-    }
+            
+            
 }
