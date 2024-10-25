@@ -4,38 +4,58 @@
  */
 package Modelo;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
-public class Deuda {
+@Table(name = "Deuda")
+public class Deuda implements Serializable {
     @Id
-    private String ID_Deuda;
-    private String Tipo_Deuda;
+    private String idDeuda;
+    private String tipoDeuda;
+    private int    ccCliente;
+    
+    
+    @ManyToOne
+      @JoinColumn(name = "cccedula", referencedColumnName = "cedula")
+    private Cliente cliente;
 
     public Deuda() {
     }
 
-    public Deuda(String ID_Deuda, String Tipo_Deuda) {
-        this.ID_Deuda = ID_Deuda;
-        this.Tipo_Deuda = Tipo_Deuda;
+    public Deuda(String idDeuda, String tipoDeuda, Cliente cliente) {
+        this.idDeuda = idDeuda;
+        this.tipoDeuda = tipoDeuda;
+        this.cliente = cliente;
     }
 
-    public String getID_Deuda() {
-        return ID_Deuda;
+    public String getIdDeuda() {
+        return idDeuda;
     }
 
-    public void setID_Deuda(String ID_Deuda) {
-        this.ID_Deuda = ID_Deuda;
+    public void setIdDeuda(String idDeuda) {
+        this.idDeuda = idDeuda;
     }
 
-    public String getTipo_Deuda() {
-        return Tipo_Deuda;
+    public String getTipoDeuda() {
+        return tipoDeuda;
     }
 
-    public void setTipo_Deuda(String Tipo_Deuda) {
-        this.Tipo_Deuda = Tipo_Deuda;
+    public void setTipoDeuda(String tipoDeuda) {
+        this.tipoDeuda = tipoDeuda;
     }
-    
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
     
 }

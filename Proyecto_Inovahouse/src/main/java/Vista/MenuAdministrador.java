@@ -4,6 +4,10 @@
  */
 package Vista;
 
+import Vista.MenuAdminProyectos.Apartamentos;
+import Vista.MenuAdminProyectos.Proyectos;
+import Vista.MenuAdminProyectos.Torres;
+import java.awt.BorderLayout;
 import java.awt.Color;
 
 /**
@@ -16,8 +20,10 @@ public class MenuAdministrador extends javax.swing.JFrame {
      * Creates new form MenuAdministrador
      */
     public MenuAdministrador() {
-        initComponents();
+        initComponents(); 
         setLocationRelativeTo(null);
+        
+        
     }
 
     /**
@@ -34,12 +40,12 @@ public class MenuAdministrador extends javax.swing.JFrame {
         ButtonTorres = new Vista.RSButtonMetro();
         ButtonApartamentos = new Vista.RSButtonMetro();
         jPanel3 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(202, 232, 255));
@@ -101,6 +107,14 @@ public class MenuAdministrador extends javax.swing.JFrame {
         ButtonApartamentos.setFont(new java.awt.Font("Yu Gothic UI", 1, 18)); // NOI18N
         ButtonApartamentos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         ButtonApartamentos.setIconTextGap(20);
+        ButtonApartamentos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ButtonApartamentosMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                ButtonApartamentosMousePressed(evt);
+            }
+        });
         ButtonApartamentos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonApartamentosActionPerformed(evt);
@@ -108,10 +122,16 @@ public class MenuAdministrador extends javax.swing.JFrame {
         });
         MenuSliding.add(ButtonApartamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 200, 50));
 
-        getContentPane().add(MenuSliding, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 80, 210, 720));
+        getContentPane().add(MenuSliding, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 80, 210, 800));
 
         jPanel3.setBackground(new java.awt.Color(202, 232, 255));
+        jPanel3.setPreferredSize(new java.awt.Dimension(1190, 720));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/logo3 (1).png"))); // NOI18N
+        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, 540, 360));
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 1190, 800));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -136,21 +156,41 @@ public class MenuAdministrador extends javax.swing.JFrame {
 
         jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 80));
 
-        jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 80));
-
-        jPanel1.setLayout(new java.awt.BorderLayout());
-        jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 90, 1090, 510));
-
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1400, 800));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 80));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonApartamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonApartamentosActionPerformed
-        // TODO add your handling code here:
+        if(this.ButtonApartamentos.isSelected()){
+            this.ButtonApartamentos.setColorNormal(new Color(39,33,105));
+            this.ButtonApartamentos.setColorHover(new Color(39,33,105));
+            this.ButtonApartamentos.setColorPressed(new Color(39,33,105));
+            
+            this.ButtonTorres.setColorNormal(new Color(76,69,153));
+            this.ButtonTorres.setColorHover(new Color(39,33,105));
+            this.ButtonTorres.setColorPressed(new Color(76,69,153));
+            
+            this.ButtonProyecto.setColorNormal(new Color(76,69,153));
+            this.ButtonProyecto.setColorHover(new Color(39,33,105));
+            this.ButtonProyecto.setColorPressed(new Color(76,69,153));
+            
+            Apartamentos p3 = new Apartamentos();
+            p3.setSize(1190,620);
+            p3.setLocation(20,20);
+            jPanel3.removeAll();
+            jPanel3.add(p3,BorderLayout.CENTER);
+            jPanel3.revalidate();
+            jPanel3.revalidate();
+        }else{
+            this.ButtonApartamentos.setColorNormal(new Color(76,69,153));
+            this.ButtonApartamentos.setColorHover(new Color(39,33,105));
+            this.ButtonApartamentos.setColorPressed(new Color(76,69,153));
+        }
     }//GEN-LAST:event_ButtonApartamentosActionPerformed
 
     private void ButtonProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonProyectoActionPerformed
+      
         if(this.ButtonProyecto.isSelected()){
             this.ButtonProyecto.setColorNormal(new Color(39,33,105));
             this.ButtonProyecto.setColorHover(new Color(39,33,105));
@@ -159,6 +199,18 @@ public class MenuAdministrador extends javax.swing.JFrame {
             this.ButtonTorres.setColorNormal(new Color(76,69,153));
             this.ButtonTorres.setColorHover(new Color(39,33,105));
             this.ButtonTorres.setColorPressed(new Color(76,69,153));
+            
+            this.ButtonApartamentos.setColorNormal(new Color(76,69,153));
+            this.ButtonApartamentos.setColorHover(new Color(39,33,105));
+            this.ButtonApartamentos.setColorPressed(new Color(76,69,153));
+            
+            Proyectos p1 = new Proyectos();
+            p1.setSize(1190,620);
+            p1.setLocation(20,20);
+            jPanel3.removeAll();
+            jPanel3.add(p1,BorderLayout.CENTER);
+            jPanel3.revalidate();
+            jPanel3.revalidate();
         }else{
             this.ButtonProyecto.setColorNormal(new Color(76,69,153));
             this.ButtonProyecto.setColorHover(new Color(39,33,105));
@@ -175,6 +227,18 @@ public class MenuAdministrador extends javax.swing.JFrame {
             this.ButtonProyecto.setColorNormal(new Color(76,69,153));
             this.ButtonProyecto.setColorHover(new Color(39,33,105));
             this.ButtonProyecto.setColorPressed(new Color(76,69,153));
+            
+            this.ButtonApartamentos.setColorNormal(new Color(76,69,153));
+            this.ButtonApartamentos.setColorHover(new Color(39,33,105));
+            this.ButtonApartamentos.setColorPressed(new Color(76,69,153));
+            
+            Torres p2 = new Torres();
+            p2.setSize(1190,620);
+            p2.setLocation(20,20);
+            jPanel3.removeAll();
+            jPanel3.add(p2,BorderLayout.CENTER);
+            jPanel3.revalidate();
+            jPanel3.revalidate();
         }else{
             this.ButtonTorres.setColorNormal(new Color(76,69,153));
             this.ButtonTorres.setColorHover(new Color(39,33,105));
@@ -185,12 +249,24 @@ public class MenuAdministrador extends javax.swing.JFrame {
     private void ButtonProyectoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonProyectoMousePressed
         this.ButtonProyecto.setSelected(true);
         this.ButtonTorres.setSelected(false);
+        this.ButtonApartamentos.setSelected(false);
     }//GEN-LAST:event_ButtonProyectoMousePressed
 
     private void ButtonTorresMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonTorresMousePressed
         this.ButtonTorres.setSelected(true);
         this.ButtonProyecto.setSelected(false);
+        this.ButtonApartamentos.setSelected(false);
     }//GEN-LAST:event_ButtonTorresMousePressed
+
+    private void ButtonApartamentosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonApartamentosMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ButtonApartamentosMouseClicked
+
+    private void ButtonApartamentosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonApartamentosMousePressed
+        this.ButtonTorres.setSelected(false);
+        this.ButtonProyecto.setSelected(false);
+        this.ButtonApartamentos.setSelected(true);
+    }//GEN-LAST:event_ButtonApartamentosMousePressed
 
     /**
      * @param args the command line arguments
@@ -235,7 +311,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

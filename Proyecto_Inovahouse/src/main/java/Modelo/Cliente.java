@@ -4,102 +4,101 @@
  */
 package Modelo;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
-public class Cliente{
+@Table(name = "Cliente")
+public class Cliente implements Serializable {
     @Id
-    private String Cedula;
-    private String Nombre;
-    private String SISBEN;
-    private String Subsidio_Ministerio;
-    private String Direccion;
-    private String Telefono;
-    private String Correo_Electronico;
+    private int cedula;
+    private String nombre;
+    private String sisben;
+    private String subsidioMinisterio;
+    private String direccion;
+    private int telefono;
+    private String correoElectronico;
     
-    public Cliente(){
-        
+    @OneToMany(mappedBy="cliente")
+   private ArrayList<Venta> listaPago;
+    
+    @OneToMany(mappedBy="cliente")
+   private ArrayList<Venta> listaDeuda;
+
+    public Cliente() {
     }
 
-    public Cliente(String Cedula, String Nombre, String SISBEN, String Subsidio_Ministerio, String Direccion, String Telefono, String Correo_Electronico){
-        this.Cedula = Cedula;
-        this.Nombre = Nombre;
-        this.SISBEN = SISBEN;
-        this.Subsidio_Ministerio = Subsidio_Ministerio;
-        this.Direccion = Direccion;
-        this.Telefono = Telefono;
-        this.Correo_Electronico = Correo_Electronico;
+    public Cliente(int cedula, String nombre, String sisben, String subsidioMinisterio, String direccion, int telefono, String correoElectronico) {
+        this.cedula = cedula;
+        this.nombre = nombre;
+        this.sisben = sisben;
+        this.subsidioMinisterio = subsidioMinisterio;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.correoElectronico = correoElectronico;
     }
 
-    public String getCedula() {
-        return Cedula;
+    public int getCedula() {
+        return cedula;
     }
 
-    public void setCedula(String Cedula) {
-        this.Cedula = Cedula;
+    public void setCedula(int cedula) {
+        this.cedula = cedula;
     }
 
     public String getNombre() {
-        return Nombre;
+        return nombre;
     }
 
-    public void setNombre(String Nombre) {
-        this.Nombre = Nombre;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getSISBEN() {
-        return SISBEN;
+    public String getSisben() {
+        return sisben;
     }
 
-    public void setSISBEN(String SISBEN) {
-        this.SISBEN = SISBEN;
+    public void setSisben(String sisben) {
+        this.sisben = sisben;
     }
 
-    public String getSubsidio_Ministerio() {
-        return Subsidio_Ministerio;
+    public String getSubsidioMinisterio() {
+        return subsidioMinisterio;
     }
 
-    public void setSubsidio_Ministerio(String Subsidio_Ministerio) {
-        this.Subsidio_Ministerio = Subsidio_Ministerio;
+    public void setSubsidioMinisterio(String subsidioMinisterio) {
+        this.subsidioMinisterio = subsidioMinisterio;
     }
 
     public String getDireccion() {
-        return Direccion;
+        return direccion;
     }
 
-    public void setDireccion(String Direccion) {
-        this.Direccion = Direccion;
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 
-    public String getTelefono() {
-        return Telefono;
+    public int getTelefono() {
+        return telefono;
     }
 
-    public void setTelefono(String Telefono) {
-        this.Telefono = Telefono;
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
     }
 
-    public String getCorreo_Electronico() {
-        return Correo_Electronico;
+    public String getCorreoElectronico() {
+        return correoElectronico;
     }
 
-    public void setCorreo_Electronico(String Correo_Electronico) {
-        this.Correo_Electronico = Correo_Electronico;
+    public void setCorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
     }
     
+ 
     
     
-    public void CrearCliente(){
-        
-    }
-    public void VisualizarCliente(){
-        
-    }
-    public void EditarCliente(){
-        
-    }
-    public void EliminarCliente(){
-        
-    }
 }

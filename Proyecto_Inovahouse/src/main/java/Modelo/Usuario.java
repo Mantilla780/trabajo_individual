@@ -4,68 +4,93 @@
  */
 package Modelo;
 
+import java.util.ArrayList;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "Usuario")
 public class Usuario {
     @Id
-    private String ID_Usuario;
-    private String Nombre_Usuario;
-    private int Telefono_Usuario;
-    private String Correo_Usuario;
-    private String Tipo_Usuario;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator ="seq_idUsu")
+    @SequenceGenerator(name = "seq_idUsu", sequenceName = "seq_idUsu", allocationSize = 1)
+   private String idUsuario;
+   private String nombreUsuario;
+   private int telefonoUsuario;
+   private String correoUsuario;
+   private String tipoUsuario;
+   
+   @OneToMany(mappedBy="usuario")
+   private ArrayList<Venta> listaVentas;
+   
+   @OneToMany(mappedBy="usuario")
+   private ArrayList<Venta> listaProyectos;
+    
 
     public Usuario() {
     }
 
-    public Usuario(String ID_Usuario, String Nombre_Usuario, int Telefono_Usuario, String Correo_Usuario, String Tipo_Usuario) {
-        this.ID_Usuario = ID_Usuario;
-        this.Nombre_Usuario = Nombre_Usuario;
-        this.Telefono_Usuario = Telefono_Usuario;
-        this.Correo_Usuario = Correo_Usuario;
-        this.Tipo_Usuario = Tipo_Usuario;
+    public Usuario(String idUsuario, String nombreUsuario, int telefonoUsuario, String correoUsuario, String tipoUsuario, ArrayList<Venta> listaVentas) {
+        this.idUsuario = idUsuario;
+        this.nombreUsuario = nombreUsuario;
+        this.telefonoUsuario = telefonoUsuario;
+        this.correoUsuario = correoUsuario;
+        this.tipoUsuario = tipoUsuario;
+        this.listaVentas = listaVentas;
     }
 
-    public String getID_Usuario() {
-        return ID_Usuario;
+    public String getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setID_Usuario(String ID_Usuario) {
-        this.ID_Usuario = ID_Usuario;
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
-    public String getNombre_Usuario() {
-        return Nombre_Usuario;
+    public String getNombreUsuario() {
+        return nombreUsuario;
     }
 
-    public void setNombre_Usuario(String Nombre_Usuario) {
-        this.Nombre_Usuario = Nombre_Usuario;
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 
-    public int getTelefono_Usuario() {
-        return Telefono_Usuario;
+    public int getTelefonoUsuario() {
+        return telefonoUsuario;
     }
 
-    public void setTelefono_Usuario(int Telefono_Usuario) {
-        this.Telefono_Usuario = Telefono_Usuario;
+    public void setTelefonoUsuario(int telefonoUsuario) {
+        this.telefonoUsuario = telefonoUsuario;
     }
 
-    public String getCorreo_Usuario() {
-        return Correo_Usuario;
+    public String getCorreoUsuario() {
+        return correoUsuario;
     }
 
-    public void setCorreo_Usuario(String Correo_Usuario) {
-        this.Correo_Usuario = Correo_Usuario;
+    public void setCorreoUsuario(String correoUsuario) {
+        this.correoUsuario = correoUsuario;
     }
 
-    public String getTipo_Usuario() {
-        return Tipo_Usuario;
+    public String getTipoUsuario() {
+        return tipoUsuario;
     }
 
-    public void setTipo_Usuario(String Tipo_Usuario) {
-        this.Tipo_Usuario = Tipo_Usuario;
+    public void setTipoUsuario(String tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
-    
-    
+
+    public ArrayList<Venta> getListaVentas() {
+        return listaVentas;
+    }
+
+    public void setListaVentas(ArrayList<Venta> listaVentas) {
+        this.listaVentas = listaVentas;
+    }
+   
+   
 }
