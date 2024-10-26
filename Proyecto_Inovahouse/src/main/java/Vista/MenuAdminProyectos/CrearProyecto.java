@@ -14,7 +14,7 @@ public class CrearProyecto extends javax.swing.JFrame {
     public CrearProyecto() {
         initComponents();
         setLocationRelativeTo(null);
-        this.control=control;
+        this.control= new Controlador_Usuario();
     }
 
     /**
