@@ -169,11 +169,11 @@ Controlador_Usuario control;
     
     if(usr == null){
         JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos", "Error de Autenticación", JOptionPane.ERROR_MESSAGE);
-        JOptionPane.showMessageDialog(null, "Bienvenido", "Acceso concedido", JOptionPane.INFORMATION_MESSAGE);
     }else{
+        JOptionPane.showMessageDialog(null, "Bienvenido", "Acceso concedido", JOptionPane.INFORMATION_MESSAGE);
         MenuAdministrador menu= new MenuAdministrador();
-       menu.setVisible(TRUE);
-       this.dispose();
+        menu.setVisible(TRUE);
+        this.dispose();
     }
     
     }//GEN-LAST:event_rButtonProyecto1ActionPerformed
