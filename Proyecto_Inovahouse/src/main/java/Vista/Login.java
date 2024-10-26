@@ -7,6 +7,7 @@ package Vista;
 
 import Controlador.Controlador_Usuario;
 import Modelo.Usuario;
+import static java.lang.Boolean.TRUE;
 import javax.swing.JOptionPane;
 
 /**
@@ -169,6 +170,10 @@ Controlador_Usuario control;
     if(usr == null){
         JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos", "Error de Autenticación", JOptionPane.ERROR_MESSAGE);
         JOptionPane.showMessageDialog(null, "Bienvenido", "Acceso concedido", JOptionPane.INFORMATION_MESSAGE);
+    }else{
+        MenuAdministrador menu= new MenuAdministrador();
+       menu.setVisible(TRUE);
+       this.dispose();
     }
     
     }//GEN-LAST:event_rButtonProyecto1ActionPerformed
