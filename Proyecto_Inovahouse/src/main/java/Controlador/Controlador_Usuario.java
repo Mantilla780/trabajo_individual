@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+<<<<<<< Updated upstream
 import Modelo.ProyectoVivienda;
 import Modelo.Usuario;
 import Persistencia.Controlador_Persistencia;
@@ -13,6 +14,9 @@ import java.util.List;
  *
  * @author Admin
  */
+=======
+
+>>>>>>> Stashed changes
 public class Controlador_Usuario {
     
     Controlador_Persistencia controlPersis = new Controlador_Persistencia();

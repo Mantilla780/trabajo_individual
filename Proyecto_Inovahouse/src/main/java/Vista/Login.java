@@ -4,10 +4,14 @@
  */
 package Vista;
 
+<<<<<<< Updated upstream
 
 import Controlador.Controlador_Usuario;
 import Modelo.Usuario;
 import static java.lang.Boolean.TRUE;
+=======
+import Modelo.Usuario;
+>>>>>>> Stashed changes
 import javax.swing.JOptionPane;
 
 /**
@@ -163,6 +167,7 @@ Controlador_Usuario control;
     }//GEN-LAST:event_PasswordFieldContraseñaMouseClicked
 
     private void rButtonProyecto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto1ActionPerformed
+<<<<<<< Updated upstream
     String usuario = TextFieldUsuario.getText();
     String contraseña = PasswordFieldContraseña.getText();
     Usuario usr = control.validarUsuario(usuario,contraseña);
@@ -176,6 +181,9 @@ Controlador_Usuario control;
         this.dispose();
     }
     
+=======
+
+>>>>>>> Stashed changes
     }//GEN-LAST:event_rButtonProyecto1ActionPerformed
 
     private void rButtonProyecto1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto1MouseClicked
