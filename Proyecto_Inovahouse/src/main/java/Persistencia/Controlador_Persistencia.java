@@ -5,6 +5,8 @@
 package Persistencia;
 
 import Modelo.ProyectoVivienda;
+import Modelo.Usuario;
+import java.util.List;
 
 /**
  *
@@ -27,5 +29,11 @@ public class Controlador_Persistencia {
         e.printStackTrace(); // Esto es solo para propósitos de depuración
         throw e; // Vuelve a lanzar la excepción
         }
+    }
+    
+    public List<Usuario> traerUsuarios() {
+       
+        List<Usuario> listaUsuario = usuarioJpa.findUsuarioEntities();
+        return listaUsuario;
     }
 }

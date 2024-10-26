@@ -5,7 +5,9 @@
 package Controlador;
 
 import Modelo.ProyectoVivienda;
+import Modelo.Usuario;
 import Persistencia.Controlador_Persistencia;
+import java.util.List;
 
 /**
  *
@@ -23,4 +25,31 @@ public class Controlador_Usuario {
         controlPersis.guardarProyectoVivienda(proyecto);
     }
     
+    
+    public Usuario validarUsuario(String usuario, String contrasenia){
+        Usuario usr = null;
+        List<Usuario> listaUsuarios = controlPersis.traerUsuarios();
+        
+     for (Usuario usu : listaUsuarios) {  
+            if (usu.getNombreUsuario().equals(usuario)) {
+                if(usu.getContraseña().equals(contrasenia)) {
+                   usr = usu;
+                    return usr;
+                }
+                else {
+                   usr = null;
+                    return usr;
+                }
+            }
+            else {
+                //mensaje = "Usuario no encontrado";
+               // return mensaje;
+               usr = null;
+                    //return usr;
+            }
+        
+        }
+        
+        return usr;
+    }
 }
