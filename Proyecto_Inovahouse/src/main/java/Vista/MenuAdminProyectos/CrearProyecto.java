@@ -2,6 +2,8 @@
 package Vista.MenuAdminProyectos;
 
 import Controlador.Controlador_Usuario;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -73,10 +75,16 @@ public class CrearProyecto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rSButtonMetro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro1ActionPerformed
-        String nombreproyecto = jTextField4.getText();
-        int numerotorres = Integer.parseInt(jTextField3.getText());
-        
-        control.guardarProyectoVivienda(nombreproyecto, numerotorres);
+       try {
+           String nombreproyecto = jTextField4.getText();
+           int numerotorres = Integer.parseInt(jTextField3.getText());
+           
+           control.guardarProyectoVivienda(nombreproyecto, numerotorres);
+       } catch (Exception ex) {
+           Logger.getLogger(CrearProyecto.class.getName()).log(Level.SEVERE, null, ex);
+       }
+      
+ 
     }//GEN-LAST:event_rSButtonMetro1ActionPerformed
 
     /**

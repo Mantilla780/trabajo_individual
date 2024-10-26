@@ -1,5 +1,6 @@
 package Modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,9 +13,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "ProyectoVivienda")
-public class ProyectoVivienda {
+public class ProyectoVivienda implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int idProyecto;
     private String nombreProyecto;
     private int numeroTorres;
