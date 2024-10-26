@@ -1,11 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Modelo;
 
 import java.util.ArrayList;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -16,32 +14,28 @@ import javax.persistence.Table;
 @Table(name = "ProyectoVivienda")
 public class ProyectoVivienda {
     @Id
-    private String idProyecto;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int idProyecto;
     private String nombreProyecto;
     private int numeroTorres;
     
     @ManyToOne
-      @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario")
+    @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario")
     private Usuario usuario;
     
-    @OneToMany(mappedBy="proyecto")
-   private ArrayList<Venta> listaTorre;
+    @OneToMany(mappedBy = "proyecto")
+    private ArrayList<Venta> listaTorre;
 
     public ProyectoVivienda() {
     }
 
-    public ProyectoVivienda(String idProyecto, String nombreProyecto, int numeroTorres) {
-        this.idProyecto = idProyecto;
+    public ProyectoVivienda(String nombreProyecto, int numeroTorres) {
         this.nombreProyecto = nombreProyecto;
         this.numeroTorres = numeroTorres;
     }
 
-    public String getIdProyecto() {
+    public int getIdProyecto() {
         return idProyecto;
-    }
-
-    public void setIdProyecto(String idProyecto) {
-        this.idProyecto = idProyecto;
     }
 
     public String getNombreProyecto() {
@@ -59,6 +53,4 @@ public class ProyectoVivienda {
     public void setNumeroTorres(int numeroTorres) {
         this.numeroTorres = numeroTorres;
     }
-    
-    
 }

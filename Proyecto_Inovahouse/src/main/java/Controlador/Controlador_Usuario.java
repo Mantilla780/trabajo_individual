@@ -4,10 +4,23 @@
  */
 package Controlador;
 
+import Modelo.ProyectoVivienda;
+import Persistencia.Controlador_Persistencia;
+
 /**
  *
  * @author Admin
  */
 public class Controlador_Usuario {
+    
+    Controlador_Persistencia controlPersis = new Controlador_Persistencia();
+    
+    public void guardarProyectoVivienda(String nombreproyecto, int numerotorres){
+        ProyectoVivienda proyecto = new ProyectoVivienda();
+        proyecto.setNombreProyecto(nombreproyecto);
+        proyecto.setNumeroTorres(numerotorres);
+        
+        controlPersis.guardarProyectoVivienda(proyecto);
+    }
     
 }

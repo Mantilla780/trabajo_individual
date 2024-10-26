@@ -5,21 +5,15 @@ Vista\Login$3.class
 Vista\MenuAdminProyectos\Proyectos$5.class
 Vista\MenuAdminProyectos\Torres$5.class
 Modelo\Venta.class
-Modelo\Venta_.class
 Vista\MenuAdministrador$2.class
 Vista\MenuAdminProyectos\CrearProyecto$1.class
 Vista\MenuAdminProyectos\Proyectos$1.class
-Modelo\Torre_.class
-Modelo\Usuario_.class
 Modelo\Apartamento.class
-Modelo\ProyectoVivienda_.class
 Vista\MenuAdminProyectos\ActualizarProyecto$2.class
 Vista\MenuAdminProyectos\Apartamentos$5.class
-Modelo\Apartamento_.class
 Vista\Login$6.class
 Vista\MenuAdministrador$1.class
 Modelo\Usuario.class
-Modelo\Pago_.class
 com\mycompany\proyecto_inovahouse\Proyecto_Inovahouse.class
 Vista\MenuAdminProyectos\Apartamentos$3.class
 Vista\MenuAdminProyectos\Apartamentos$6.class
@@ -39,7 +33,6 @@ Vista\MenuAdminProyectos\Apartamentos.class
 Vista\Login$8.class
 Vista\MenuAdministrador$4.class
 Modelo\Cliente.class
-Modelo\Cliente_.class
 Vista\MenuAdminProyectos\Torres$3.class
 Vista\Login$1.class
 Vista\MenuAdminProyectos\Proyectos$6.class
@@ -54,7 +47,6 @@ Vista\MenuAdminProyectos\Torres$6.class
 Vista\MenuAdministrador$6.class
 Vista\MenuAdminProyectos\Torres$2.class
 Vista\MenuAdminProyectos\ActualizarProyecto.class
-Modelo\Deuda_.class
 Vista\Login$7.class
 Vista\MenuAdminProyectos\Apartamentos$1.class
 Vista\MenuAdministrador$3.class

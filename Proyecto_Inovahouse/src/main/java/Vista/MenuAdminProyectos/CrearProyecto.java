@@ -1,18 +1,20 @@
 
 package Vista.MenuAdminProyectos;
 
+import Controlador.Controlador_Usuario;
+
 /**
  *
  * @author omaci
  */
 public class CrearProyecto extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CrearProyecto
-     */
+   Controlador_Usuario control;
+   
     public CrearProyecto() {
         initComponents();
-         setLocationRelativeTo(null);
+        setLocationRelativeTo(null);
+        this.control=control;
     }
 
     /**
@@ -53,6 +55,11 @@ public class CrearProyecto extends javax.swing.JFrame {
         rSButtonMetro1.setColorNormal(new java.awt.Color(0, 191, 99));
         rSButtonMetro1.setColorPressed(new java.awt.Color(8, 136, 74));
         rSButtonMetro1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        rSButtonMetro1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rSButtonMetro1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(rSButtonMetro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 380, 200, 60));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -64,6 +71,13 @@ public class CrearProyecto extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void rSButtonMetro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro1ActionPerformed
+        String nombreproyecto = jTextField4.getText();
+        int numerotorres = Integer.parseInt(jTextField3.getText());
+        
+        control.guardarProyectoVivienda(nombreproyecto, numerotorres);
+    }//GEN-LAST:event_rSButtonMetro1ActionPerformed
 
     /**
      * @param args the command line arguments
