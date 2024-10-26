@@ -15,7 +15,7 @@ public class Controlador_Usuario {
     
     Controlador_Persistencia controlPersis = new Controlador_Persistencia();
     
-    public void guardarProyectoVivienda(String nombreproyecto, int numerotorres){
+    public void guardarProyectoVivienda(String nombreproyecto, int numerotorres) throws Exception{
         ProyectoVivienda proyecto = new ProyectoVivienda();
         proyecto.setNombreProyecto(nombreproyecto);
         proyecto.setNumeroTorres(numerotorres);
