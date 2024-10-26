@@ -4,6 +4,14 @@
  */
 package Vista;
 
+<<<<<<< Updated upstream
+
+import Controlador.Controlador_Usuario;
+import Modelo.Usuario;
+import static java.lang.Boolean.TRUE;
+=======
+import Modelo.Usuario;
+>>>>>>> Stashed changes
 import javax.swing.JOptionPane;
 
 /**
@@ -11,13 +19,15 @@ import javax.swing.JOptionPane;
  * @author omaci
  */
 public class Login extends javax.swing.JFrame {
-
+Controlador_Usuario control; 
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
         setLocationRelativeTo(null);
+        initComponents();
+        control = new Controlador_Usuario();
         
         
         //TextFieldUsuario.putClientProperty("JComponent.rountReact", 100);
@@ -157,7 +167,23 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_PasswordFieldContraseñaMouseClicked
 
     private void rButtonProyecto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto1ActionPerformed
-        
+<<<<<<< Updated upstream
+    String usuario = TextFieldUsuario.getText();
+    String contraseña = PasswordFieldContraseña.getText();
+    Usuario usr = control.validarUsuario(usuario,contraseña);
+    
+    if(usr == null){
+        JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos", "Error de Autenticación", JOptionPane.ERROR_MESSAGE);
+    }else{
+        JOptionPane.showMessageDialog(null, "Bienvenido", "Acceso concedido", JOptionPane.INFORMATION_MESSAGE);
+        MenuAdministrador menu= new MenuAdministrador();
+        menu.setVisible(TRUE);
+        this.dispose();
+    }
+    
+=======
+
+>>>>>>> Stashed changes
     }//GEN-LAST:event_rButtonProyecto1ActionPerformed
 
     private void rButtonProyecto1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto1MouseClicked
