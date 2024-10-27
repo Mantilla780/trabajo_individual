@@ -7,10 +7,20 @@ package Vista;
 import Controlador.ConexionBD;
 import Modelo.Proyecto;
 import Modelo.ProyectoDAO;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.AbstractCellEditor;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -35,26 +45,113 @@ public class MenuAdministrador extends javax.swing.JFrame {
     
     
     private void cargarProyectosEnTabla() {
-    try (Connection conexion = ConexionBD.getInstancia().getConnection()) {
-        ProyectoDAO proyectoDAO = new ProyectoDAO(conexion);
-        List<Proyecto> proyectos = proyectoDAO.obtenerProyectos();
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        try (Connection conexion = ConexionBD.getInstancia().getConnection()) {
+            ProyectoDAO proyectoDAO = new ProyectoDAO(conexion);
+            List<Proyecto> proyectos = proyectoDAO.obtenerProyectos();
+            DefaultTableModel model = new DefaultTableModel(new String[]{"ID Proyecto", "Nombre", "Número Torres", "ID Usuario", "Editar", "Eliminar"}, 0);
+            jTable1.setModel(model);
 
-        model.setColumnIdentifiers(new String[]{"ID Proyecto", "Nombre", "Número Torres", "ID Usuario"});
-        model.setRowCount(0);
+            for (Proyecto proyecto : proyectos) {
+                model.addRow(new Object[]{
+                    proyecto.getIdproyecto(),
+                    proyecto.getNombreproyecto(),
+                    proyecto.getNumerotorres(),
+                    proyecto.getIdusuario(),
+                    "Editar",
+                    "Eliminar"
+                });
+            }
 
-        for (Proyecto proyecto : proyectos) {
-            model.addRow(new Object[]{
-                proyecto.getIdproyecto(),
-                proyecto.getNombreproyecto(),
-                proyecto.getNumerotorres(),
-                proyecto.getIdusuario()
+            // Configurar renderizadores y editores personalizados para las columnas de botones
+            jTable1.getColumn("Editar").setCellRenderer(new ButtonRenderer());
+            jTable1.getColumn("Eliminar").setCellRenderer(new ButtonRenderer());
+            jTable1.getColumn("Editar").setCellEditor(new ButtonEditor(new JButton("Editar")));
+            jTable1.getColumn("Eliminar").setCellEditor(new ButtonEditor(new JButton("Eliminar")));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Clase para renderizar el botón
+    class ButtonRenderer extends JButton implements TableCellRenderer {
+        public ButtonRenderer() {
+            setOpaque(true);
+        }
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            setText((value == null) ? "" : value.toString());
+            return this;
+        }
+    }
+
+    // Clase para editar la celda del botón y manejar eventos
+    class ButtonEditor extends AbstractCellEditor implements TableCellEditor {
+        private JButton button;
+        private String label;
+        private boolean isPushed;
+
+        public ButtonEditor(JButton button) {
+            this.button = button;
+            button.addActionListener((ActionEvent e) -> {
+                fireEditingStopped();
             });
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+            label = (value == null) ? "" : value.toString();
+            button.setText(label);
+            isPushed = true;
+            return button;
+        }
+
+        @Override
+        public Object getCellEditorValue() {
+            if (isPushed) {
+                int idProyecto = (int) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
+                
+                if (label.equals("Editar")) {
+                    abrirEditarProyecto(idProyecto);
+                } else if (label.equals("Eliminar")) {
+                    eliminarProyecto(idProyecto);
+                }
+            }
+            isPushed = false;
+            return label;
+        }
+
+        public boolean stopCellEditing() {
+            isPushed = false;
+            return super.stopCellEditing();
+        }
     }
-}
+
+    private void abrirEditarProyecto(int idProyecto) {
+        // Abre el JFrame de edición pasando el ID del proyecto
+        EditarProyecto editarFrame = new EditarProyecto(idProyecto);
+        editarFrame.setVisible(true);
+    }
+
+    private void eliminarProyecto(int idProyecto) {
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "¿Está seguro de que desea eliminar el proyecto?",
+                "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try (Connection conexion = ConexionBD.getInstancia().getConnection()) {
+                ProyectoDAO proyectoDAO = new ProyectoDAO(conexion);
+                proyectoDAO.eliminarProyecto(idProyecto);
+                cargarProyectosEnTabla();  // Actualiza la tabla después de eliminar
+                JOptionPane.showMessageDialog(this, "Proyecto eliminado exitosamente.");
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Error al eliminar el proyecto.");
+                e.printStackTrace();
+            }
+        }
+    }
+
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -119,8 +216,12 @@ public class MenuAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton1MouseClicked
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        CrearProyecto create = new CrearProyecto(idUsuario);
-        create.setVisible(true);
+         try {
+             CrearProyecto create = new CrearProyecto(idUsuario,MenuAdministrador.this);
+             create.setVisible(true);
+         } catch (SQLException ex) {
+             Logger.getLogger(MenuAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+         }
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**

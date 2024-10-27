@@ -1,5 +1,6 @@
 package Modelo;
 
+import Controlador.ConexionBD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProyectoDAO {
-    private final Connection conexion;
+    private Connection conexion;
 
     public ProyectoDAO(Connection conexion) {
         this.conexion = conexion;
@@ -41,6 +42,8 @@ public class ProyectoDAO {
             return false;
         }
     }
+    
+    
     public List<Proyecto> obtenerProyectos() {
     List<Proyecto> proyectos = new ArrayList<>();
     String sql = "SELECT IDPROYECTO, NOMBREPROYECTO, NUMEROTORRES, IDUSUARIO FROM PROYECTOVIVIENDA";
@@ -50,7 +53,7 @@ public class ProyectoDAO {
 
         while (rs.next()) {
             Proyecto proyecto = new Proyecto();
-            proyecto.setIdproyecto(rs.getString("IDPROYECTO"));
+            proyecto.setIdproyecto(rs.getInt("IDPROYECTO"));
             proyecto.setNombreproyecto(rs.getString("NOMBREPROYECTO"));
             proyecto.setNumerotorres(rs.getInt("NUMEROTORRES"));
             proyecto.setIdusuario(rs.getString("IDUSUARIO"));
@@ -61,6 +64,67 @@ public class ProyectoDAO {
     }
     return proyectos;
 }
+    
+  public Proyecto obtenerProyectoPorId(int idProyecto) {
+    String sql = "SELECT idProyecto, nombreProyecto, numeroTorres, idUsuario FROM ProyectoVivienda WHERE idProyecto = ?";
+    Proyecto proyecto = null;
+
+    try (Connection conn = ConexionBD.getInstancia().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+        pstmt.setInt(1, idProyecto);
+
+        try (ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                proyecto = new Proyecto();
+                proyecto.setIdproyecto((rs.getInt("idProyecto"));
+                proyecto.setNombreProyecto(rs.getString("nombreProyecto"));
+                proyecto.setNumeroTorres(rs.getInt("numeroTorres"));
+                proyecto.setIdUsuario(rs.getString("idUsuario"));
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return proyecto;
+}
+
+
+
+
+ public boolean actualizarProyecto(int idProyecto, String nombreProyecto, int numeroTorres) {
+    String sqlUpdate = "UPDATE PROYECTOVIVIENDA SET NOMBREPROYECTO = ?, NUMEROTORRES = ? WHERE IDPROYECTO = ?";
+
+    try (PreparedStatement ps = conexion.prepareStatement(sqlUpdate)) {
+        ps.setString(1, nombreProyecto);
+        ps.setInt(2, numeroTorres);
+        ps.setInt(3, idProyecto);
+
+        return ps.executeUpdate() > 0;
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    }
+}
+
+public boolean eliminarProyecto(int idProyecto) {
+    String sqlDelete = "DELETE FROM PROYECTOVIVIENDA WHERE IDPROYECTO = ?";
+
+    try (PreparedStatement ps = conexion.prepareStatement(sqlDelete)) {
+        ps.setInt(1, idProyecto);
+
+        return ps.executeUpdate() > 0;
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    }
+}   
+
+    
+    
+    
     
 }
 

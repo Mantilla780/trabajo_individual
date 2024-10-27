@@ -7,6 +7,9 @@ package Vista;
 import Controlador.ConexionBD;
 import Controlador.ProyectoService;
 import Modelo.ProyectoDAO;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,8 +22,9 @@ public class CrearProyecto extends javax.swing.JFrame {
     /**
      * Creates new form CrearProyecto
      * @param idUsuario
+     * @param menuAdmin
      */
-    public CrearProyecto(String idUsuario) {
+    public CrearProyecto(String idUsuario, MenuAdministrador menuAdmin) throws SQLException {
         initComponents();
         this.idUsuario= idUsuario;
         ConexionBD conexionBD = new ConexionBD();
@@ -41,7 +45,7 @@ public class CrearProyecto extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTextField1.setText("jTextField1");
@@ -71,7 +75,7 @@ public class CrearProyecto extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         try {
+          try {
             String nombreProyecto = jTextField1.getText();
             int numeroTorres = Integer.parseInt(jTextField2.getText());
 
@@ -79,6 +83,7 @@ public class CrearProyecto extends javax.swing.JFrame {
 
             if (resultado) {
                 JOptionPane.showMessageDialog(this, "Proyecto guardado exitosamente.");
+                dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Error al guardar el proyecto.");
             }
@@ -86,7 +91,8 @@ public class CrearProyecto extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Número de torres debe ser un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al guardar el proyecto: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        
+    }                             
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -119,7 +125,11 @@ public class CrearProyecto extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CrearProyecto("default").setVisible(true);
+                try {
+                    new CrearProyecto("default",null).setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(CrearProyecto.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
