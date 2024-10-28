@@ -48,6 +48,9 @@ public class CrearProyecto extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        cantidadtorres.setActionCommand("<Not Set>");
+        cantidadtorres.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jPanel1.add(cantidadtorres, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 380, 50));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
