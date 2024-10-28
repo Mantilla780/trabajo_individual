@@ -4,9 +4,7 @@
  */
 package Vista;
 
-
 import Controlador.LoginControlador;
-import Modelo.Usuario;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,11 +13,17 @@ import javax.swing.JOptionPane;
  */
 public class Login extends javax.swing.JFrame {
 
+    /**
+     * Creates new form Login
+     */
     LoginControlador login;
     public Login() {
         initComponents();
-        login = new LoginControlador(); // Cambio a minúscula para evitar error de compilación
+        setLocationRelativeTo(null);
+        login = new LoginControlador();
         
+        
+        //TextFieldUsuario.putClientProperty("JComponent.rountReact", 100);
     }
 
     /**
@@ -31,49 +35,148 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        PanelLogin = new Vista.PanelRound();
+        rButtonProyecto1 = new Vista.RSButtonMetro();
+        Inovahouse = new javax.swing.JLabel();
+        Logo = new javax.swing.JLabel();
+        TextFieldUsuario = new javax.swing.JTextField();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        PasswordFieldContraseña = new javax.swing.JPasswordField();
+        Fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 519, 996, -1));
+        PanelLogin.setBackground(new java.awt.Color(39, 33, 105));
+        PanelLogin.setForeground(new java.awt.Color(39, 33, 105));
+        PanelLogin.setPreferredSize(new java.awt.Dimension(500, 650));
+        PanelLogin.setRoundBottomLeft(50);
+        PanelLogin.setRoundBottomRight(50);
+        PanelLogin.setRoundTopLeft(50);
+        PanelLogin.setRoundTopRight(50);
+        PanelLogin.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextField1.setText("jTextField1");
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, -1, -1));
-
-        jPasswordField1.setText("jPasswordField1");
-        getContentPane().add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
-
-        jToggleButton1.setText("jToggleButton1");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+        rButtonProyecto1.setBackground(new java.awt.Color(5, 10, 48));
+        rButtonProyecto1.setText("Login");
+        rButtonProyecto1.setColorNormal(new java.awt.Color(5, 10, 48));
+        rButtonProyecto1.setColorPressed(new java.awt.Color(39, 33, 105));
+        rButtonProyecto1.setFocusPainted(false);
+        rButtonProyecto1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        rButtonProyecto1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rButtonProyecto1MouseClicked(evt);
             }
         });
-        getContentPane().add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
+        rButtonProyecto1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rButtonProyecto1ActionPerformed(evt);
+            }
+        });
+        PanelLogin.add(rButtonProyecto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 540, 200, 50));
+
+        Inovahouse.setBackground(new java.awt.Color(255, 255, 255));
+        Inovahouse.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        Inovahouse.setForeground(new java.awt.Color(255, 255, 255));
+        Inovahouse.setText("INOVAHOUSE");
+        PanelLogin.add(Inovahouse, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, -1, -1));
+
+        Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/image1.png"))); // NOI18N
+        PanelLogin.add(Logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, -1, -1));
+
+        TextFieldUsuario.setBackground(new java.awt.Color(177, 175, 201));
+        TextFieldUsuario.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
+        TextFieldUsuario.setText("Usuario:");
+        TextFieldUsuario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        TextFieldUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TextFieldUsuarioMouseClicked(evt);
+            }
+        });
+        TextFieldUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TextFieldUsuarioActionPerformed(evt);
+            }
+        });
+        PanelLogin.add(TextFieldUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 300, 60));
+
+        jRadioButton1.setBackground(new java.awt.Color(39, 33, 105));
+        jRadioButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButton1.setText("Mostrar Contraseña");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+        PanelLogin.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 480, -1, -1));
+
+        PasswordFieldContraseña.setBackground(new java.awt.Color(177, 175, 201));
+        PasswordFieldContraseña.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
+        PasswordFieldContraseña.setText("Contraseña:");
+        PasswordFieldContraseña.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        PasswordFieldContraseña.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PasswordFieldContraseñaMouseClicked(evt);
+            }
+        });
+        PasswordFieldContraseña.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PasswordFieldContraseñaActionPerformed(evt);
+            }
+        });
+        PanelLogin.add(PasswordFieldContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 370, 300, 60));
+
+        getContentPane().add(PanelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, 500, 650));
+
+        Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/fondo.png"))); // NOI18N
+        getContentPane().add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-         String usuario = jTextField1.getText();
-        String contraseña = new String(jPasswordField1.getPassword());
+    private void TextFieldUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TextFieldUsuarioActionPerformed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        if (jRadioButton1.isSelected()) {
+            PasswordFieldContraseña.setEchoChar((char) 0);
+        } else {
+            PasswordFieldContraseña.setEchoChar('*');
+        }
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void TextFieldUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TextFieldUsuarioMouseClicked
+        TextFieldUsuario.setText("");
+// TODO add your handling code here:
+    }//GEN-LAST:event_TextFieldUsuarioMouseClicked
+
+    private void PasswordFieldContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PasswordFieldContraseñaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PasswordFieldContraseñaActionPerformed
+
+    private void PasswordFieldContraseñaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PasswordFieldContraseñaMouseClicked
+        PasswordFieldContraseña.setText("");
+    }//GEN-LAST:event_PasswordFieldContraseñaMouseClicked
+
+    private void rButtonProyecto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto1ActionPerformed
+    String usuario = TextFieldUsuario.getText();
+        String contraseña = new String(PasswordFieldContraseña.getPassword());
 
         String idUsuario = login.autenticar(usuario, contraseña); // Obtener ID del usuario
         if (idUsuario != null) {
             JOptionPane.showMessageDialog(this, "Login exitoso. ¡Bienvenido!");
-            MenuAdministrador home = new MenuAdministrador(idUsuario); // Pasar el ID del usuario
+            MenuAdministrador1 home = new MenuAdministrador1(idUsuario); // Pasar el ID del usuario
             home.setVisible(true);
             this.dispose(); 
         } else {
             JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
-        }
+        }        
+    }//GEN-LAST:event_rButtonProyecto1ActionPerformed
 
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
+    private void rButtonProyecto1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto1MouseClicked
+        
+    }//GEN-LAST:event_rButtonProyecto1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -101,19 +204,27 @@ public class Login extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Login().setVisible(true);
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JLabel Fondo;
+    private javax.swing.JLabel Inovahouse;
+    private javax.swing.JLabel Logo;
+    private Vista.PanelRound PanelLogin;
+    private javax.swing.JPasswordField PasswordFieldContraseña;
+    private javax.swing.JTextField TextFieldUsuario;
+    private javax.swing.JRadioButton jRadioButton1;
+    private Vista.RSButtonMetro rButtonProyecto1;
     // End of variables declaration//GEN-END:variables
 }
