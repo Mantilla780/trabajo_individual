@@ -18,6 +18,45 @@ public class Proyecto {
         
     }
 
+    public Proyecto(int idproyecto, String nombreProyecto, int numeroTorres, String idUsuario) {
+        this.idproyecto = idproyecto;
+        this.nombreProyecto = nombreProyecto;
+        this.numeroTorres = numeroTorres;
+        this.idUsuario = idUsuario;
+    }
+
+    public int getIdproyecto() {
+        return idproyecto;
+    }
+
+    public void setIdproyecto(int idproyecto) {
+        this.idproyecto = idproyecto;
+    }
+
+    public String getNombreProyecto() {
+        return nombreProyecto;
+    }
+
+    public void setNombreProyecto(String nombreProyecto) {
+        this.nombreProyecto = nombreProyecto;
+    }
+
+    public int getNumeroTorres() {
+        return numeroTorres;
+    }
+
+    public void setNumeroTorres(int numeroTorres) {
+        this.numeroTorres = numeroTorres;
+    }
+
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
    
 
    

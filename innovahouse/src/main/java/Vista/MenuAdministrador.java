@@ -54,9 +54,9 @@ public class MenuAdministrador extends javax.swing.JFrame {
             for (Proyecto proyecto : proyectos) {
                 model.addRow(new Object[]{
                     proyecto.getIdproyecto(),
-                    proyecto.getNombreproyecto(),
-                    proyecto.getNumerotorres(),
-                    proyecto.getIdusuario(),
+                    proyecto.getNombreProyecto(),
+                    proyecto.getNumeroTorres(),
+                    proyecto.getIdUsuario(),
                     "Editar",
                     "Eliminar"
                 });

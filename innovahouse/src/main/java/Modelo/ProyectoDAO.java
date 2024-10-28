@@ -44,7 +44,7 @@ public class ProyectoDAO {
     }
     
     
-    public List<Proyecto> obtenerProyectos() {
+   public List<Proyecto> obtenerProyectos() {
     List<Proyecto> proyectos = new ArrayList<>();
     String sql = "SELECT IDPROYECTO, NOMBREPROYECTO, NUMEROTORRES, IDUSUARIO FROM PROYECTOVIVIENDA";
 
@@ -54,9 +54,9 @@ public class ProyectoDAO {
         while (rs.next()) {
             Proyecto proyecto = new Proyecto();
             proyecto.setIdproyecto(rs.getInt("IDPROYECTO"));
-            proyecto.setNombreproyecto(rs.getString("NOMBREPROYECTO"));
-            proyecto.setNumerotorres(rs.getInt("NUMEROTORRES"));
-            proyecto.setIdusuario(rs.getString("IDUSUARIO"));
+            proyecto.setNombreProyecto(rs.getString("NOMBREPROYECTO")); // Corrección aquí
+            proyecto.setNumeroTorres(rs.getInt("NUMEROTORRES"));
+            proyecto.setIdUsuario(rs.getString("IDUSUARIO"));
             proyectos.add(proyecto);
         }
     } catch (SQLException e) {
@@ -77,7 +77,7 @@ public class ProyectoDAO {
         try (ResultSet rs = pstmt.executeQuery()) {
             if (rs.next()) {
                 proyecto = new Proyecto();
-                proyecto.setIdproyecto((rs.getInt("idProyecto"));
+                proyecto.setIdproyecto(rs.getInt("idProyecto"));
                 proyecto.setNombreProyecto(rs.getString("nombreProyecto"));
                 proyecto.setNumeroTorres(rs.getInt("numeroTorres"));
                 proyecto.setIdUsuario(rs.getString("idUsuario"));

@@ -32,11 +32,11 @@ private int idProyecto;  // ID del proyecto a editar
         try (Connection conexion = ConexionBD.getInstancia().getConnection()) {
             ProyectoDAO proyectoDAO = new ProyectoDAO(conexion);
             Proyecto proyecto = proyectoDAO.obtenerProyectoPorId(idProyecto);
-            System.out.println(proyecto.getNombreproyecto());
+            System.out.println(proyecto.getNombreProyecto());
 
             if (proyecto != null) {
-                jTextField1.setText(proyecto.getNombreproyecto());
-                jTextField2.setText(String.valueOf(proyecto.getNumerotorres()));
+                jTextField1.setText(proyecto.getNombreProyecto());
+                jTextField2.setText(String.valueOf(proyecto.getNumeroTorres()));
                 
             } else {
                 JOptionPane.showMessageDialog(this, "El proyecto no existe.");
@@ -52,10 +52,10 @@ private int idProyecto;  // ID del proyecto a editar
             ProyectoDAO proyectoDAO = new ProyectoDAO(conexion);
             Proyecto proyecto = new Proyecto();
             proyecto.setIdproyecto(idProyecto); // Usar idProyecto como String
-            proyecto.setNombreproyecto(jTextField1.getText());
-            proyecto.setNumerotorres(Integer.parseInt(jTextField2.getText()));
+            proyecto.setNombreProyecto(jTextField1.getText());
+            proyecto.setNumeroTorres(Integer.parseInt(jTextField2.getText()));
 
-            boolean actualizado = proyectoDAO.actualizarProyecto(idProyecto, proyecto.getNombreproyecto(), proyecto.getNumerotorres());
+            boolean actualizado = proyectoDAO.actualizarProyecto(idProyecto, proyecto.getNombreProyecto(), proyecto.getNumeroTorres());
             if (actualizado) {
                 JOptionPane.showMessageDialog(this, "Proyecto actualizado correctamente.");
                 dispose(); // Cierra la ventana de edición
