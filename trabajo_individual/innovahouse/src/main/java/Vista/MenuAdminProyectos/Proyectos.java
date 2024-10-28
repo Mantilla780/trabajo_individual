@@ -103,7 +103,6 @@ public class Proyectos extends javax.swing.JPanel {
         });
         jPanel1.add(rButtonProyecto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 20, 140, 60));
 
-        jTable2.setForeground(new java.awt.Color(255, 255, 255));
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -191,7 +190,7 @@ public class Proyectos extends javax.swing.JPanel {
     }//GEN-LAST:event_rButtonProyecto1ActionPerformed
 
     private void rButtonProyecto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto2MouseClicked
-        CrearProyecto cp = new CrearProyecto();
+        CrearProyecto cp = new CrearProyecto(idUsuario);
         cp.setVisible(true);
     }//GEN-LAST:event_rButtonProyecto2MouseClicked
 

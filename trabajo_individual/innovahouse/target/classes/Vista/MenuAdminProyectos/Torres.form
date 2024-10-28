@@ -116,7 +116,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Vista/Imagenes/agregar.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Crear Nuevo Proyecto"/>
+            <Property name="text" type="java.lang.String" value="Crear Nueva Torre"/>
             <Property name="colorNormal" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="30" green="a" red="5" type="rgb"/>
             </Property>
@@ -170,11 +170,11 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Proyectos"/>
+            <Property name="text" type="java.lang.String" value="jLabel1"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="510" y="50" width="-1" height="-1"/>
+              <AbsoluteConstraints x="550" y="50" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>

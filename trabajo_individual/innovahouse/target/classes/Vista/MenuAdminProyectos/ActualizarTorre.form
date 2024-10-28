@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
-  <NonVisualComponents>
-    <Component class="javax.swing.JLabel" name="jLabel4">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="36" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Nombre Proyecto"/>
-      </Properties>
-    </Component>
-  </NonVisualComponents>
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[730, 460]"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -59,7 +52,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="36" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Nombre Proyecto"/>
+            <Property name="text" type="java.lang.String" value="Nombre Torre"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -72,11 +65,11 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="36" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Actualizar Proyecto"/>
+            <Property name="text" type="java.lang.String" value="Actualizar Torre"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="390" y="20" width="-1" height="39"/>
+              <AbsoluteConstraints x="410" y="20" width="-1" height="39"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -85,11 +78,11 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="36" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Cantidad Torres"/>
+            <Property name="text" type="java.lang.String" value="Cantidad Apartamentos"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="6" y="245" width="-1" height="-1"/>
+              <AbsoluteConstraints x="6" y="245" width="410" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
