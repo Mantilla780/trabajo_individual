@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Controlador.ConexionBD;
+
 public class ProyectoDAO {
     private final Connection conexion;
 
@@ -14,6 +16,7 @@ public class ProyectoDAO {
         this.conexion = conexion;
     }
 
+    // Método para insertar un nuevo proyecto
     public boolean insertarProyecto(String nombreProyecto, int numeroTorres, String idUsuario) {
         String sqlSequence = "SELECT proyectovivienda_seq.NEXTVAL FROM dual";
         String sqlInsert = "INSERT INTO PROYECTOVIVIENDA (IDPROYECTO, NOMBREPROYECTO, NUMEROTORRES, IDUSUARIO) VALUES (?, ?, ?, ?)";
@@ -41,27 +44,60 @@ public class ProyectoDAO {
             return false;
         }
     }
+
+    // Método para obtener la lista de proyectos
     public List<Proyecto> obtenerProyectos() {
-    List<Proyecto> proyectos = new ArrayList<>();
-    String sql = "SELECT IDPROYECTO, NOMBREPROYECTO, NUMEROTORRES, IDUSUARIO FROM PROYECTOVIVIENDA";
+        List<Proyecto> proyectos = new ArrayList<>();
+        String sql = "SELECT IDPROYECTO, NOMBREPROYECTO, NUMEROTORRES, IDUSUARIO FROM PROYECTOVIVIENDA";
 
-    try (PreparedStatement ps = conexion.prepareStatement(sql);
-         ResultSet rs = ps.executeQuery()) {
+        try (PreparedStatement ps = conexion.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
-        while (rs.next()) {
-            Proyecto proyecto = new Proyecto();
-            proyecto.setIdproyecto(rs.getString("IDPROYECTO"));
-            proyecto.setNombreproyecto(rs.getString("NOMBREPROYECTO"));
-            proyecto.setNumerotorres(rs.getInt("NUMEROTORRES"));
-            proyecto.setIdusuario(rs.getString("IDUSUARIO"));
-            proyectos.add(proyecto);
+            while (rs.next()) {
+                Proyecto proyecto = new Proyecto();
+                proyecto.setIdproyecto(rs.getString("IDPROYECTO"));
+                proyecto.setNombreproyecto(rs.getString("NOMBREPROYECTO"));
+                proyecto.setNumerotorres(rs.getInt("NUMEROTORRES"));
+                proyecto.setIdusuario(rs.getString("IDUSUARIO"));
+                proyectos.add(proyecto);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return proyectos;
     }
-    return proyectos;
-}
-    
-}
+
+    // Método para actualizar un proyecto
+    public boolean actualizarProyecto(Proyecto proyecto) {
+        String sqlUpdate = "UPDATE PROYECTOVIVIENDA SET NOMBREPROYECTO = ?, NUMEROTORRES = ?, IDUSUARIO = ? WHERE IDPROYECTO = ?";
+
+        try (PreparedStatement psUpdate = conexion.prepareStatement(sqlUpdate)) {
+            psUpdate.setString(1, proyecto.getNombreproyecto());
+            psUpdate.setInt(2, proyecto.getNumerotorres());
+            psUpdate.setString(3, proyecto.getIdusuario());
+            psUpdate.setString(4, proyecto.getIdproyecto());
+
+            return psUpdate.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Método para eliminar un proyecto por ID
+    public boolean eliminarProyecto(String idProyecto) {
+        String sqlDelete = "DELETE FROM PROYECTOVIVIENDA WHERE IDPROYECTO = ?";
+ConexionBD con = new ConexionBD();
 
 
+        try (PreparedStatement psDelete = con.getConnection().prepareStatement(sqlDelete)) {
+            psDelete.setString(1, idProyecto);
+            return psDelete.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+}
