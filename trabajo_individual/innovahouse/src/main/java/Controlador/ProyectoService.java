@@ -5,29 +5,25 @@ import Modelo.ProyectoDAO;
 import java.util.List;
 
 public class ProyectoService {
-    private ProyectoDAO proyectoDAO;
+    private final ProyectoDAO proyectoDAO;
 
     public ProyectoService(ProyectoDAO proyectoDAO) {
         this.proyectoDAO = proyectoDAO;
     }
 
-    // Método para agregar un nuevo proyecto
     public boolean agregarProyecto(String nombreProyecto, int numeroTorres, String idUsuario) {
         return proyectoDAO.insertarProyecto(nombreProyecto, numeroTorres, idUsuario);
     }
 
-    // Método para listar todos los proyectos
-    public List<Proyecto> listarProyectos() {
+    public List<Proyecto> obtenerTodosLosProyectos() {
         return proyectoDAO.obtenerProyectos();
     }
 
-    // Método para actualizar un proyecto
-    public boolean actualizarProyecto(Proyecto proyecto) {
-        return proyectoDAO.actualizarProyecto(proyecto);
+    public boolean actualizarProyecto(int idProyecto, String nombreProyecto, int numeroTorres) {
+        return proyectoDAO.actualizarProyecto(idProyecto, nombreProyecto, numeroTorres);
     }
 
-    // Método para eliminar un proyecto por su ID
-    public boolean eliminarProyecto(String idProyecto) {
+    public boolean eliminarProyecto(int idProyecto) {
         return proyectoDAO.eliminarProyecto(idProyecto);
     }
 }
