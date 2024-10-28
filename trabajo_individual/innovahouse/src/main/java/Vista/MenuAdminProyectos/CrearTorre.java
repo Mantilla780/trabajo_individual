@@ -4,17 +4,28 @@
  */
 package Vista.MenuAdminProyectos;
 
+import Controlador.ConexionBD;
+import Controlador.TorreService;
+import Modelo.TorreDAO;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author USER
  */
 public class CrearTorre extends javax.swing.JFrame {
-
+     private String idProyecto;
+     private TorreService torreService;
     /**
      * Creates new form CrearTorre
      */
-    public CrearTorre() {
+    public CrearTorre(String idProyecto) {
         initComponents();
+        
+        this.idProyecto = idProyecto;
+        ConexionBD conexionBD = new ConexionBD();
+        TorreDAO torreDAO = new TorreDAO(conexionBD.getConnection());
+        this.torreService = new TorreService(torreDAO);
     }
 
     /**
@@ -27,18 +38,18 @@ public class CrearTorre extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTextField3 = new javax.swing.JTextField();
+        cantidadapartamentos = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         rSButtonMetro1 = new Vista.RSButtonMetro();
         jLabel3 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        nombretorre = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 380, 50));
+        jPanel1.add(cantidadapartamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 380, 50));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setText("Nueva Torre");
@@ -62,9 +73,9 @@ public class CrearTorre extends javax.swing.JFrame {
         jPanel1.add(rSButtonMetro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 380, 200, 60));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel3.setText("Nombre Torre");
+        jLabel3.setText("Numero Torre");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
-        jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 380, 50));
+        jPanel1.add(nombretorre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 380, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -91,7 +102,22 @@ public class CrearTorre extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rSButtonMetro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro1ActionPerformed
+        try {
+                int numeroTorre = Integer.parseInt(nombretorre.getText());
+                int numeroApartamentos = Integer.parseInt(cantidadapartamentos.getText());
 
+                boolean resultado = torreService.agregarTorre(numeroTorre, numeroApartamentos, idProyecto);
+
+                if (resultado) {
+                    JOptionPane.showMessageDialog(this, "Torre guardada exitosamente.");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error al guardar la torre.");
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Número de torre y número de apartamentos deben ser números enteros.", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al guardar la torre: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
     }//GEN-LAST:event_rSButtonMetro1ActionPerformed
 
     /**
@@ -124,18 +150,18 @@ public class CrearTorre extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CrearTorre().setVisible(true);
+                new CrearTorre("default").setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField cantidadapartamentos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField nombretorre;
     private Vista.RSButtonMetro rSButtonMetro1;
     // End of variables declaration//GEN-END:variables
 }

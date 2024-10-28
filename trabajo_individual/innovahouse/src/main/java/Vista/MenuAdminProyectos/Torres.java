@@ -9,12 +9,14 @@ package Vista.MenuAdminProyectos;
  * @author omaci
  */
 public class Torres extends javax.swing.JPanel {
-
+private String idProyecto;
     /**
      * Creates new form Proyectos
      */
-    public Torres() {
+    public Torres(String idProyecto) {
         initComponents();
+        this.idProyecto= idProyecto;
+        
     }
 
     /**
@@ -144,7 +146,8 @@ public class Torres extends javax.swing.JPanel {
     }//GEN-LAST:event_rButtonProyecto2MouseClicked
 
     private void rButtonProyecto2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto2ActionPerformed
-        // TODO add your handling code here:
+        CrearTorre cp = new CrearTorre(idProyecto);
+        cp.setVisible(true);
     }//GEN-LAST:event_rButtonProyecto2ActionPerformed
 
     private void rButtonProyecto3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto3MouseClicked
