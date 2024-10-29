@@ -11,6 +11,7 @@ import Modelo.ProyectoDAO;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,6 +25,7 @@ public class Proyectos extends javax.swing.JPanel {
     private ProyectoService proyectoService; 
     /**
      * Creates new form Proyectos
+     * @param idUsuario
      */
     public Proyectos(String idUsuario) {
         initComponents();
@@ -50,9 +52,9 @@ public class Proyectos extends javax.swing.JPanel {
         for (Proyecto proyecto : proyectos) {
             model.addRow(new Object[]{
                 proyecto.getIdproyecto(),
-                proyecto.getNombreproyecto(),
-                proyecto.getNumerotorres(),
-                proyecto.getIdusuario()
+                proyecto.getNombreProyecto(),
+                proyecto.getNumeroTorres(),
+                proyecto.getIdUsuario()
             });
         }
     } catch (SQLException e) {
@@ -186,7 +188,26 @@ public class Proyectos extends javax.swing.JPanel {
     }//GEN-LAST:event_rButtonProyecto1MouseClicked
 
     private void rButtonProyecto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto1ActionPerformed
-
+            int selectedRow = jTable2.getSelectedRow(); // Supongamos que estás usando una JTable para mostrar proyectos
+    if (selectedRow != -1) {
+        // Obtener el ID del proyecto desde la tabla (supongamos que está en la primera columna)
+        int idProyecto = (int) jTable2.getValueAt(selectedRow, 0);
+        
+        // Confirmar eliminación
+        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar este proyecto?", "Confirmación", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            // Llamar al servicio para eliminar el proyecto
+            boolean resultado = proyectoService.eliminarProyecto(idProyecto);
+            
+            if (resultado) {
+                JOptionPane.showMessageDialog(this, "Proyecto eliminado con éxito.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al eliminar el proyecto.");
+            }
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Por favor selecciona un proyecto para eliminar.");
+    }
     }//GEN-LAST:event_rButtonProyecto1ActionPerformed
 
     private void rButtonProyecto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto2MouseClicked

@@ -7,63 +7,151 @@ package Vista;
 import Controlador.ConexionBD;
 import Modelo.Proyecto;
 import Modelo.ProyectoDAO;
-import Controlador.ProyectoService; // Asegúrate de importar esto
+import java.awt.Component;
+import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.AbstractCellEditor;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
  * @author omaci
  */
 public class MenuAdministrador extends javax.swing.JFrame {
-    private String idUsuario;
-    private String idProyecto;
-    private String numerotorre;
-    private ProyectoService proyectoService; // Agregada la variable para el servicio
-
+     private String idUsuario;
+     
+     
     /**
      * Creates new form MenuAdministrador
      * @param idUsuario
      */
-    public MenuAdministrador(String idUsuario) {
+    public MenuAdministrador(String  idUsuario) {
         initComponents();
-        this.idUsuario = idUsuario;
-        
-        // Inicializa la conexión y el ProyectoDAO
-        Connection conexion = ConexionBD.getInstancia().getConnection();
-        ProyectoDAO proyectoDAO = new ProyectoDAO(conexion);
-        proyectoService = new ProyectoService(proyectoDAO);
-
+        this.idUsuario= idUsuario;
         jTextField1.setText("ID de Usuario: " + idUsuario);
+        
         cargarProyectosEnTabla();
+        
     }
-
     
     
     private void cargarProyectosEnTabla() {
-    try (Connection conexion = ConexionBD.getInstancia().getConnection()) {
-        ProyectoDAO proyectoDAO = new ProyectoDAO(conexion);
-        List<Proyecto> proyectos = proyectoDAO.obtenerProyectos();
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        try (Connection conexion = ConexionBD.getInstancia().getConnection()) {
+            ProyectoDAO proyectoDAO = new ProyectoDAO(conexion);
+            List<Proyecto> proyectos = proyectoDAO.obtenerProyectos();
+            DefaultTableModel model = new DefaultTableModel(new String[]{"ID Proyecto", "Nombre", "Número Torres", "ID Usuario", "Editar", "Eliminar"}, 0);
+            jTable1.setModel(model);
 
-        model.setColumnIdentifiers(new String[]{"ID Proyecto", "Nombre", "Número Torres", "ID Usuario"});
-        model.setRowCount(0);
+            for (Proyecto proyecto : proyectos) {
+                model.addRow(new Object[]{
+                    proyecto.getIdproyecto(),
+                    proyecto.getNombreProyecto(),
+                    proyecto.getNumeroTorres(),
+                    proyecto.getIdUsuario(),
+                    "Editar",
+                    "Eliminar"
+                });
+            }
 
-        for (Proyecto proyecto : proyectos) {
-            model.addRow(new Object[]{
-                proyecto.getIdproyecto(),
-                proyecto.getNombreproyecto(),
-                proyecto.getNumerotorres(),
-                proyecto.getIdusuario()
+            // Configurar renderizadores y editores personalizados para las columnas de botones
+            jTable1.getColumn("Editar").setCellRenderer(new ButtonRenderer());
+            jTable1.getColumn("Eliminar").setCellRenderer(new ButtonRenderer());
+            jTable1.getColumn("Editar").setCellEditor(new ButtonEditor(new JButton("Editar")));
+            jTable1.getColumn("Eliminar").setCellEditor(new ButtonEditor(new JButton("Eliminar")));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Clase para renderizar el botón
+    class ButtonRenderer extends JButton implements TableCellRenderer {
+        public ButtonRenderer() {
+            setOpaque(true);
+        }
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            setText((value == null) ? "" : value.toString());
+            return this;
+        }
+    }
+
+    // Clase para editar la celda del botón y manejar eventos
+    class ButtonEditor extends AbstractCellEditor implements TableCellEditor {
+        private JButton button;
+        private String label;
+        private boolean isPushed;
+
+        public ButtonEditor(JButton button) {
+            this.button = button;
+            button.addActionListener((ActionEvent e) -> {
+                fireEditingStopped();
             });
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+            label = (value == null) ? "" : value.toString();
+            button.setText(label);
+            isPushed = true;
+            return button;
+        }
+
+        @Override
+        public Object getCellEditorValue() {
+            if (isPushed) {
+                int idProyecto = (int) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
+                
+                if (label.equals("Editar")) {
+                    abrirEditarProyecto(idProyecto);
+                } else if (label.equals("Eliminar")) {
+                    eliminarProyecto(idProyecto);
+                }
+            }
+            isPushed = false;
+            return label;
+        }
+
+        public boolean stopCellEditing() {
+            isPushed = false;
+            return super.stopCellEditing();
+        }
     }
-}
+
+    private void abrirEditarProyecto(int idProyecto) {
+        // Abre el JFrame de edición pasando el ID del proyecto
+        //EditarProyecto editarFrame = new EditarProyecto(idProyecto);
+        //editarFrame.setVisible(true);
+    }
+
+    private void eliminarProyecto(int idProyecto) {
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "¿Está seguro de que desea eliminar el proyecto?",
+                "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try (Connection conexion = ConexionBD.getInstancia().getConnection()) {
+                ProyectoDAO proyectoDAO = new ProyectoDAO(conexion);
+                proyectoDAO.eliminarProyecto(idProyecto);
+                cargarProyectosEnTabla();  // Actualiza la tabla después de eliminar
+                JOptionPane.showMessageDialog(this, "Proyecto eliminado exitosamente.");
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Error al eliminar el proyecto.");
+                e.printStackTrace();
+            }
+        }
+    }
+
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -79,13 +167,11 @@ public class MenuAdministrador extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jToggleButton1.setText("Agregar proyecto");
+        jToggleButton1.setText("jToggleButton1");
         jToggleButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jToggleButton1MouseClicked(evt);
@@ -98,20 +184,10 @@ public class MenuAdministrador extends javax.swing.JFrame {
         });
         getContentPane().add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
-        jToggleButton2.setText("Agregar torre");
-        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton2ActionPerformed(evt);
-            }
-        });
+        jToggleButton2.setText("jToggleButton2");
         getContentPane().add(jToggleButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
 
-        jToggleButton3.setText("Agregar apto");
-        jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton3ActionPerformed(evt);
-            }
-        });
+        jToggleButton3.setText("jToggleButton3");
         getContentPane().add(jToggleButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, -1));
 
         jTextField1.setText("jTextField1");
@@ -130,23 +206,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, -1, -1));
-
-        jButton1.setText("Eliminar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 80, -1));
-
-        jButton2.setText("Actualizar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, -1, -1));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -156,47 +216,13 @@ public class MenuAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButton1MouseClicked
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        CrearProyecto create = new CrearProyecto(idUsuario);
-        create.setVisible(true);
+         try {
+             CrearProyecto create = new CrearProyecto(idUsuario,MenuAdministrador.this);
+             create.setVisible(true);
+         } catch (SQLException ex) {
+             Logger.getLogger(MenuAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+         }
     }//GEN-LAST:event_jToggleButton1ActionPerformed
-
-    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
-        CrearTorre create = new CrearTorre(idProyecto);
-        create.setVisible(true);
-    }//GEN-LAST:event_jToggleButton2ActionPerformed
-
-    private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
-        CrearApartamento create = new CrearApartamento(numerotorre);
-        create.setVisible(true);
-    }//GEN-LAST:event_jToggleButton3ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
- // Obtener el ID del proyecto seleccionado (esto dependerá de cómo lo muestres en tu interfaz)
-    int selectedRow = jTable1.getSelectedRow(); // Supongamos que estás usando una JTable para mostrar proyectos
-    if (selectedRow != -1) {
-        // Obtener el ID del proyecto desde la tabla (supongamos que está en la primera columna)
-        String idProyecto = (String) jTable1.getValueAt(selectedRow, 0);
-        
-        // Confirmar eliminación
-        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar este proyecto?", "Confirmación", JOptionPane.YES_NO_OPTION);
-        if (confirmacion == JOptionPane.YES_OPTION) {
-            // Llamar al servicio para eliminar el proyecto
-            boolean resultado = proyectoService.eliminarProyecto(idProyecto);
-            
-            if (resultado) {
-                JOptionPane.showMessageDialog(this, "Proyecto eliminado con éxito.");
-            } else {
-                JOptionPane.showMessageDialog(this, "Error al eliminar el proyecto.");
-            }
-        }
-    } else {
-        JOptionPane.showMessageDialog(this, "Por favor selecciona un proyecto para eliminar.");
-    }
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -234,8 +260,6 @@ public class MenuAdministrador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;

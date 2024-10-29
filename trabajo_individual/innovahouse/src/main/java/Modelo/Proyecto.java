@@ -9,52 +9,59 @@ package Modelo;
  * @author omaci
  */
 public class Proyecto {
-     private String idproyecto;
-    private String nombreproyecto;
-    private int numerotorres;
-    private String idusuario;
+     private int idproyecto;
+    private String nombreProyecto;
+    private int numeroTorres;
+    private String idUsuario;
     
     public  Proyecto(){
         
     }
 
-    public Proyecto(String idproyecto, String nombreproyecto, int numerotorres, String idusuario) {
+    public Proyecto(int idproyecto, String nombreProyecto, int numeroTorres, String idUsuario) {
         this.idproyecto = idproyecto;
-        this.nombreproyecto = nombreproyecto;
-        this.numerotorres = numerotorres;
-        this.idusuario = idusuario;
+        this.nombreProyecto = nombreProyecto;
+        this.numeroTorres = numeroTorres;
+        this.idUsuario = idUsuario;
     }
 
-    public String getIdproyecto() {
+    public int getIdproyecto() {
         return idproyecto;
     }
 
-    public void setIdproyecto(String idproyecto) {
+    public void setIdproyecto(int idproyecto) {
         this.idproyecto = idproyecto;
     }
 
-    public String getNombreproyecto() {
-        return nombreproyecto;
+    public String getNombreProyecto() {
+        return nombreProyecto;
     }
 
-    public void setNombreproyecto(String nombreproyecto) {
-        this.nombreproyecto = nombreproyecto;
+    public void setNombreProyecto(String nombreProyecto) {
+        this.nombreProyecto = nombreProyecto;
     }
 
-    public int getNumerotorres() {
-        return numerotorres;
+    public int getNumeroTorres() {
+        return numeroTorres;
     }
 
-    public void setNumerotorres(int numerotorres) {
-        this.numerotorres = numerotorres;
+    public void setNumeroTorres(int numeroTorres) {
+        this.numeroTorres = numeroTorres;
     }
 
-    public String getIdusuario() {
-        return idusuario;
+    public String getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setIdusuario(String idusuario) {
-        this.idusuario = idusuario;
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
     }
+
+   
+
+   
+
+    
+   
     
 }
