@@ -128,8 +128,8 @@ public class MenuAdministrador extends javax.swing.JFrame {
 
     private void abrirEditarProyecto(int idProyecto) {
         // Abre el JFrame de edición pasando el ID del proyecto
-        EditarProyecto editarFrame = new EditarProyecto(idProyecto);
-        editarFrame.setVisible(true);
+        //EditarProyecto editarFrame = new EditarProyecto(idProyecto);
+        //editarFrame.setVisible(true);
     }
 
     private void eliminarProyecto(int idProyecto) {

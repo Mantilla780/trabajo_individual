@@ -25,6 +25,7 @@ public class Proyectos extends javax.swing.JPanel {
     private ProyectoService proyectoService; 
     /**
      * Creates new form Proyectos
+     * @param idUsuario
      */
     public Proyectos(String idUsuario) {
         initComponents();
@@ -51,9 +52,9 @@ public class Proyectos extends javax.swing.JPanel {
         for (Proyecto proyecto : proyectos) {
             model.addRow(new Object[]{
                 proyecto.getIdproyecto(),
-                proyecto.getNombreproyecto(),
-                proyecto.getNumerotorres(),
-                proyecto.getIdusuario()
+                proyecto.getNombreProyecto(),
+                proyecto.getNumeroTorres(),
+                proyecto.getIdUsuario()
             });
         }
     } catch (SQLException e) {
@@ -190,7 +191,7 @@ public class Proyectos extends javax.swing.JPanel {
             int selectedRow = jTable2.getSelectedRow(); // Supongamos que estás usando una JTable para mostrar proyectos
     if (selectedRow != -1) {
         // Obtener el ID del proyecto desde la tabla (supongamos que está en la primera columna)
-        String idProyecto = (String) jTable2.getValueAt(selectedRow, 0);
+        int idProyecto = (int) jTable2.getValueAt(selectedRow, 0);
         
         // Confirmar eliminación
         int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar este proyecto?", "Confirmación", JOptionPane.YES_NO_OPTION);
