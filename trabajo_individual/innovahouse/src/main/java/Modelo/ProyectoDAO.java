@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import Modelo.Proyecto;
 
 import Controlador.ConexionBD;
 
@@ -55,10 +56,10 @@ public class ProyectoDAO {
 
             while (rs.next()) {
                 Proyecto proyecto = new Proyecto();
-                proyecto.setIdproyecto(rs.getString("IDPROYECTO"));
-                proyecto.setNombreproyecto(rs.getString("NOMBREPROYECTO"));
-                proyecto.setNumerotorres(rs.getInt("NUMEROTORRES"));
-                proyecto.setIdusuario(rs.getString("IDUSUARIO"));
+                proyecto.setIdproyecto(rs.getInt("IDPROYECTO"));
+                proyecto.setNombreProyecto(rs.getString("NOMBREPROYECTO"));
+                proyecto.setNumeroTorres(rs.getInt("NUMEROTORRES"));
+                proyecto.setIdUsuario(rs.getString("IDUSUARIO"));
                 proyectos.add(proyecto);
             }
         } catch (SQLException e) {
@@ -72,10 +73,10 @@ public class ProyectoDAO {
         String sqlUpdate = "UPDATE PROYECTOVIVIENDA SET NOMBREPROYECTO = ?, NUMEROTORRES = ?, IDUSUARIO = ? WHERE IDPROYECTO = ?";
 
         try (PreparedStatement psUpdate = conexion.prepareStatement(sqlUpdate)) {
-            psUpdate.setString(1, proyecto.getNombreproyecto());
-            psUpdate.setInt(2, proyecto.getNumerotorres());
-            psUpdate.setString(3, proyecto.getIdusuario());
-            psUpdate.setString(4, proyecto.getIdproyecto());
+            psUpdate.setString(1, proyecto.getNombreProyecto());
+            psUpdate.setInt(2, proyecto.getNumeroTorres());
+            psUpdate.setString(3, proyecto.getIdUsuario());
+            psUpdate.setInt(4, proyecto.getIdproyecto());
 
             return psUpdate.executeUpdate() > 0;
 
@@ -86,13 +87,13 @@ public class ProyectoDAO {
     }
 
     // Método para eliminar un proyecto por ID
-    public boolean eliminarProyecto(String idProyecto) {
+    public boolean eliminarProyecto(int idProyecto) {
         String sqlDelete = "DELETE FROM PROYECTOVIVIENDA WHERE IDPROYECTO = ?";
 ConexionBD con = new ConexionBD();
 
 
         try (PreparedStatement psDelete = con.getConnection().prepareStatement(sqlDelete)) {
-            psDelete.setString(1, idProyecto);
+            psDelete.setInt(1, idProyecto);
             return psDelete.executeUpdate() > 0;
 
         } catch (SQLException e) {
