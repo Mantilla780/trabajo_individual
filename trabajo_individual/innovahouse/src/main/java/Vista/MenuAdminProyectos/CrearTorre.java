@@ -41,7 +41,6 @@ public class CrearTorre extends javax.swing.JFrame {
         cantidadapartamentos = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        rSButtonMetro1 = new Vista.RSButtonMetro();
         jLabel3 = new javax.swing.JLabel();
         nombretorre = new javax.swing.JTextField();
 
@@ -58,19 +57,6 @@ public class CrearTorre extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel2.setText("Cantidad Apartamentos");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
-
-        rSButtonMetro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/save.png"))); // NOI18N
-        rSButtonMetro1.setText("Crear");
-        rSButtonMetro1.setColorHover(new java.awt.Color(8, 136, 74));
-        rSButtonMetro1.setColorNormal(new java.awt.Color(0, 191, 99));
-        rSButtonMetro1.setColorPressed(new java.awt.Color(8, 136, 74));
-        rSButtonMetro1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        rSButtonMetro1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rSButtonMetro1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(rSButtonMetro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 380, 200, 60));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel3.setText("Numero Torre");
@@ -162,6 +148,5 @@ public class CrearTorre extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField nombretorre;
-    private Vista.RSButtonMetro rSButtonMetro1;
     // End of variables declaration//GEN-END:variables
 }

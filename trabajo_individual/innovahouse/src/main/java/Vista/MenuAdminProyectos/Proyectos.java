@@ -13,6 +13,9 @@ import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -23,21 +26,31 @@ public class Proyectos extends javax.swing.JPanel {
     private String idProyecto;
     private String numerotorre;
     private ProyectoService proyectoService; 
-    /**
-     * Creates new form Proyectos
-     * @param idUsuario
-     */
+    private Timer timer;
+    private Connection conexion; // Conexión mantenida durante la vida útil de la clase
+
     public Proyectos(String idUsuario) {
         initComponents();
         this.idUsuario = idUsuario;
-        
+    
         // Inicializa la conexión y el ProyectoDAO
-        Connection conexion = ConexionBD.getInstancia().getConnection();
-        ProyectoDAO proyectoDAO = new ProyectoDAO(conexion);
+        this.conexion = ConexionBD.getInstancia().getConnection();
+        ProyectoDAO proyectoDAO = new ProyectoDAO(this.conexion);
         proyectoService = new ProyectoService(proyectoDAO);
 
-        
+        // Carga inicial de los datos en la tabla
         cargarProyectosEnTabla();
+    
+        // Configuración del temporizador para actualizar la tabla cada 5 segundos
+        timer = new Timer(4000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cargarProyectosEnTabla();
+            }
+        });
+    
+        // Iniciar el temporizador
+        timer.start();
     }
     
     private void cargarProyectosEnTabla() {
@@ -61,7 +74,6 @@ public class Proyectos extends javax.swing.JPanel {
         e.printStackTrace();
     }
 }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
