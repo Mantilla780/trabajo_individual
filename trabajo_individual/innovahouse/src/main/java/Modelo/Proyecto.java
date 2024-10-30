@@ -55,13 +55,7 @@ public class Proyecto {
 
     public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
-    }
-
-   
-
-   
-
-    
+    }   
    
     
 }

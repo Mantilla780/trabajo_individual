@@ -4,17 +4,29 @@
  */
 package Vista.MenuAdminProyectos;
 
+import Controlador.ProyectoService;
+import Modelo.Proyecto;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author USER
  */
 public class ActualizarProyecto extends javax.swing.JFrame {
-
+    private ProyectoService proyectoService;
+    private int idProyecto;
+    private String idUsuario;
     /**
      * Creates new form ActualizarProyecto
      */
-    public ActualizarProyecto() {
+    public ActualizarProyecto(int idProyecto, String nombreProyecto, int numeroTorres, String idUsuario, ProyectoService proyectoService) {
         initComponents();
+        this.proyectoService = proyectoService;
+        this.idProyecto = idProyecto;
+        this.idUsuario = idUsuario;        
+        nombreproyecto.setText(nombreProyecto);
+        cantidadtorres.setText(String.valueOf(numeroTorres));
+        jLabel1.setText(idUsuario);
     }
 
     /**
@@ -31,9 +43,10 @@ public class ActualizarProyecto extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        cantidadtorres = new javax.swing.JTextField();
+        nombreproyecto = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel4.setText("Nombre Proyecto");
@@ -55,19 +68,19 @@ public class ActualizarProyecto extends javax.swing.JFrame {
         jLabel5.setText("Cantidad Torres");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 245, -1, -1));
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        cantidadtorres.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                cantidadtorresActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 311, 383, 56));
+        jPanel1.add(cantidadtorres, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 311, 383, 56));
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        nombreproyecto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                nombreproyectoActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 148, 383, 56));
+        jPanel1.add(nombreproyecto, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 148, 383, 56));
 
         jButton1.setBackground(new java.awt.Color(1, 60, 136));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -75,7 +88,15 @@ public class ActualizarProyecto extends javax.swing.JFrame {
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/actualizar.png"))); // NOI18N
         jButton1.setText("Actualizar");
         jButton1.setBorder(null);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 379, 200, 60));
+
+        jLabel1.setText("jLabel1");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -91,13 +112,30 @@ public class ActualizarProyecto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void cantidadtorresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadtorresActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_cantidadtorresActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void nombreproyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreproyectoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_nombreproyectoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // Obtener los valores del formulario
+        String nombreProyecto = nombreproyecto.getText();
+        int numeroTorres = Integer.parseInt(cantidadtorres.getText());       
+
+        // Crear un objeto Proyecto con los valores actualizados
+        Proyecto proyecto = new Proyecto(idProyecto, nombreProyecto, numeroTorres, idUsuario);
+
+        // Actualizar el proyecto usando el servicio
+        if (proyectoService.actualizarProyecto(proyecto)) {
+            JOptionPane.showMessageDialog(this, "Proyecto actualizado con éxito.");
+            dispose(); // Cerrar el formulario
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al actualizar el proyecto.");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -129,19 +167,20 @@ public class ActualizarProyecto extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ActualizarProyecto().setVisible(true);
+                new ActualizarProyecto(0, "Proyecto Default", 0, "DefaultUser", null).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField cantidadtorres;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField nombreproyecto;
     // End of variables declaration//GEN-END:variables
 }
