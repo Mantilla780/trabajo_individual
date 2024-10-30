@@ -232,12 +232,25 @@ public class Proyectos extends javax.swing.JPanel {
     }//GEN-LAST:event_rButtonProyecto2ActionPerformed
 
     private void rButtonProyecto3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto3MouseClicked
-        ActualizarProyecto ap= new ActualizarProyecto();
-        ap.setVisible(true);
+        
     }//GEN-LAST:event_rButtonProyecto3MouseClicked
 
     private void rButtonProyecto3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto3ActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = jTable2.getSelectedRow();
+    if (selectedRow != -1) {
+        // Obtén los datos del proyecto seleccionado
+        int idProyecto = (int) jTable2.getValueAt(selectedRow, 0);
+        String nombreProyecto = (String) jTable2.getValueAt(selectedRow, 1);
+        int numeroTorres = (int) jTable2.getValueAt(selectedRow, 2);
+        String idUsuario = (String) jTable2.getValueAt(selectedRow, 3);
+        
+        // Abre el formulario de actualización
+        ActualizarProyecto ap = new ActualizarProyecto(idProyecto, nombreProyecto, numeroTorres, idUsuario, proyectoService);
+        ap.setVisible(true);
+    } else {
+        JOptionPane.showMessageDialog(this, "Selecciona un proyecto para editar.");
+    }
+    
     }//GEN-LAST:event_rButtonProyecto3ActionPerformed
 
 
