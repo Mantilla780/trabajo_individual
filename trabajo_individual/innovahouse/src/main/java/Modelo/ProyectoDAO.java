@@ -69,8 +69,15 @@ public class ProyectoDAO {
     }
 
     // Método para actualizar un proyecto
-    public boolean actualizarProyecto(Proyecto proyecto) {
-        String sqlUpdate = "UPDATE PROYECTOVIVIENDA SET NOMBREPROYECTO = ?, NUMEROTORRES = ?, IDUSUARIO = ? WHERE IDPROYECTO = ?";
+   public boolean actualizarProyecto(Proyecto proyecto) {
+    String sqlUpdate = "UPDATE PROYECTOVIVIENDA SET NOMBREPROYECTO = ?, NUMEROTORRES = ?, IDUSUARIO = ? WHERE IDPROYECTO = ?";
+
+    try {
+        // Verificar si la conexión está cerrada antes de usarla
+        if (conexion == null || conexion.isClosed()) {
+            System.out.println("Error: La conexión a la base de datos está cerrada.");
+            return false;
+        }
 
         try (PreparedStatement psUpdate = conexion.prepareStatement(sqlUpdate)) {
             psUpdate.setString(1, proyecto.getNombreProyecto());
@@ -80,11 +87,12 @@ public class ProyectoDAO {
 
             return psUpdate.executeUpdate() > 0;
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
         }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
     }
+}
 
     // Método para eliminar un proyecto por ID
     public boolean eliminarProyecto(int idProyecto) {

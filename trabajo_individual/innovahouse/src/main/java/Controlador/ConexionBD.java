@@ -18,8 +18,7 @@ public class ConexionBD {
         conectar();
     }
 
-    // Método para conectar a la base de datos
-    public void conectar() {
+    private void conectar() {
         try {
             con = DriverManager.getConnection(url, user, password);
             if (con != null) {
@@ -38,14 +37,15 @@ public class ConexionBD {
         return instancia;
     }
 
+    // Verifica si la conexión está activa o intenta restablecerla si está cerrada
     public Connection getConnection() {
         try {
-            // Si la conexión está cerrada, vuelve a abrirla
             if (con == null || con.isClosed()) {
+                System.out.println("La conexión estaba cerrada. Intentando reconectar...");
                 conectar();
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return con;
     }
