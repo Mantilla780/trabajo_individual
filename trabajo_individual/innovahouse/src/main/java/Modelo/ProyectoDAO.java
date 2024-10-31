@@ -67,6 +67,25 @@ public class ProyectoDAO {
         }
         return proyectos;
     }
+    
+    public List<Proyecto> obtenerProyectosBasicos() {
+    List<Proyecto> proyectos = new ArrayList<>();
+    String sql = "SELECT IDPROYECTO, NOMBREPROYECTO FROM PROYECTOVIVIENDA";
+
+    try (PreparedStatement ps = conexion.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+
+        while (rs.next()) {
+            Proyecto proyecto = new Proyecto();
+            proyecto.setIdproyecto(rs.getInt("IDPROYECTO"));
+            proyecto.setNombreProyecto(rs.getString("NOMBREPROYECTO"));
+            proyectos.add(proyecto);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return proyectos;
+}
 
     // Método para actualizar un proyecto
    public boolean actualizarProyecto(Proyecto proyecto) {

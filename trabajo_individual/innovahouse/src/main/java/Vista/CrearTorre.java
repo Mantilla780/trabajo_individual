@@ -10,10 +10,10 @@ import Modelo.TorreDAO;
 import javax.swing.JOptionPane;
 
 public class CrearTorre extends javax.swing.JFrame {
-    private String idProyecto;
+    private int idProyecto;
     private TorreService torreService;
 
-    public CrearTorre(String idProyecto) {
+    public CrearTorre(int idProyecto) {
         initComponents();
         this.idProyecto = idProyecto;
         ConexionBD conexionBD = new ConexionBD();
@@ -138,7 +138,7 @@ public class CrearTorre extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CrearTorre("default").setVisible(true);
+                new CrearTorre(0).setVisible(true);
             }
         });
     }
