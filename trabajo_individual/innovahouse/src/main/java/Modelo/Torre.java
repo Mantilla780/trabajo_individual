@@ -45,6 +45,4 @@ public class Torre {
     public void setIdproyecto(String idproyecto) {
         this.idproyecto = idproyecto;
     }
-    
-    
 }

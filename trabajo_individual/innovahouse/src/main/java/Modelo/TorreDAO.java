@@ -51,4 +51,16 @@ public class TorreDAO {
         }
         return torres;
     }
+    
+    public boolean eliminarTorresPorProyecto(String idProyecto) {
+        String sqlDelete = "DELETE FROM TORRE WHERE IDPROYECTO = ?";
+
+        try (PreparedStatement psDelete = conexion.prepareStatement(sqlDelete)) {
+            psDelete.setString(1, idProyecto);
+            return psDelete.executeUpdate() > 0; // Devuelve true si elimina una o más torres
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
