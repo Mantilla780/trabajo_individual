@@ -112,15 +112,26 @@ public class ProyectoDAO {
 }
 
 
-    // Método para eliminar un proyecto por ID
     public boolean eliminarProyecto(int idProyecto) {
-        String sqlDelete = "DELETE FROM PROYECTOVIVIENDA WHERE IDPROYECTO = ?";
-ConexionBD con = new ConexionBD();
+        // Convertimos el idProyecto a String para que coincida con el tipo en la base de datos y Torre
+        conexion = ConexionBD.getInstancia().getConnection();
+        String idProyectoStr = String.valueOf(idProyecto);
+        TorreDAO torreDAO = new TorreDAO(conexion);
 
+        try {
+            // Primero eliminamos las torres asociadas al proyecto
+            boolean torresEliminadas = torreDAO.eliminarTorresPorProyecto(idProyectoStr);
 
-        try (PreparedStatement psDelete = con.getConnection().prepareStatement(sqlDelete)) {
-            psDelete.setInt(1, idProyecto);
-            return psDelete.executeUpdate() > 0;
+            if (!torresEliminadas) {
+                System.out.println("No se eliminaron torres o no existen torres para este proyecto.");
+            }
+
+            // Luego eliminamos el proyecto
+            String sqlDelete = "DELETE FROM PROYECTOVIVIENDA WHERE IDPROYECTO = ?";
+            try (PreparedStatement psDelete = conexion.prepareStatement(sqlDelete)) {
+                psDelete.setInt(1, idProyecto);
+                return psDelete.executeUpdate() > 0;
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
