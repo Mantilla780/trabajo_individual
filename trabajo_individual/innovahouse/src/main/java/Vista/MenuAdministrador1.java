@@ -237,7 +237,7 @@ public class MenuAdministrador1 extends javax.swing.JFrame {
             this.ButtonApartamentos.setColorHover(new Color(39,33,105));
             this.ButtonApartamentos.setColorPressed(new Color(76,69,153));
             
-            Torres p2 = new Torres(idProyecto);
+            Torres p2 = new Torres();
             p2.setSize(1190,620);
             p2.setLocation(20,20);
             jPanel3.removeAll();

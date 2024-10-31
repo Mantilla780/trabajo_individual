@@ -19,11 +19,15 @@ public class ProyectoService {
         return proyectoDAO.obtenerProyectos();
     }
 
-    //public boolean actualizarProyecto(int idProyecto, String nombreProyecto, int numeroTorres) {
-      //  return proyectoDAO.actualizarProyecto(idProyecto, nombreProyecto, numeroTorres);
-    //}
+     public boolean actualizarProyecto(Proyecto proyecto) {
+        return proyectoDAO.actualizarProyecto(proyecto);
+    } 
 
     public boolean eliminarProyecto(int idProyecto) {
         return proyectoDAO.eliminarProyecto(idProyecto);
+    }
+    
+    public List<Proyecto> obtenerProyectosBasicos() {
+        return proyectoDAO.obtenerProyectosBasicos();
     }
 }

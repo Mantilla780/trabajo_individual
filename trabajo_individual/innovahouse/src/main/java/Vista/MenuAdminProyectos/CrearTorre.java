@@ -5,8 +5,13 @@
 package Vista.MenuAdminProyectos;
 
 import Controlador.ConexionBD;
+import Controlador.ProyectoService;
 import Controlador.TorreService;
+import Modelo.Proyecto;
+import Modelo.ProyectoDAO;
 import Modelo.TorreDAO;
+import java.util.HashMap;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,17 +21,33 @@ import javax.swing.JOptionPane;
 public class CrearTorre extends javax.swing.JFrame {
      private String idProyecto;
      private TorreService torreService;
+     private ProyectoService proyectoService;
+     private HashMap<String, Integer> proyectoMap = new HashMap<>();
     /**
      * Creates new form CrearTorre
      */
-    public CrearTorre(String idProyecto) {
+    public CrearTorre() {
         initComponents();
-        
-        this.idProyecto = idProyecto;
+        setLocationRelativeTo(null);
         ConexionBD conexionBD = new ConexionBD();
         TorreDAO torreDAO = new TorreDAO(conexionBD.getConnection());
+        ProyectoDAO proyectoDAO = new ProyectoDAO(conexionBD.getConnection());
+
         this.torreService = new TorreService(torreDAO);
+        this.proyectoService = new ProyectoService(proyectoDAO);
+        llenarComboBoxProyectos();
+         
     }
+    private void llenarComboBoxProyectos() {
+        List<Proyecto> proyectos = proyectoService.obtenerProyectosBasicos();
+        
+        jComboBox1.removeAllItems(); 
+        for (Proyecto proyecto : proyectos) {
+            jComboBox1.addItem(proyecto.getNombreProyecto());
+            proyectoMap.put(proyecto.getNombreProyecto(), proyecto.getIdproyecto());
+        }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -41,84 +62,116 @@ public class CrearTorre extends javax.swing.JFrame {
         cantidadapartamentos = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        rSButtonMetro1 = new Vista.RSButtonMetro();
         jLabel3 = new javax.swing.JLabel();
         nombretorre = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        rSButtonMetro1 = new Vista.RSButtonMetro();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(710, 440));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(cantidadapartamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 380, 50));
+        jPanel1.add(cantidadapartamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 240, 50));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setText("Nueva Torre");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 30, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel2.setText("Cantidad Apartamentos");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel2.setText("Proyecto");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 110, -1, -1));
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel3.setText("Numero Torre");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
+        jPanel1.add(nombretorre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 240, 50));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setBorder(null);
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 160, 100, 50));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel4.setText("Cantidad Apartamentos");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
+
+        rSButtonMetro1.setBackground(new java.awt.Color(0, 191, 99));
         rSButtonMetro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/save.png"))); // NOI18N
-        rSButtonMetro1.setText("Crear");
+        rSButtonMetro1.setText("Guardar");
         rSButtonMetro1.setColorHover(new java.awt.Color(8, 136, 74));
         rSButtonMetro1.setColorNormal(new java.awt.Color(0, 191, 99));
         rSButtonMetro1.setColorPressed(new java.awt.Color(8, 136, 74));
+        rSButtonMetro1.setContentAreaFilled(true);
         rSButtonMetro1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         rSButtonMetro1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rSButtonMetro1ActionPerformed(evt);
             }
         });
-        jPanel1.add(rSButtonMetro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 380, 200, 60));
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel3.setText("Numero Torre");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
-        jPanel1.add(nombretorre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 380, 50));
+        jPanel1.add(rSButtonMetro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 350, 200, 60));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 730, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 768, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 460, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 12, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void rSButtonMetro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro1ActionPerformed
-        try {
-                int numeroTorre = Integer.parseInt(nombretorre.getText());
-                int numeroApartamentos = Integer.parseInt(cantidadapartamentos.getText());
+           try {
+        // Obtener los datos de los campos de texto
+        int numeroTorre = Integer.parseInt(nombretorre.getText());
+        int numeroApartamentos = Integer.parseInt(cantidadapartamentos.getText());
+        
+        // Obtener el ID del proyecto seleccionado en el JComboBox
+        String nombreProyectoSeleccionado = (String) jComboBox1.getSelectedItem();
+        Integer idProyecto = proyectoMap.get(nombreProyectoSeleccionado);
 
-                boolean resultado = torreService.agregarTorre(numeroTorre, numeroApartamentos, idProyecto);
+        if (idProyecto == null) {
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona un proyecto válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-                if (resultado) {
-                    JOptionPane.showMessageDialog(this, "Torre guardada exitosamente.");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Error al guardar la torre.");
-                }
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Número de torre y número de apartamentos deben ser números enteros.", "Error", JOptionPane.ERROR_MESSAGE);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Error al guardar la torre: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }
+        // Llamar al método del servicio para guardar la torre
+        boolean resultado = torreService.agregarTorre(numeroTorre, numeroApartamentos, idProyecto);
+
+        // Mostrar mensaje de éxito o error
+        if (resultado) {
+            JOptionPane.showMessageDialog(this, "Torre guardada exitosamente.");
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al guardar la torre.");
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "El número de torre y de apartamentos debe ser un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al guardar la torre: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_rSButtonMetro1ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    String proyectoSeleccionado = (String) jComboBox1.getSelectedItem();
+            if (proyectoSeleccionado != null && proyectoMap.containsKey(proyectoSeleccionado)) {
+                idProyecto = proyectoMap.get(proyectoSeleccionado).toString();
+            }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -150,16 +203,18 @@ public class CrearTorre extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CrearTorre("default").setVisible(true);
+                new CrearTorre().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField cantidadapartamentos;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField nombretorre;
     private Vista.RSButtonMetro rSButtonMetro1;

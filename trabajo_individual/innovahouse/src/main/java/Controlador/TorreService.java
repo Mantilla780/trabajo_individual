@@ -11,7 +11,7 @@ public class TorreService {
         this.torreDAO = torreDAO;
     }
 
-    public boolean agregarTorre(int numeroTorre, int numeroApartamento, String idProyecto) {
+    public boolean agregarTorre(int numeroTorre, int numeroApartamento, int idProyecto) {
         return torreDAO.insertarTorre(numeroTorre, numeroApartamento, idProyecto);
     }
 
