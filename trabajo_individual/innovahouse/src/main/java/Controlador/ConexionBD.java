@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 public class ConexionBD {
     private static ConexionBD instancia;
     private Connection con = null;
@@ -16,6 +15,10 @@ public class ConexionBD {
     private String password = "proyecto";
 
     public ConexionBD() {
+        conectar();
+    }
+
+    private void conectar() {
         try {
             con = DriverManager.getConnection(url, user, password);
             if (con != null) {
@@ -34,7 +37,16 @@ public class ConexionBD {
         return instancia;
     }
 
+    // Verifica si la conexión está activa o intenta restablecerla si está cerrada
     public Connection getConnection() {
+        try {
+            if (con == null || con.isClosed()) {
+                System.out.println("La conexión estaba cerrada. Intentando reconectar...");
+                conectar();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return con;
     }
 
@@ -49,4 +61,3 @@ public class ConexionBD {
         }
     }
 }
-

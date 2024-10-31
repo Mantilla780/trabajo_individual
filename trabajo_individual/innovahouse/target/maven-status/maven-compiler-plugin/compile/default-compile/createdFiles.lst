@@ -7,6 +7,7 @@ Vista\MenuAdminProyectos\Proyectos$1.class
 Vista\MenuAdminProyectos\ActualizarProyecto$2.class
 Vista\MenuAdminProyectos\Apartamentos$5.class
 Vista\Login$6.class
+Vista\MenuAdminProyectos\CrearTorre$3.class
 Vista\MenuAdministrador$1.class
 Vista\MenuAdministrador1$6.class
 Vista\MenuAdminProyectos\ActualizarTorre$2.class
@@ -45,6 +46,7 @@ Vista\MenuAdminProyectos\Proyectos$5.class
 Vista\MenuAdminProyectos\Torres$5.class
 Vista\MenuAdministrador1$5.class
 Vista\MenuAdministrador$2.class
+Vista\MenuAdminProyectos\Proyectos$8.class
 Vista\MenuAdminProyectos\CrearTorre$2.class
 Vista\MenuAdminProyectos\CrearProyecto$1.class
 Controlador\TorreService.class

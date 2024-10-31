@@ -14,14 +14,14 @@ public class TorreDAO {
         this.conexion = conexion;
     }
 
-    public boolean insertarTorre(int numeroTorre, int numeroApartamento, String idProyecto) {
+    public boolean insertarTorre(int numeroTorre, int numeroApartamento, int idProyecto) {
         String sqlInsert = "INSERT INTO TORRE(NUMEROTORRE, NUMEROAPARTAMENTO, IDPROYECTO) VALUES (?, ?, ?)";
         
         try (PreparedStatement psInsert = conexion.prepareStatement(sqlInsert)) {
             // Insertar la torre con los datos especificados
             psInsert.setInt(1, numeroTorre);
             psInsert.setInt(2, numeroApartamento);
-            psInsert.setString(3, idProyecto);
+            psInsert.setInt(3, idProyecto);
 
             return psInsert.executeUpdate() > 0;
 

@@ -11,7 +11,7 @@ import Modelo.Proyecto;
 import Controlador.ConexionBD;
 
 public class ProyectoDAO {
-    private final Connection conexion;
+    private Connection conexion;
 
     public ProyectoDAO(Connection conexion) {
         this.conexion = conexion;
@@ -67,10 +67,35 @@ public class ProyectoDAO {
         }
         return proyectos;
     }
+    
+    public List<Proyecto> obtenerProyectosBasicos() {
+    List<Proyecto> proyectos = new ArrayList<>();
+    String sql = "SELECT IDPROYECTO, NOMBREPROYECTO FROM PROYECTOVIVIENDA";
+
+    try (PreparedStatement ps = conexion.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+
+        while (rs.next()) {
+            Proyecto proyecto = new Proyecto();
+            proyecto.setIdproyecto(rs.getInt("IDPROYECTO"));
+            proyecto.setNombreProyecto(rs.getString("NOMBREPROYECTO"));
+            proyectos.add(proyecto);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return proyectos;
+}
 
     // Método para actualizar un proyecto
-    public boolean actualizarProyecto(Proyecto proyecto) {
-        String sqlUpdate = "UPDATE PROYECTOVIVIENDA SET NOMBREPROYECTO = ?, NUMEROTORRES = ?, IDUSUARIO = ? WHERE IDPROYECTO = ?";
+   public boolean actualizarProyecto(Proyecto proyecto) {
+    String sqlUpdate = "UPDATE PROYECTOVIVIENDA SET NOMBREPROYECTO = ?, NUMEROTORRES = ?, IDUSUARIO = ? WHERE IDPROYECTO = ?";
+
+    try {
+        // Verificar si la conexión está cerrada y crear una nueva si es necesario
+        if (conexion == null || conexion.isClosed()) {
+            conexion = ConexionBD.getInstancia().getConnection(); // Asegúrate de que este método existe y devuelve una nueva conexión
+        }
 
         try (PreparedStatement psUpdate = conexion.prepareStatement(sqlUpdate)) {
             psUpdate.setString(1, proyecto.getNombreProyecto());
@@ -79,12 +104,13 @@ public class ProyectoDAO {
             psUpdate.setInt(4, proyecto.getIdproyecto());
 
             return psUpdate.executeUpdate() > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
         }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
     }
+}
+
 
     // Método para eliminar un proyecto por ID
     public boolean eliminarProyecto(int idProyecto) {

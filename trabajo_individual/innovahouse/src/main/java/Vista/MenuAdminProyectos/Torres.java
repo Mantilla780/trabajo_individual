@@ -9,13 +9,11 @@ package Vista.MenuAdminProyectos;
  * @author omaci
  */
 public class Torres extends javax.swing.JPanel {
-private String idProyecto;
     /**
      * Creates new form Proyectos
      */
-    public Torres(String idProyecto) {
+    public Torres() {
         initComponents();
-        this.idProyecto= idProyecto;
         
     }
 
@@ -34,9 +32,9 @@ private String idProyecto;
         jTable2 = new javax.swing.JTable();
         rButtonProyecto2 = new Vista.RSButtonMetro();
         rButtonProyecto3 = new Vista.RSButtonMetro();
-        jLabel1 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1190, 720));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(202, 232, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(1190, 720));
@@ -114,23 +112,7 @@ private String idProyecto;
         });
         jPanel1.add(rButtonProyecto3, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 20, 140, 60));
 
-        jLabel1.setText("jLabel1");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 50, -1, -1));
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 712, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 712));
     }// </editor-fold>//GEN-END:initComponents
 
     private void rButtonProyecto1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto1MouseClicked
@@ -146,7 +128,7 @@ private String idProyecto;
     }//GEN-LAST:event_rButtonProyecto2MouseClicked
 
     private void rButtonProyecto2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto2ActionPerformed
-        CrearTorre cp = new CrearTorre(idProyecto);
+        CrearTorre cp = new CrearTorre();
         cp.setVisible(true);
     }//GEN-LAST:event_rButtonProyecto2ActionPerformed
 
@@ -160,7 +142,6 @@ private String idProyecto;
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;

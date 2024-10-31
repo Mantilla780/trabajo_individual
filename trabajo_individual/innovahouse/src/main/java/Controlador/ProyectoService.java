@@ -26,4 +26,8 @@ public class ProyectoService {
     public boolean eliminarProyecto(int idProyecto) {
         return proyectoDAO.eliminarProyecto(idProyecto);
     }
+    
+    public List<Proyecto> obtenerProyectosBasicos() {
+        return proyectoDAO.obtenerProyectosBasicos();
+    }
 }
