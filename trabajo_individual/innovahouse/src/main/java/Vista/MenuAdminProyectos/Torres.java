@@ -4,18 +4,68 @@
  */
 package Vista.MenuAdminProyectos;
 
+import Controlador.ConexionBD;
+import Controlador.TorreService;
+import Modelo.Torre;
+import Modelo.TorreDAO;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+import javax.swing.Timer;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author omaci
  */
 public class Torres extends javax.swing.JPanel {
+    private TorreService torreService;
+    private Timer timer;
+
     /**
      * Creates new form Proyectos
      */
     public Torres() {
         initComponents();
+        this.torreService = torreService;
+        cargarTorresEnTabla();
         
+        // Configuración del temporizador para actualizar la tabla cada 5 segundos
+        timer = new Timer(4000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cargarTorresEnTabla();
+            }
+        });
+    
+        // Iniciar el temporizador
+        timer.start();
     }
+    
+    private void cargarTorresEnTabla() {
+    try (Connection conexion = ConexionBD.getInstancia().getConnection()) {
+        TorreDAO torreDAO = new TorreDAO(conexion);
+        List<Torre> torres = torreDAO.obtenerTodasLasTorres(); // Método para obtener todas las torres
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+
+        // Configurar las columnas de la tabla
+        model.setColumnIdentifiers(new String[]{"Número Torre", "Número Apartamento", "ID Proyecto"});
+        model.setRowCount(0);
+
+        // Iterar sobre la lista de torres y añadir cada una a la tabla
+        for (Torre torre : torres) {
+            model.addRow(new Object[]{
+                torre.getNumerotorre(),
+                torre.getNumeroapartamento(),
+                torre.getIdproyecto()
+            });
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.

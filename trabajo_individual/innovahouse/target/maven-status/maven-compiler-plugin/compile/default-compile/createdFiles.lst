@@ -13,6 +13,7 @@ Vista\MenuAdministrador1$6.class
 Vista\MenuAdminProyectos\ActualizarTorre$2.class
 Modelo\ProyectoDAO.class
 Vista\MenuAdminProyectos\Torres$1.class
+Vista\MenuAdminProyectos\Torres$7.class
 Modelo\Torre.class
 Vista\MenuAdministrador$ButtonRenderer.class
 Vista\MenuAdminProyectos\Torres$4.class

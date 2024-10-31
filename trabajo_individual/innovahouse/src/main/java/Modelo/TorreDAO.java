@@ -30,6 +30,26 @@ public class TorreDAO {
             return false;
         }
     }
+    
+    public List<Torre> obtenerTodasLasTorres() {
+    List<Torre> torres = new ArrayList<>();
+    String sql = "SELECT NUMEROTORRE, NUMEROAPARTAMENTO, IDPROYECTO FROM TORRE";
+
+    try (PreparedStatement ps = conexion.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+
+        while (rs.next()) {
+            Torre torre = new Torre();
+            torre.setNumerotorre(rs.getInt("NUMEROTORRE"));
+            torre.setNumeroapartamento(rs.getInt("NUMEROAPARTAMENTO"));
+            torre.setIdproyecto(rs.getString("IDPROYECTO"));
+            torres.add(torre);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return torres;
+}
 
     public List<Torre> obtenerTorresPorProyecto(String idProyecto) {
         List<Torre> torres = new ArrayList<>();
