@@ -15,13 +15,12 @@ public class TorreDAO {
     }
 
     public boolean insertarTorre(int numeroTorre, int numeroApartamento, int idProyecto) {
-        String sqlInsert = "INSERT INTO TORRE(NUMEROTORRE, NUMEROAPARTAMENTO, IDPROYECTO) VALUES (?, ?, ?)";
+        String sqlInsert = "INSERT INTO TORRE(NUMEROTORRE, IDPROYECTO) VALUES (?, ?)";
         
         try (PreparedStatement psInsert = conexion.prepareStatement(sqlInsert)) {
             // Insertar la torre con los datos especificados
             psInsert.setInt(1, numeroTorre);
-            psInsert.setInt(2, numeroApartamento);
-            psInsert.setInt(3, idProyecto);
+            psInsert.setInt(2, idProyecto);
 
             return psInsert.executeUpdate() > 0;
 
@@ -33,7 +32,7 @@ public class TorreDAO {
     
     public List<Torre> obtenerTodasLasTorres() {
     List<Torre> torres = new ArrayList<>();
-    String sql = "SELECT NUMEROTORRE, NUMEROAPARTAMENTO, IDPROYECTO FROM TORRE";
+    String sql = "SELECT NUMEROTORRE, IDPROYECTO FROM TORRE";
 
     try (PreparedStatement ps = conexion.prepareStatement(sql);
          ResultSet rs = ps.executeQuery()) {
@@ -41,7 +40,6 @@ public class TorreDAO {
         while (rs.next()) {
             Torre torre = new Torre();
             torre.setNumerotorre(rs.getInt("NUMEROTORRE"));
-            torre.setNumeroapartamento(rs.getInt("NUMEROAPARTAMENTO"));
             torre.setIdproyecto(rs.getString("IDPROYECTO"));
             torres.add(torre);
         }
@@ -53,7 +51,7 @@ public class TorreDAO {
 
     public List<Torre> obtenerTorresPorProyecto(String idProyecto) {
         List<Torre> torres = new ArrayList<>();
-        String sql = "SELECT NUMEROTORRE, NUMEROAPARTAMENTO, IDPROYECTO FROM TORRE";
+        String sql = "SELECT NUMEROTORRE, IDPROYECTO FROM TORRE";
 
         try (PreparedStatement ps = conexion.prepareStatement(sql)) {
             ps.setString(1, idProyecto);
@@ -62,7 +60,6 @@ public class TorreDAO {
             while (rs.next()) {
                 Torre torre = new Torre();
                 torre.setNumerotorre(rs.getInt("NUMEROTORRE"));
-                torre.setNumeroapartamento(rs.getInt("NUMEROAPARTAMENTO"));
                 torre.setIdproyecto(rs.getString("IDPROYECTO"));
                 torres.add(torre);
             }

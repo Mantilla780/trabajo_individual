@@ -10,15 +10,13 @@ package Modelo;
  */
 public class Torre {
     private int numerotorre;
-    private int numeroapartamento;
     private String idproyecto;
 
     public Torre() {
     }
-
-    public Torre(int numerotorre, int numeroapartamento, String idproyecto) {
+    
+    public Torre(int numerotorre, String idproyecto) {
         this.numerotorre = numerotorre;
-        this.numeroapartamento = numeroapartamento;
         this.idproyecto = idproyecto;
     }
 
@@ -30,19 +28,13 @@ public class Torre {
         this.numerotorre = numerotorre;
     }
 
-    public int getNumeroapartamento() {
-        return numeroapartamento;
-    }
-
-    public void setNumeroapartamento(int numeroapartamento) {
-        this.numeroapartamento = numeroapartamento;
-    }
-
     public String getIdproyecto() {
         return idproyecto;
     }
 
     public void setIdproyecto(String idproyecto) {
         this.idproyecto = idproyecto;
-    }
+    }   
+
+    
 }
