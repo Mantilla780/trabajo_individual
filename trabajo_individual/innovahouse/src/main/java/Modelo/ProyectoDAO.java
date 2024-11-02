@@ -20,7 +20,7 @@ public class ProyectoDAO {
     // Método para insertar un nuevo proyecto
     public boolean insertarProyecto(String nombreProyecto, int numeroTorres, String idUsuario) {
         String sqlSequence = "SELECT proyectovivienda_seq.NEXTVAL FROM dual";
-        String sqlInsert = "INSERT INTO PROYECTOVIVIENDA (IDPROYECTO, NOMBREPROYECTO, NUMEROTORRES, IDUSUARIO) VALUES (?, ?, ?, ?)";
+        String sqlInsert = "INSERT INTO PROYECTOVIVIENDA (IDPROYECTO, NOMBREPROYECTO, IDUSUARIO) VALUES (?, ?, ?)";
         
         try (PreparedStatement psSeq = conexion.prepareStatement(sqlSequence);
              PreparedStatement psInsert = conexion.prepareStatement(sqlInsert)) {
@@ -35,8 +35,7 @@ public class ProyectoDAO {
             // Insertar el proyecto con el ID generado
             psInsert.setInt(1, idProyecto);
             psInsert.setString(2, nombreProyecto);
-            psInsert.setInt(3, numeroTorres);
-            psInsert.setString(4, idUsuario);
+            psInsert.setString(3, idUsuario);
 
             return psInsert.executeUpdate() > 0;
 
@@ -49,7 +48,7 @@ public class ProyectoDAO {
     // Método para obtener la lista de proyectos
     public List<Proyecto> obtenerProyectos() {
         List<Proyecto> proyectos = new ArrayList<>();
-        String sql = "SELECT IDPROYECTO, NOMBREPROYECTO, NUMEROTORRES, IDUSUARIO FROM PROYECTOVIVIENDA";
+        String sql = "SELECT IDPROYECTO, NOMBREPROYECTO, IDUSUARIO FROM PROYECTOVIVIENDA";
 
         try (PreparedStatement ps = conexion.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
@@ -58,7 +57,6 @@ public class ProyectoDAO {
                 Proyecto proyecto = new Proyecto();
                 proyecto.setIdproyecto(rs.getInt("IDPROYECTO"));
                 proyecto.setNombreProyecto(rs.getString("NOMBREPROYECTO"));
-                proyecto.setNumeroTorres(rs.getInt("NUMEROTORRES"));
                 proyecto.setIdUsuario(rs.getString("IDUSUARIO"));
                 proyectos.add(proyecto);
             }
@@ -89,7 +87,7 @@ public class ProyectoDAO {
 
     // Método para actualizar un proyecto
    public boolean actualizarProyecto(Proyecto proyecto) {
-    String sqlUpdate = "UPDATE PROYECTOVIVIENDA SET NOMBREPROYECTO = ?, NUMEROTORRES = ?, IDUSUARIO = ? WHERE IDPROYECTO = ?";
+    String sqlUpdate = "UPDATE PROYECTOVIVIENDA SET NOMBREPROYECTO = ?, IDUSUARIO = ? WHERE IDPROYECTO = ?";
 
     try {
         // Verificar si la conexión está cerrada y crear una nueva si es necesario
@@ -99,9 +97,8 @@ public class ProyectoDAO {
 
         try (PreparedStatement psUpdate = conexion.prepareStatement(sqlUpdate)) {
             psUpdate.setString(1, proyecto.getNombreProyecto());
-            psUpdate.setInt(2, proyecto.getNumeroTorres());
-            psUpdate.setString(3, proyecto.getIdUsuario());
-            psUpdate.setInt(4, proyecto.getIdproyecto());
+            psUpdate.setString(2, proyecto.getIdUsuario());
+            psUpdate.setInt(3, proyecto.getIdproyecto());
 
             return psUpdate.executeUpdate() > 0;
         }

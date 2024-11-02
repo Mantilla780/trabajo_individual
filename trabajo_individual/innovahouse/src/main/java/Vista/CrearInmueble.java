@@ -133,7 +133,7 @@ public class CrearInmueble extends javax.swing.JFrame {
     Date fechaEscritura = obtenerFechaActual(); // Fecha actual como predeterminado
 
     // Llamar al servicio para agregar el apartamento
-    boolean resultado = apartamentoService.agregarApartamento(matricula, numeroApartamento, valorApartamento, fechaEscritura, area, numeroTorre, tipoUnidad);
+    boolean resultado = apartamentoService.agregarInmueble(matricula, numeroApartamento, valorApartamento, fechaEscritura, area, numeroTorre, tipoUnidad);
 
     if (resultado) {
         JOptionPane.showMessageDialog(this, "Apartamento guardado exitosamente.");
