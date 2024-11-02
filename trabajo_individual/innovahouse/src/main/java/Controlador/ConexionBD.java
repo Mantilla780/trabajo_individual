@@ -11,8 +11,8 @@ public class ConexionBD {
     private static ConexionBD instancia;
     private Connection con = null;
     private String url = "jdbc:oracle:thin:@localhost:1521:XE";
-    private String user = "proyecto";
-    private String password = "proyecto";
+    private String user = "adminproyecto";
+    private String password = "adminproyecto";
 
     public ConexionBD() {
         conectar();

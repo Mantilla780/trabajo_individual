@@ -4,9 +4,9 @@
  */
 package Vista;
 
-import Controlador.ApartamentoService;
+import Controlador.InmuebleService;
 import Controlador.ConexionBD;
-import Modelo.ApartamentoDAO;
+import Modelo.InmuebleDAO;
 import java.sql.Date;
 import javax.swing.JOptionPane;
 
@@ -14,20 +14,20 @@ import javax.swing.JOptionPane;
  *
  * @author USER
  */
-public class CrearApartamento extends javax.swing.JFrame {
+public class CrearInmueble extends javax.swing.JFrame {
     private String numeroTorre;
-    private ApartamentoService apartamentoService;
+    private InmuebleService apartamentoService;
 
     /**
      * Creates new form CrearApartamento
      * @param numeroTorre
      */
-    public CrearApartamento(String numeroTorre) {
+    public CrearInmueble(String numeroTorre) {
         initComponents();
         this.numeroTorre = numeroTorre;
         ConexionBD conexionBD = new ConexionBD();
-        ApartamentoDAO apartamentoDAO = new ApartamentoDAO(conexionBD.getConnection());
-        this.apartamentoService = new ApartamentoService(apartamentoDAO);
+        InmuebleDAO apartamentoDAO = new InmuebleDAO(conexionBD.getConnection());
+        this.apartamentoService = new InmuebleService(apartamentoDAO);
     }
 
     /**
@@ -101,8 +101,8 @@ public class CrearApartamento extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -174,20 +174,21 @@ private Date obtenerFechaActual() {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CrearApartamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CrearInmueble.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CrearApartamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CrearInmueble.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CrearApartamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CrearInmueble.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CrearApartamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CrearInmueble.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CrearApartamento("default").setVisible(true);
+                new CrearInmueble("default").setVisible(true);
             }
         });
     }
