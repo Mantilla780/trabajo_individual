@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
@@ -168,7 +169,25 @@ public class Torres extends javax.swing.JPanel {
     }//GEN-LAST:event_rButtonProyecto1MouseClicked
 
     private void rButtonProyecto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto1ActionPerformed
+         // Eliminar la torre seleccionada
+        int selectedRow = jTable2.getSelectedRow();
+        if (selectedRow >= 0) {
+            int torreNumero = (Integer) jTable2.getValueAt(selectedRow, 0); // Asumiendo que 'Número Torre' es el primer campo
 
+            int confirm = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar la Torre " + torreNumero + "?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                try (Connection conexion = ConexionBD.getInstancia().getConnection()) {
+                    TorreDAO torreDAO = new TorreDAO(conexion);
+                    torreDAO.eliminarTorre(torreNumero); // Implementar el método eliminarTorre en TorreDAO
+                    cargarTorresEnTabla(); // Recargar la tabla después de eliminar
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(this, "Error al eliminar la torre.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecciona una torre para eliminar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_rButtonProyecto1ActionPerformed
 
     private void rButtonProyecto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto2MouseClicked
@@ -185,7 +204,17 @@ public class Torres extends javax.swing.JPanel {
     }//GEN-LAST:event_rButtonProyecto3MouseClicked
 
     private void rButtonProyecto3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto3ActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = jTable2.getSelectedRow();
+        if (selectedRow >= 0) {
+            int torreNumero = (Integer) jTable2.getValueAt(selectedRow, 0); // Asumiendo que 'Número Torre' es el primer campo
+            int idProyecto = (Integer) jTable2.getValueAt(selectedRow, 1); // Obtener el ID del proyecto
+
+            // Abre la ventana de edición (aquí debes implementar la lógica para editar)
+            ActualizarTorre editarTorre = new ActualizarTorre(torreNumero, idProyecto); // Pasar los datos necesarios
+            editarTorre.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecciona una torre para editar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_rButtonProyecto3ActionPerformed
 
 
