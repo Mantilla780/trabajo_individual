@@ -66,14 +66,15 @@ public class Proyectos extends javax.swing.JPanel {
             model.addRow(new Object[]{
                 proyecto.getIdproyecto(),
                 proyecto.getNombreProyecto(),
-                proyecto.getNumeroTorres(),
-                proyecto.getIdUsuario()
+                proyecto.getNumeroTorres(), // Asegúrate de que este campo es el correcto
+                proyecto.getIdUsuario() // Asegúrate de que también tienes este campo en el modelo
             });
         }
     } catch (SQLException e) {
         e.printStackTrace();
     }
 }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -245,7 +246,7 @@ public class Proyectos extends javax.swing.JPanel {
         String idUsuario = (String) jTable2.getValueAt(selectedRow, 3);
         
         // Abre el formulario de actualización
-        ActualizarProyecto ap = new ActualizarProyecto(idProyecto, nombreProyecto, numeroTorres, idUsuario, proyectoService);
+        ActualizarProyecto ap = new ActualizarProyecto(idProyecto, nombreProyecto, idUsuario, proyectoService);
         ap.setVisible(true);
     } else {
         JOptionPane.showMessageDialog(this, "Selecciona un proyecto para editar.");

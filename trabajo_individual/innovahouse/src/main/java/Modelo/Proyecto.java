@@ -1,28 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Modelo;
 
-/**
- *
- * @author omaci
- */
 public class Proyecto {
-     private int idproyecto;
+    private int idproyecto;
     private String nombreProyecto;
     private int numeroTorres;
     private String idUsuario;
-    
-    public  Proyecto(){
-        
+
+    public Proyecto() {
     }
 
-    public Proyecto(int idproyecto, String nombreProyecto, int numeroTorres, String idUsuario) {
+    public Proyecto(int idproyecto, String nombreProyecto, String idUsuario) {
         this.idproyecto = idproyecto;
         this.nombreProyecto = nombreProyecto;
-        this.numeroTorres = numeroTorres;
         this.idUsuario = idUsuario;
+        this.numeroTorres = 0; // Inicializar correctamente
     }
 
     public int getIdproyecto() {
@@ -41,14 +32,6 @@ public class Proyecto {
         this.nombreProyecto = nombreProyecto;
     }
 
-    public int getNumeroTorres() {
-        return numeroTorres;
-    }
-
-    public void setNumeroTorres(int numeroTorres) {
-        this.numeroTorres = numeroTorres;
-    }
-
     public String getIdUsuario() {
         return idUsuario;
     }
@@ -56,6 +39,12 @@ public class Proyecto {
     public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
     }   
-   
     
+    public int getNumeroTorres() {
+        return numeroTorres;
+    }
+
+    public void setNumeroTorres(int numeroTorres) {
+        this.numeroTorres = numeroTorres;
+    }
 }

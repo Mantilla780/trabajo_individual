@@ -11,8 +11,8 @@ public class ProyectoService {
         this.proyectoDAO = proyectoDAO;
     }
 
-    public boolean agregarProyecto(String nombreProyecto, int numeroTorres, String idUsuario) {
-        return proyectoDAO.insertarProyecto(nombreProyecto, numeroTorres, idUsuario);
+    public boolean agregarProyecto(String nombreProyecto, String idUsuario) {
+        return proyectoDAO.insertarProyecto(nombreProyecto, idUsuario);
     }
 
     public List<Proyecto> obtenerTodosLosProyectos() {

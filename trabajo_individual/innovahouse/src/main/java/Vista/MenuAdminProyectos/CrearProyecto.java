@@ -45,9 +45,7 @@ public class CrearProyecto extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         rSButtonMetro1 = new Vista.RSButtonMetro();
-        cantidadtorres = new javax.swing.JTextField();
         nombreproyecto = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -66,10 +64,6 @@ public class CrearProyecto extends javax.swing.JFrame {
         jLabel3.setText("Nombre Proyecto");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel2.setText("Cantidad Torres");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
-
         rSButtonMetro1.setBackground(new java.awt.Color(0, 191, 99));
         rSButtonMetro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/save.png"))); // NOI18N
         rSButtonMetro1.setText("Guardar");
@@ -84,7 +78,6 @@ public class CrearProyecto extends javax.swing.JFrame {
             }
         });
         jPanel1.add(rSButtonMetro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 350, 200, 60));
-        jPanel1.add(cantidadtorres, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 380, 50));
         jPanel1.add(nombreproyecto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 380, 50));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -93,20 +86,24 @@ public class CrearProyecto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rSButtonMetro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro1ActionPerformed
+        String nombreProyecto = nombreproyecto.getText().trim(); // Quita espacios al inicio y al final
+
+        // Validar que el nombre del proyecto no esté vacío
+        if (nombreProyecto.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El nombre del proyecto no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Salir del método si no hay un nombre válido
+        }
+
         try {
-            String nombreProyecto = nombreproyecto.getText();
-            // Intentamos obtener el número de torres antes de imprimir su tipo
-            int numeroTorres = Integer.parseInt(cantidadtorres.getText()); //
-            boolean resultado = proyectoService.agregarProyecto(nombreProyecto, numeroTorres, idUsuario);
+            boolean resultado = proyectoService.agregarProyecto(nombreProyecto, idUsuario);
 
             if (resultado) {
                 JOptionPane.showMessageDialog(this, "Proyecto guardado exitosamente.");
+                // Opcional: cerrar la ventana después de guardar
+                this.dispose(); // Cerrar la ventana actual
             } else {
                 JOptionPane.showMessageDialog(this, "Error al guardar el proyecto.");
             }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Número de torres debe ser un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
-            System.out.println("Vista.MenuAdminProyectos.CrearProyecto.rSButtonMetro1ActionPerformed()");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al guardar el proyecto: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -149,9 +146,7 @@ public class CrearProyecto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField cantidadtorres;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField nombreproyecto;
