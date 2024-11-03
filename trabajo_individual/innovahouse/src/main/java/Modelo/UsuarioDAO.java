@@ -16,7 +16,7 @@ public class UsuarioDAO {
     }
 
    public String autenticarUsuario(String nombreUsuario, String contraseña) {
-    String sql = "SELECT idusuario FROM Usuario WHERE nombreUsuario = ? AND contrasena = ?";
+    String sql = "SELECT idUsuario FROM proyecto.Usuario WHERE nombreUsuario = ? AND contrasena = ?";
     try (Connection con = conexionBD.getConnection();
          PreparedStatement stmt = con.prepareStatement(sql)) {
          
@@ -25,7 +25,7 @@ public class UsuarioDAO {
 
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
-            return rs.getString("idusuario"); // Retornar el ID del usuario
+            return rs.getString("idUsuario"); // Asegúrate que aquí esté el nombre correcto de la columna
         }
     } catch (SQLException e) {
         System.out.println("Error al autenticar el usuario: " + e.getMessage());

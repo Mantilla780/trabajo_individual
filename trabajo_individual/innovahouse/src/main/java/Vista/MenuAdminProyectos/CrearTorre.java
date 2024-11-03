@@ -59,22 +59,18 @@ public class CrearTorre extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        cantidadapartamentos = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         nombretorre = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
         rSButtonMetro1 = new Vista.RSButtonMetro();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(710, 440));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(cantidadapartamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 240, 50));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setText("Nueva Torre");
@@ -97,10 +93,6 @@ public class CrearTorre extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 160, 100, 50));
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel4.setText("Cantidad Apartamentos");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
 
         rSButtonMetro1.setBackground(new java.awt.Color(0, 191, 99));
         rSButtonMetro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/save.png"))); // NOI18N
@@ -139,8 +131,7 @@ public class CrearTorre extends javax.swing.JFrame {
            try {
         // Obtener los datos de los campos de texto
         int numeroTorre = Integer.parseInt(nombretorre.getText());
-        int numeroApartamentos = Integer.parseInt(cantidadapartamentos.getText());
-        
+                
         // Obtener el ID del proyecto seleccionado en el JComboBox
         String nombreProyectoSeleccionado = (String) jComboBox1.getSelectedItem();
         Integer idProyecto = proyectoMap.get(nombreProyectoSeleccionado);
@@ -151,7 +142,7 @@ public class CrearTorre extends javax.swing.JFrame {
         }
 
         // Llamar al método del servicio para guardar la torre
-        boolean resultado = torreService.agregarTorre(numeroTorre, numeroApartamentos, idProyecto);
+        boolean resultado = torreService.insertarTorre(numeroTorre, idProyecto);
 
         // Mostrar mensaje de éxito o error
         if (resultado) {
@@ -209,12 +200,10 @@ public class CrearTorre extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField cantidadapartamentos;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField nombretorre;
     private Vista.RSButtonMetro rSButtonMetro1;

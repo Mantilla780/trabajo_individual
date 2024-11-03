@@ -11,11 +11,14 @@ public class TorreService {
         this.torreDAO = torreDAO;
     }
 
-    public boolean agregarTorre(int numeroTorre, int numeroApartamento, int idProyecto) {
-        return torreDAO.insertarTorre(numeroTorre, numeroApartamento, idProyecto);
+    // Método para agregar una torre
+    public boolean insertarTorre(int numeroTorre, int idProyecto) {
+        return torreDAO.insertarTorre(numeroTorre, idProyecto);
     }
 
-    public List<Torre> listarTorresPorProyecto(String idProyecto) {
-        return torreDAO.obtenerTorresPorProyecto(idProyecto);
+
+    // Método para listar todas las torres con la cantidad de inmuebles
+    public List<Torre> listarTorresConCantidadInmuebles() {
+        return torreDAO.obtenerTorresConCantidadInmuebles();
     }
 }

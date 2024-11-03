@@ -1,23 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Modelo;
 
-/**
- *
- * @author USER
- */
 public class Torre {
     private int numerotorre;
     private String idproyecto;
+    private int cantidadInmuebles; // Nuevo campo para la cantidad de inmuebles
 
-    public Torre() {
-    }
-    
-    public Torre(int numerotorre, String idproyecto) {
+    public Torre() {}
+
+    public Torre(int numerotorre, String idproyecto, int cantidadInmuebles) {
         this.numerotorre = numerotorre;
         this.idproyecto = idproyecto;
+        this.cantidadInmuebles = cantidadInmuebles;
     }
 
     public int getNumerotorre() {
@@ -34,7 +27,13 @@ public class Torre {
 
     public void setIdproyecto(String idproyecto) {
         this.idproyecto = idproyecto;
-    }   
+    }
 
-    
+    public int getCantidadInmuebles() {
+        return cantidadInmuebles;
+    }
+
+    public void setCantidadInmuebles(int cantidadInmuebles) {
+        this.cantidadInmuebles = cantidadInmuebles;
+    }
 }
