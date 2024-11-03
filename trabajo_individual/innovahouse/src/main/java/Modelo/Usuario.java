@@ -1,42 +1,34 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Modelo;
 
-/**
- *
- * @author omaci
- */
 public class Usuario {
-    private String idusuario;
+    private String idUsuario;
     private String nombreUsuario;
     private String contrasena;
-    private int telefonousuario;
-    private String correousuario;
-    private String tipousuario;
-    
-    
-    public Usuario(){
-        
+    private String telefonoUsuario; // Usar String para números de teléfono
+    private String correoUsuario;
+    private String tipoUsuario;
+
+    // Constructor vacío
+    public Usuario() {
     }
 
-    public Usuario(String idusuario, String nombreUsuario, String contrasena, int telefonousuario, String correousuario, String tipousuario) {
-        this.idusuario = idusuario;
+    // Constructor con todos los campos
+    public Usuario(String idUsuario, String nombreUsuario, String contrasena, String telefonoUsuario, String correoUsuario, String tipoUsuario) {
+        this.idUsuario = idUsuario;
         this.nombreUsuario = nombreUsuario;
         this.contrasena = contrasena;
-        this.telefonousuario = telefonousuario;
-        this.correousuario = correousuario;
-        this.tipousuario = tipousuario;
-    }
-    
-
-    public String getIdusuario() {
-        return idusuario;
+        this.telefonoUsuario = telefonoUsuario;
+        this.correoUsuario = correoUsuario;
+        this.tipoUsuario = tipoUsuario;
     }
 
-    public void setIdusuario(String idusuario) {
-        this.idusuario = idusuario;
+    // Getters y Setters
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getNombreUsuario() {
@@ -55,32 +47,27 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-    public int getTelefonousuario() {
-        return telefonousuario;
+    public String getTelefonoUsuario() {
+        return telefonoUsuario;
     }
 
-    public void setTelefonousuario(int telefonousuario) {
-        this.telefonousuario = telefonousuario;
+    public void setTelefonoUsuario(String telefonoUsuario) {
+        this.telefonoUsuario = telefonoUsuario;
     }
 
-    public String getCorreousuario() {
-        return correousuario;
+    public String getCorreoUsuario() {
+        return correoUsuario;
     }
 
-    public void setCorreousuario(String correousuario) {
-        this.correousuario = correousuario;
+    public void setCorreoUsuario(String correoUsuario) {
+        this.correoUsuario = correoUsuario;
     }
 
-    public String getTipousuario() {
-        return tipousuario;
+    public String getTipoUsuario() {
+        return tipoUsuario;
     }
 
-    public void setTipousuario(String tipousuario) {
-        this.tipousuario = tipousuario;
+    public void setTipoUsuario(String tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
-    
-    
-    
 }
-
-

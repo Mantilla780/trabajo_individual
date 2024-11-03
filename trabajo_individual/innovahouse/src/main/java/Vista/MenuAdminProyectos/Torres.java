@@ -47,19 +47,17 @@ public class Torres extends javax.swing.JPanel {
     private void cargarTorresEnTabla() {
     try (Connection conexion = ConexionBD.getInstancia().getConnection()) {
         TorreDAO torreDAO = new TorreDAO(conexion);
-        List<Torre> torres = torreDAO.obtenerTodasLasTorres(); // Método para obtener todas las torres
+        List<Torre> torres = torreDAO.obtenerTorresConCantidadInmuebles();
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
 
-        // Configurar las columnas de la tabla
-        model.setColumnIdentifiers(new String[]{"Número Torre", "Número Apartamento", "ID Proyecto"});
+        model.setColumnIdentifiers(new String[]{"Número Torre", "ID Proyecto", "Cantidad Inmuebles"});
         model.setRowCount(0);
 
-        // Iterar sobre la lista de torres y añadir cada una a la tabla
         for (Torre torre : torres) {
             model.addRow(new Object[]{
                 torre.getNumerotorre(),
-                torre.getNumeroapartamento(),
-                torre.getIdproyecto()
+                torre.getIdproyecto(),
+                torre.getCantidadInmuebles()
             });
         }
     } catch (SQLException e) {

@@ -14,7 +14,7 @@ public class TorreDAO {
         this.conexion = conexion;
     }
 
-    public boolean insertarTorre(int numeroTorre, int numeroApartamento, int idProyecto) {
+    public boolean insertarTorre(int numeroTorre,int idProyecto) {
         String sqlInsert = "INSERT INTO TORRE(NUMEROTORRE, IDPROYECTO) VALUES (?, ?)";
         
         try (PreparedStatement psInsert = conexion.prepareStatement(sqlInsert)) {
@@ -30,37 +30,22 @@ public class TorreDAO {
         }
     }
     
-    public List<Torre> obtenerTodasLasTorres() {
-    List<Torre> torres = new ArrayList<>();
-    String sql = "SELECT NUMEROTORRE, IDPROYECTO FROM TORRE";
 
-    try (PreparedStatement ps = conexion.prepareStatement(sql);
-         ResultSet rs = ps.executeQuery()) {
-
-        while (rs.next()) {
-            Torre torre = new Torre();
-            torre.setNumerotorre(rs.getInt("NUMEROTORRE"));
-            torre.setIdproyecto(rs.getString("IDPROYECTO"));
-            torres.add(torre);
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    return torres;
-}
-
-    public List<Torre> obtenerTorresPorProyecto(String idProyecto) {
+     public List<Torre> obtenerTorresConCantidadInmuebles() {
         List<Torre> torres = new ArrayList<>();
-        String sql = "SELECT NUMEROTORRE, IDPROYECTO FROM TORRE";
+        String sql = "SELECT t.NUMEROTORRE, t.IDPROYECTO, COUNT(i.MATRICULA) AS cantidad_inmuebles " +
+                     "FROM TORRE t LEFT JOIN INMUEBLE i ON t.NUMEROTORRE = i.NUMEROTORRE " +
+                     "GROUP BY t.NUMEROTORRE, t.IDPROYECTO ORDER BY t.NUMEROTORRE";
 
-        try (PreparedStatement ps = conexion.prepareStatement(sql)) {
-            ps.setString(1, idProyecto);
-            ResultSet rs = ps.executeQuery();
+        try (PreparedStatement ps = conexion.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                Torre torre = new Torre();
-                torre.setNumerotorre(rs.getInt("NUMEROTORRE"));
-                torre.setIdproyecto(rs.getString("IDPROYECTO"));
+                int numeroTorre = rs.getInt("NUMEROTORRE");
+                String idProyecto = rs.getString("IDPROYECTO");
+                int cantidadInmuebles = rs.getInt("cantidad_inmuebles");
+
+                Torre torre = new Torre(numeroTorre, idProyecto, cantidadInmuebles);
                 torres.add(torre);
             }
         } catch (SQLException e) {
