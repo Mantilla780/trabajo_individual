@@ -4,6 +4,18 @@
  */
 package Vista.MenuAdminProyectos;
 
+import Controlador.ConexionBD;
+import Controlador.ProyectoService;
+import Modelo.Proyecto;
+import Modelo.ProyectoDAO;
+import Modelo.Torre;
+import Modelo.TorreDAO;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author USER
@@ -11,6 +23,8 @@ package Vista.MenuAdminProyectos;
 public class ActualizarTorre extends javax.swing.JFrame {
     private int torreNumero;
     private int idProyecto;
+    private ProyectoService proyectoService;
+    private HashMap<String, Integer> proyectoMap = new HashMap<>();
     /**
      * Creates new form ActualizarTorre
      */
@@ -18,6 +32,51 @@ public class ActualizarTorre extends javax.swing.JFrame {
         initComponents();
         this.torreNumero = torreNumero;
         this.idProyecto = idProyecto;
+        cargarDatosTorre();
+        
+    }
+    
+    
+           private void cargarDatosTorre() {
+        try (Connection conexion = ConexionBD.getInstancia().getConnection()) {
+            TorreDAO torreDAO = new TorreDAO(conexion);
+            Torre torre = torreDAO.obtenerTorrePorNumero(this.torreNumero);
+
+            if (torre != null) {
+                // Establecer el número de la torre en jTextField
+                jTextField2.setText(String.valueOf(torre.getNumerotorre()));
+
+                // Llenar el ComboBox de proyectos y seleccionar el proyecto correspondiente
+                llenarComboBoxProyectos();
+
+                // Seleccionar el proyecto en el ComboBox según el idProyecto de la torre
+                for (String nombreProyecto : proyectoMap.keySet()) {
+                    if (proyectoMap.get(nombreProyecto).equals(torre.getIdproyecto())) {
+                        jComboBox1.setSelectedItem(nombreProyecto);
+                        break;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al cargar los datos de la torre.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void llenarComboBoxProyectos() {
+        this.proyectoService = new ProyectoService(new ProyectoDAO(ConexionBD.getInstancia().getConnection())); // Inicializa el servicio
+        List<Proyecto> proyectos = proyectoService.obtenerProyectosBasicos(); // Llama al método
+        jComboBox1.removeAllItems(); // Limpia elementos anteriores
+        proyectoMap.clear(); // Limpia el mapa de proyectos
+
+        if (proyectos != null && !proyectos.isEmpty()) { // Comprueba si la lista no está vacía
+            for (Proyecto proyecto : proyectos) {
+                jComboBox1.addItem(proyecto.getNombreProyecto());
+                proyectoMap.put(proyecto.getNombreProyecto(), proyecto.getIdproyecto());
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "No se encontraron proyectos.", "Información", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     /**
@@ -37,7 +96,7 @@ public class ActualizarTorre extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -63,6 +122,11 @@ public class ActualizarTorre extends javax.swing.JFrame {
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/actualizar.png"))); // NOI18N
         jButton1.setText("Actualizar");
         jButton1.setBorder(null);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 379, 200, 60));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -71,6 +135,7 @@ public class ActualizarTorre extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox1.setBorder(null);
+        jComboBox1.setEnabled(false);
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -82,11 +147,13 @@ public class ActualizarTorre extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 6, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -99,6 +166,31 @@ public class ActualizarTorre extends javax.swing.JFrame {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+try {
+            String nombreTorre = jTextField2.getText();
+            String proyectoSeleccionado = (String) jComboBox1.getSelectedItem();
+            Integer idProyectoSeleccionado = proyectoMap.get(proyectoSeleccionado);
+
+            // Validar que el campo de texto no esté vacío
+            if (nombreTorre.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "El nombre de la torre no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Llamar al servicio para actualizar la torre
+            TorreDAO torreDAO = new TorreDAO(ConexionBD.getInstancia().getConnection());
+            Torre torre = new Torre();
+            torre.setNumerotorre(Integer.parseInt(nombreTorre));
+            torre.setIdproyecto(idProyectoSeleccionado);
+            torreDAO.actualizarTorre(torre); // Asumiendo que tienes un método actualizarTorre
+
+            JOptionPane.showMessageDialog(this, "Torre actualizada exitosamente.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al actualizar la torre: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            
+    }    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
