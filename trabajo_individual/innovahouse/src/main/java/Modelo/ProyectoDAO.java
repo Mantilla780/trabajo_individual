@@ -113,29 +113,49 @@ public class ProyectoDAO {
     }
 
     public boolean eliminarProyecto(int idProyecto) {
-        // Convertimos el idProyecto a String para que coincida con el tipo en la base de datos y Torre
-        conexion = ConexionBD.getInstancia().getConnection();
-        String idProyectoStr = String.valueOf(idProyecto);
-        TorreDAO torreDAO = new TorreDAO(conexion);
+    // Obtén una conexión desde la instancia de ConexionBD
+    conexion = ConexionBD.getInstancia().getConnection();
+    TorreDAO torreDAO = new TorreDAO(conexion);
 
-        try {
-            // Primero eliminamos las torres asociadas al proyecto
-            boolean torresEliminadas = torreDAO.eliminarTorresPorProyecto(idProyectoStr);
+    try {
+        // Inicia una transacción
+        conexion.setAutoCommit(false);
 
-            if (!torresEliminadas) {
-                System.out.println("No se eliminaron torres o no existen torres para este proyecto.");
-            }
+        // Primero eliminamos las torres asociadas al proyecto
+        boolean torresEliminadas = torreDAO.eliminarTorresPorProyecto(idProyecto);
 
-            // Luego eliminamos el proyecto
-            String sqlDelete = "DELETE FROM proyecto.PROYECTOVIVIENDA WHERE IDPROYECTO = ?"; // Cambiar aquí
-            try (PreparedStatement psDelete = conexion.prepareStatement(sqlDelete)) {
-                psDelete.setInt(1, idProyecto);
-                return psDelete.executeUpdate() > 0;
-            }
+        if (!torresEliminadas) {
+            System.out.println("No se eliminaron torres o no existen torres para este proyecto.");
+        }
 
+        // Luego eliminamos el proyecto
+        String sqlDelete = "DELETE FROM proyecto.PROYECTOVIVIENDA WHERE IDPROYECTO = ?";
+        try (PreparedStatement psDelete = conexion.prepareStatement(sqlDelete)) {
+            psDelete.setInt(1, idProyecto);
+            boolean proyectoEliminado = psDelete.executeUpdate() > 0;
+
+            // Confirma la transacción si todo va bien
+            conexion.commit();
+            return proyectoEliminado;
         } catch (SQLException e) {
-            System.err.println("Error al eliminar proyecto: " + e.getMessage());
+            // Si hay un error, realiza un rollback de la transacción
+            conexion.rollback();
+            System.err.println("Error al eliminar el proyecto: " + e.getMessage());
             return false;
         }
+
+    } catch (SQLException e) {
+        System.err.println("Error en la operación de eliminación: " + e.getMessage());
+        return false;
+    } finally {
+        try {
+            if (conexion != null && !conexion.isClosed()) {
+                conexion.close();
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al cerrar la conexión: " + e.getMessage());
+        }
     }
+}
+
 }
