@@ -9,6 +9,7 @@ public class Inmueble {
     private Date fechaEscritura;
     private int area;
     private int idTorre;
+    private int numeroTorre;
     private String tipoInmueble;
 
     public Inmueble() {
@@ -16,6 +17,26 @@ public class Inmueble {
 
     public Inmueble(int matricula, int numeroInmueble, long valorInmueble, Date fechaEscritura, int area, int idTorre, String tipoInmueble) {
         this.matricula = matricula;
+        this.numeroInmueble = numeroInmueble;
+        this.valorInmueble = valorInmueble;
+        this.fechaEscritura = fechaEscritura;
+        this.area = area;
+        this.idTorre = idTorre;
+        this.tipoInmueble = tipoInmueble;
+    }
+
+    public Inmueble(int matricula, int numeroInmueble, long valorInmueble, Date fechaEscritura, int area, int idTorre, int numeroTorre, String tipoInmueble) {
+        this.matricula = matricula;
+        this.numeroInmueble = numeroInmueble;
+        this.valorInmueble = valorInmueble;
+        this.fechaEscritura = fechaEscritura;
+        this.area = area;
+        this.idTorre = idTorre;
+        this.numeroTorre = numeroTorre;
+        this.tipoInmueble = tipoInmueble;
+    }
+
+    public Inmueble(int numeroInmueble, long valorInmueble, Date fechaEscritura, int area, int idTorre, String tipoInmueble) {
         this.numeroInmueble = numeroInmueble;
         this.valorInmueble = valorInmueble;
         this.fechaEscritura = fechaEscritura;
@@ -72,6 +93,14 @@ public class Inmueble {
         this.idTorre = idTorre;
     }
 
+    public int getNumeroTorre() {
+        return numeroTorre;
+    }
+
+    public void setNumeroTorre(int numeroTorre) {
+        this.numeroTorre = numeroTorre;
+    }
+
     public String getTipoInmueble() {
         return tipoInmueble;
     }
@@ -79,4 +108,6 @@ public class Inmueble {
     public void setTipoInmueble(String tipoInmueble) {
         this.tipoInmueble = tipoInmueble;
     }
+    
+    
 }
