@@ -5,20 +5,64 @@
 package Vista.MenuAdminProyectos;
 
 import Controlador.ConexionBD;
+import Controlador.InmuebleService;
+import Modelo.Inmueble;
 import Modelo.InmuebleDAO;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.Timer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author omaci
  */
-public class Inmueble extends javax.swing.JPanel {
-
-    /**
-     * Creates new form Proyectos
-     */
-    public Inmueble() {
+public class Inmuebles extends javax.swing.JPanel {
+    private InmuebleService inmuebleService;
+    private Timer timer;
+    public Inmuebles() {
         initComponents();
+        this.inmuebleService = inmuebleService;
+        cargarInmueblesEnTabla();
+
+        // Configuración del temporizador para actualizar la tabla cada 4 segundos
+        timer = new Timer(4000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cargarInmueblesEnTabla();
+            }
+        });
+
+        // Iniciar el temporizador
+        timer.start();
+    }
+    
+    private void cargarInmueblesEnTabla() {
+        try (Connection conexion = ConexionBD.getInstancia().getConnection()) {
+            InmuebleDAO inmuebleDAO = new InmuebleDAO(conexion);
+            List<Inmueble> inmuebles = inmuebleDAO.obtenerInmuebles();
+            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+
+            model.setColumnIdentifiers(new String[]{"Matrícula", "Número Inmueble", "Valor Inmueble", "Tipo", "Área", "Número Torre"});
+            model.setRowCount(0);
+
+            for (Inmueble inmueble : inmuebles) {
+                model.addRow(new Object[]{
+                    inmueble.getMatricula(),
+                    inmueble.getNumeroInmueble(),
+                    inmueble.getValorInmueble(),
+                    inmueble.getTipoInmueble(),
+                    inmueble.getArea(),
+                    inmueble.getIdTorre()
+                });
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     
  
