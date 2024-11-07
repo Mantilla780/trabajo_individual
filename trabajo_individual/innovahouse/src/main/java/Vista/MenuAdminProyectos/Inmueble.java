@@ -4,18 +4,26 @@
  */
 package Vista.MenuAdminProyectos;
 
+import Controlador.ConexionBD;
+import Modelo.InmuebleDAO;
+import java.util.List;
+
 /**
  *
  * @author omaci
  */
-public class Apartamentos extends javax.swing.JPanel {
+public class Inmueble extends javax.swing.JPanel {
 
     /**
      * Creates new form Proyectos
      */
-    public Apartamentos() {
+    public Inmueble() {
         initComponents();
     }
+    
+ 
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -76,7 +84,7 @@ public class Apartamentos extends javax.swing.JPanel {
 
         rButtonProyecto2.setBackground(new java.awt.Color(5, 10, 48));
         rButtonProyecto2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/agregar.png"))); // NOI18N
-        rButtonProyecto2.setText("Crear Nuevo Apartamento");
+        rButtonProyecto2.setText("Crear Nuevo Inmueble");
         rButtonProyecto2.setColorNormal(new java.awt.Color(5, 10, 48));
         rButtonProyecto2.setColorPressed(new java.awt.Color(39, 33, 105));
         rButtonProyecto2.setFocusPainted(false);
@@ -140,7 +148,8 @@ public class Apartamentos extends javax.swing.JPanel {
     }//GEN-LAST:event_rButtonProyecto1ActionPerformed
 
     private void rButtonProyecto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto2MouseClicked
-        
+        CrearInmueble crearinmuble = new CrearInmueble();
+        crearinmuble.setVisible(true);
         
     }//GEN-LAST:event_rButtonProyecto2MouseClicked
 

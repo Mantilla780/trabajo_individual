@@ -21,4 +21,8 @@ public class TorreService {
     public List<Torre> listarTorresConCantidadInmuebles() {
         return torreDAO.obtenerTorresConCantidadInmuebles();
     }
+    
+    public List<Torre> obtenerTorresBasicas() {
+    return torreDAO.obtenerTorresBasicas();
+}
 }

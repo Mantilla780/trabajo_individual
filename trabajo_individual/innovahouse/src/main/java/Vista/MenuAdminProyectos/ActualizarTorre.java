@@ -168,28 +168,40 @@ public class ActualizarTorre extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-try {
-            String nombreTorre = jTextField2.getText();
-            String proyectoSeleccionado = (String) jComboBox1.getSelectedItem();
-            Integer idProyectoSeleccionado = proyectoMap.get(proyectoSeleccionado);
+ try {
+        String nombreTorre = jTextField2.getText();
+        String proyectoSeleccionado = (String) jComboBox1.getSelectedItem();
+        Integer idProyectoSeleccionado = proyectoMap.get(proyectoSeleccionado);
 
-            // Validar que el campo de texto no esté vacío
-            if (nombreTorre.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "El nombre de la torre no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+        // Validar que el campo de texto no esté vacío
+        if (nombreTorre.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El nombre de la torre no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-            // Llamar al servicio para actualizar la torre
-            TorreDAO torreDAO = new TorreDAO(ConexionBD.getInstancia().getConnection());
-            Torre torre = new Torre();
-            torre.setNumerotorre(Integer.parseInt(nombreTorre));
-            torre.setIdproyecto(idProyectoSeleccionado);
-            torreDAO.actualizarTorre(torre); // Asumiendo que tienes un método actualizarTorre
+        // Obtener la torre actual de la base de datos
+        TorreDAO torreDAO = new TorreDAO(ConexionBD.getInstancia().getConnection());
+        Torre torre = torreDAO.obtenerTorrePorNumero(torreNumero); // Obtener la torre actual usando torreNumero
 
+        // Verificar si la torre existe en la base de datos
+        if (torre == null) {
+            JOptionPane.showMessageDialog(this, "No se encontró ninguna torre para actualizar.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Establecer los valores nuevos en la torre
+        torre.setNumerotorre(Integer.parseInt(nombreTorre));
+        torre.setIdproyecto(idProyectoSeleccionado);
+
+        // Llamar al método para actualizar la torre en la base de datos
+        if (torreDAO.actualizarTorre(torre)) {
             JOptionPane.showMessageDialog(this, "Torre actualizada exitosamente.");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al actualizar la torre: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo actualizar la torre.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al actualizar la torre: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);      
     }    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

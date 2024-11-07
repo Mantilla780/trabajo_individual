@@ -66,6 +66,26 @@ public class TorreDAO {
         }
         return torres;
     }
+    
+    public List<Torre> obtenerTorresBasicas() {
+    List<Torre> torres = new ArrayList<>();
+    String sql = "SELECT IDTORRE, NUMEROTORRE FROM proyecto.TORRE"; // Cambiar según esquema y tabla
+
+    try (PreparedStatement ps = conexion.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+
+        while (rs.next()) {
+            Torre torre = new Torre();
+            torre.setIdtorre(rs.getInt("IDTORRE"));
+            torre.setNumerotorre(rs.getInt("NUMEROTORRE"));
+            torres.add(torre);
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al obtener torres básicas: " + e.getMessage());
+    }
+    return torres;
+}
+
 
     public Torre obtenerTorrePorNumero(int numeroTorre) throws SQLException {
         String query = "SELECT idtorre, numerotorre, idproyecto FROM proyecto.TORRE WHERE numerotorre = ?";
@@ -102,6 +122,7 @@ public class TorreDAO {
         String sqlUpdate = "UPDATE proyecto.TORRE SET NUMEROTORRE = ?, IDPROYECTO = ? WHERE IDTORRE = ?";
 
         try {
+            // Verificar si la conexión está cerrada y abrirla si es necesario
             if (conexion == null || conexion.isClosed()) {
                 conexion = ConexionBD.getInstancia().getConnection();
             }
@@ -110,11 +131,20 @@ public class TorreDAO {
                 psUpdate.setInt(1, torre.getNumerotorre());
                 psUpdate.setInt(2, torre.getIdproyecto());
                 psUpdate.setInt(3, torre.getIdtorre()); // Asegúrate de setear IDTORRE
-                return psUpdate.executeUpdate() > 0;
+
+                int rowsUpdated = psUpdate.executeUpdate();
+                if (rowsUpdated > 0) {
+                    System.out.println("Torre actualizada con éxito.");
+                    return true; // Retornar verdadero si se actualizó correctamente
+                } else {
+                    System.out.println("No se encontró ninguna torre para actualizar.");
+                    return false; // Retornar falso si no se actualizó ninguna fila
+                }
             }
         } catch (SQLException e) {
+            e.printStackTrace(); // Imprimir la traza completa para más detalles
             System.err.println("Error al actualizar torre: " + e.getMessage());
-            return false;
+            return false; // Retornar falso en caso de error
         }
     }
 
@@ -128,4 +158,6 @@ public class TorreDAO {
             return false;
         }
     }
+    
+    
 }

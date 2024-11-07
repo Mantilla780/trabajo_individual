@@ -4,18 +4,56 @@
  */
 package Vista.MenuAdminProyectos;
 
+import Controlador.ConexionBD;
+import Modelo.Torre;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import Controlador.TorreService;
+import Modelo.InmuebleDAO;
+import Modelo.TorreDAO;
+import javax.swing.JOptionPane;
 /**
  *
- * @author USER
+ * @author omaci
  */
 public class CrearInmueble extends javax.swing.JFrame {
-
-    /**
-     * Creates new form CrearApartamento
-     */
+    
+    private Map<String, Integer> torreMap = new HashMap<>();
+    private TorreService torreService;
+    
+  
+   
     public CrearInmueble() {
         initComponents();
+        setLocationRelativeTo(null);
+        ConexionBD conexionBD = new ConexionBD();
+        TorreDAO torreDAO = new TorreDAO(conexionBD.getConnection());
+        this.torreService = new TorreService(torreDAO);
+        llenarComboBoxTorres();
     }
+    
+    
+     private void llenarComboBoxTorres() {
+        List<Torre> torres = torreService.obtenerTorresBasicas();
+        
+        jctorre.removeAllItems(); 
+        for (Torre torre : torres) {
+            String numeroTorreStr = String.valueOf(torre.getNumerotorre());
+            jctorre.addItem(numeroTorreStr);
+            torreMap.put(numeroTorreStr, torre.getIdtorre());
+        }
+    }
+
+
+
+    // Método para obtener el ID de la torre seleccionada en jctorre
+    private Integer obtenerIdTorreSeleccionada() {
+        String numeroTorreSeleccionado = (String) jctorre.getSelectedItem();
+        return torreMap.get(numeroTorreSeleccionado); // Devuelve el idTorre asociado
+    }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,72 +65,147 @@ public class CrearInmueble extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTextField3 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        rSButtonMetro1 = new Vista.RSButtonMetro();
         jLabel3 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        rSButtonMetro1 = new Vista.RSButtonMetro();
+        jtmatricula = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jtvalor = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jtnumeroinmueble = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jtarea = new javax.swing.JTextField();
+        jctipo = new javax.swing.JComboBox<>();
+        jctorre = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(710, 440));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(710, 440));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 380, 50));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel1.setText("Nuevo Apartamento");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 30, -1, -1));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setText("Nuevo Inmueble");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 30, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel2.setText("Cantidad Apartamentos");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel3.setText("Torre");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 120, -1, -1));
 
+        rSButtonMetro1.setBackground(new java.awt.Color(0, 191, 99));
         rSButtonMetro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/save.png"))); // NOI18N
-        rSButtonMetro1.setText("Crear");
+        rSButtonMetro1.setText("Guardar");
         rSButtonMetro1.setColorHover(new java.awt.Color(8, 136, 74));
         rSButtonMetro1.setColorNormal(new java.awt.Color(0, 191, 99));
         rSButtonMetro1.setColorPressed(new java.awt.Color(8, 136, 74));
+        rSButtonMetro1.setContentAreaFilled(true);
         rSButtonMetro1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         rSButtonMetro1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rSButtonMetro1ActionPerformed(evt);
             }
         });
-        jPanel1.add(rSButtonMetro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 380, 200, 60));
+        jPanel1.add(rSButtonMetro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 350, 200, 60));
+        jPanel1.add(jtmatricula, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 290, 40));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel3.setText("Nombre Torre");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
-        jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 380, 50));
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel4.setText("Valor");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, -1, -1));
+        jPanel1.add(jtvalor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 290, 40));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 730, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 460, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel5.setText("Numero Inmueble");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 160, -1));
+        jPanel1.add(jtnumeroinmueble, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 160, 40));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel6.setText("Area (m2)");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, -1, -1));
+        jPanel1.add(jtarea, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 210, 100, 40));
+
+        jctipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar...", "Apartemento", "Garaje", "Local" }));
+        jctipo.setBorder(null);
+        jctipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jctipoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jctipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 150, 100, 50));
+
+        jctorre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jctorre.setBorder(null);
+        jctorre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jctorreActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jctorre, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 150, 100, 50));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel7.setText("Matricula");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel8.setText("Tipo");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void rSButtonMetro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro1ActionPerformed
+         try {
+            // Obtener valores del formulario
+            String matriculaStr = jtmatricula.getText().trim();
+            String numeroInmuebleStr = jtnumeroinmueble.getText().trim();
+            String valorStr = jtvalor.getText().trim();
+            String areaStr = jtarea.getText().trim();
+            String tipo = (String) jctipo.getSelectedItem();
+            Integer idTorre = obtenerIdTorreSeleccionada();
+
+            // Validaciones básicas
+            if (matriculaStr.isEmpty() || numeroInmuebleStr.isEmpty() || valorStr.isEmpty() ||
+                areaStr.isEmpty() || tipo.equals("Seleccionar...") || idTorre == null) {
+                JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Convertir los valores
+            int matricula = Integer.parseInt(matriculaStr);
+            int numeroInmueble = Integer.parseInt(numeroInmuebleStr);
+            long valorInmueble = Long.parseLong(valorStr);
+            int area = Integer.parseInt(areaStr);
+
+            // Llamar al método insertarInmueble del DAO sin el campo fechaEscritura
+            InmuebleDAO inmuebleDAO = new InmuebleDAO();
+            boolean resultado = inmuebleDAO.insertarInmueble(matricula, numeroInmueble, valorInmueble, null, area, idTorre, tipo);
+
+            if (resultado) {
+                JOptionPane.showMessageDialog(this, "Inmueble guardado exitosamente.");
+                dispose(); // Cierra la ventana actual
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al guardar el inmueble.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores numéricos válidos en los campos correspondientes.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
 
     }//GEN-LAST:event_rSButtonMetro1ActionPerformed
+
+    private void jctipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jctipoActionPerformed
+      
+    }//GEN-LAST:event_jctipoActionPerformed
+
+    private void jctorreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jctorreActionPerformed
+        
+    }//GEN-LAST:event_jctorreActionPerformed
 
     /**
      * @param args the command line arguments
@@ -132,11 +245,19 @@ public class CrearInmueble extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JComboBox<String> jctipo;
+    private javax.swing.JComboBox<String> jctorre;
+    private javax.swing.JTextField jtarea;
+    private javax.swing.JTextField jtmatricula;
+    private javax.swing.JTextField jtnumeroinmueble;
+    private javax.swing.JTextField jtvalor;
     private Vista.RSButtonMetro rSButtonMetro1;
     // End of variables declaration//GEN-END:variables
 }
