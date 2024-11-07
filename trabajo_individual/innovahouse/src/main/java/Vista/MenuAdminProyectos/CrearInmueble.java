@@ -115,6 +115,12 @@ public class CrearInmueble extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setText("Valor");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, -1, -1));
+
+        jtvalor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtvalorActionPerformed(evt);
+            }
+        });
         jPanel1.add(jtvalor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 290, 40));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -159,44 +165,46 @@ public class CrearInmueble extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rSButtonMetro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro1ActionPerformed
-         try {
-            // Obtener valores del formulario
-            String matriculaStr = jtmatricula.getText().trim();
-            String numeroInmuebleStr = jtnumeroinmueble.getText().trim();
-            String valorStr = jtvalor.getText().trim();
-            String areaStr = jtarea.getText().trim();
-            String tipo = (String) jctipo.getSelectedItem();
-            Integer idTorre = obtenerIdTorreSeleccionada();
+    try {
+        // Obtener valores del formulario
+        String matriculaStr = jtmatricula.getText().trim();
+        String numeroInmuebleStr = jtnumeroinmueble.getText().trim();
+        String valorStr = jtvalor.getText().trim();
+        String areaStr = jtarea.getText().trim();
+        String tipo = (String) jctipo.getSelectedItem();
+        Integer idTorre = obtenerIdTorreSeleccionada();
 
-            // Validaciones básicas
-            if (matriculaStr.isEmpty() || numeroInmuebleStr.isEmpty() || valorStr.isEmpty() ||
-                areaStr.isEmpty() || tipo.equals("Seleccionar...") || idTorre == null) {
-                JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            // Convertir los valores
-            int matricula = Integer.parseInt(matriculaStr);
-            int numeroInmueble = Integer.parseInt(numeroInmuebleStr);
-            long valorInmueble = Long.parseLong(valorStr);
-            int area = Integer.parseInt(areaStr);
-
-            // Llamar al método insertarInmueble del DAO sin el campo fechaEscritura
-            InmuebleDAO inmuebleDAO = new InmuebleDAO();
-            boolean resultado = inmuebleDAO.insertarInmueble(matricula, numeroInmueble, valorInmueble, null, area, idTorre, tipo);
-
-            if (resultado) {
-                JOptionPane.showMessageDialog(this, "Inmueble guardado exitosamente.");
-                dispose(); // Cierra la ventana actual
-            } else {
-                JOptionPane.showMessageDialog(this, "Error al guardar el inmueble.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese valores numéricos válidos en los campos correspondientes.", "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ocurrió un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        // Validaciones básicas
+        if (matriculaStr.isEmpty() || numeroInmuebleStr.isEmpty() || valorStr.isEmpty() ||
+            areaStr.isEmpty() || tipo.equals("Seleccionar...") || idTorre == null) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
+        // Convertir los valores
+        int matricula = Integer.parseInt(matriculaStr);
+        int numeroInmueble = Integer.parseInt(numeroInmuebleStr);
+        long valorInmueble = Long.parseLong(valorStr);
+        int area = Integer.parseInt(areaStr);
+
+        // Crear la conexión y el DAO
+        ConexionBD conexionBD = new ConexionBD();
+        InmuebleDAO inmuebleDAO = new InmuebleDAO(conexionBD.getConnection());
+
+        // Llamar al método insertarInmueble del DAO
+        boolean resultado = inmuebleDAO.insertarInmueble(matricula, numeroInmueble, valorInmueble, null, area, idTorre, tipo);
+
+        if (resultado) {
+            JOptionPane.showMessageDialog(this, "Inmueble guardado exitosamente.");
+            dispose(); // Cierra la ventana actual
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al guardar el inmueble.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Por favor, ingrese valores numéricos válidos en los campos correspondientes.", "Error", JOptionPane.ERROR_MESSAGE);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Ocurrió un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_rSButtonMetro1ActionPerformed
 
     private void jctipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jctipoActionPerformed
@@ -206,6 +214,10 @@ public class CrearInmueble extends javax.swing.JFrame {
     private void jctorreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jctorreActionPerformed
         
     }//GEN-LAST:event_jctorreActionPerformed
+
+    private void jtvalorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtvalorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtvalorActionPerformed
 
     /**
      * @param args the command line arguments
