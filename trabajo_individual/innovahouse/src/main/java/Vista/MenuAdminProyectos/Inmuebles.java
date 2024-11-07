@@ -22,21 +22,31 @@ import javax.swing.table.DefaultTableModel;
  * @author omaci
  */
 public class Inmuebles extends javax.swing.JPanel {
-    private InmuebleService inmuebleService;
+    private String idUsuario;
+    private InmuebleService inmuebleService; 
     private Timer timer;
-    public Inmuebles() {
-        initComponents();
-        this.inmuebleService = inmuebleService;
-        cargarInmueblesEnTabla();
+    private Connection conexion; 
 
-        // Configuración del temporizador para actualizar la tabla cada 4 segundos
+    public Inmuebles(String idUsuario) {
+        initComponents();
+        this.idUsuario = idUsuario;
+    
+        // Inicializa la conexión y el InmuebleDAO
+        this.conexion = ConexionBD.getInstancia().getConnection();
+        InmuebleDAO inmuebleDAO = new InmuebleDAO(this.conexion);
+        inmuebleService = new InmuebleService(inmuebleDAO);
+
+        // Carga inicial de los datos en la tabla
+        cargarInmueblesEnTabla();
+    
+        // Configuración del temporizador para actualizar la tabla cada 5 segundos
         timer = new Timer(4000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cargarInmueblesEnTabla();
             }
         });
-
+    
         // Iniciar el temporizador
         timer.start();
     }
@@ -188,7 +198,27 @@ public class Inmuebles extends javax.swing.JPanel {
     }//GEN-LAST:event_rButtonProyecto1MouseClicked
 
     private void rButtonProyecto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto1ActionPerformed
+        int selectedRow = jTable2.getSelectedRow(); // Selecciona la fila en la JTable
+        if (selectedRow != -1) {
+            // Obtener la matrícula del inmueble desde la tabla (supongamos que está en la primera columna)
+            int matriculaInmueble = (int) jTable2.getValueAt(selectedRow, 0);
 
+            // Confirmar eliminación
+            int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar este inmueble?", "Confirmación", JOptionPane.YES_NO_OPTION);
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                // Llamar al servicio para eliminar el inmueble
+                boolean resultado = inmuebleService.eliminarInmueble(matriculaInmueble);
+
+                if (resultado) {
+                    JOptionPane.showMessageDialog(this, "Inmueble eliminado con éxito.");
+                    cargarInmueblesEnTabla(); // Refrescar la tabla para mostrar el cambio
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error al eliminar el inmueble.");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor selecciona un inmueble para eliminar.");
+        }
     }//GEN-LAST:event_rButtonProyecto1ActionPerformed
 
     private void rButtonProyecto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto2MouseClicked

@@ -1,5 +1,6 @@
 package Modelo;
 
+import Controlador.ConexionBD;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InmuebleDAO {
-    private final Connection conexion;
+    private Connection conexion;
 
     public InmuebleDAO(Connection conexion) {
         this.conexion = conexion;
@@ -93,11 +94,19 @@ public class InmuebleDAO {
 
     // Método para eliminar un inmueble por matrícula
     public boolean eliminarInmueble(int matricula) {
-        String sqlDelete = "DELETE FROM INMUEBLE WHERE MATRICULA = ?";
+        String sqlDelete = "DELETE FROM proyecto.INMUEBLE WHERE MATRICULA = ?";
 
-        try (PreparedStatement psDelete = conexion.prepareStatement(sqlDelete)) {
-            psDelete.setInt(1, matricula);
-            return psDelete.executeUpdate() > 0;
+        try {
+            // Verifica si la conexión está cerrada
+            if (conexion == null || conexion.isClosed()) {
+                System.out.println("Conexión cerrada, abriendo la conexión.");
+                conexion = ConexionBD.getInstancia().getConnection(); // Vuelve a abrir la conexión si está cerrada
+            }
+
+            try (PreparedStatement psDelete = conexion.prepareStatement(sqlDelete)) {
+                psDelete.setInt(1, matricula);
+                return psDelete.executeUpdate() > 0;
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();

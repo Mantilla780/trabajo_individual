@@ -251,7 +251,6 @@ public class Proyectos extends javax.swing.JPanel {
     } else {
         JOptionPane.showMessageDialog(this, "Selecciona un proyecto para editar.");
     }
-    
     }//GEN-LAST:event_rButtonProyecto3ActionPerformed
 
 
