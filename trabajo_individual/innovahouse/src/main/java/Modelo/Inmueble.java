@@ -8,24 +8,24 @@ import java.sql.Date;
 
 public class Inmueble {
     private int matricula;
-    private String numeroapartamento;
-    private int valorapartamento;
+    private String numeroinmueble;
+    private int valorinmueble;
     private Date fechaescritura;
-    private int area;
-    private String numerotorre;
     private String tipounidad;
+    private int area;
+    private int idtorre;
 
     public Inmueble() {
     }
 
-    public Inmueble(int matricula, String numeroapartamento, int valorapartamento, Date fechaescritura, int area, String numerotorre, String tipounidad) {
+    public Inmueble(int matricula, String numeroinmueble, int valorinmueble, Date fechaescritura, String tipounidad, int area, int idtorre) {
         this.matricula = matricula;
-        this.numeroapartamento = numeroapartamento;
-        this.valorapartamento = valorapartamento;
+        this.numeroinmueble = numeroinmueble;
+        this.valorinmueble = valorinmueble;
         this.fechaescritura = fechaescritura;
-        this.area = area;
-        this.numerotorre = numerotorre;
         this.tipounidad = tipounidad;
+        this.area = area;
+        this.idtorre = idtorre;
     }
 
     public int getMatricula() {
@@ -36,20 +36,20 @@ public class Inmueble {
         this.matricula = matricula;
     }
 
-    public String getNumeroapartamento() {
-        return numeroapartamento;
+    public String getNumeroinmueble() {
+        return numeroinmueble;
     }
 
-    public void setNumeroapartamento(String numeroapartamento) {
-        this.numeroapartamento = numeroapartamento;
+    public void setNumeroinmueble(String numeroinmueble) {
+        this.numeroinmueble = numeroinmueble;
     }
 
-    public int getValorapartamento() {
-        return valorapartamento;
+    public int getValorinmueble() {
+        return valorinmueble;
     }
 
-    public void setValorapartamento(int valorapartamento) {
-        this.valorapartamento = valorapartamento;
+    public void setValorinmueble(int valorinmueble) {
+        this.valorinmueble = valorinmueble;
     }
 
     public Date getFechaescritura() {
@@ -68,14 +68,6 @@ public class Inmueble {
         this.area = area;
     }
 
-    public String getNumerotorre() {
-        return numerotorre;
-    }
-
-    public void setNumerotorre(String numerotorre) {
-        this.numerotorre = numerotorre;
-    }
-
     public String getTipounidad() {
         return tipounidad;
     }
@@ -84,5 +76,12 @@ public class Inmueble {
         this.tipounidad = tipounidad;
     }
 
+    public int getIdtorre() {
+        return idtorre;
+    }
+
+    public void setIdtorre(int idtorre) {
+        this.idtorre = idtorre;
+    }
     
 }

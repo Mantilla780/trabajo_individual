@@ -6,25 +6,27 @@ import java.sql.Date;
 import java.util.List;
 
 public class InmuebleService {
-    private InmuebleDAO apartamentoDAO;
+    private InmuebleDAO inmuebleDAO;
 
-    public InmuebleService(InmuebleDAO apartamentoDAO) {
-        this.apartamentoDAO = apartamentoDAO;
+    public InmuebleService(InmuebleDAO inmuebleDAO) {
+        this.inmuebleDAO = inmuebleDAO;
     }
 
-    public boolean agregarInmueble(int matricula, String numeroApartamento, int valorApartamento, Date fechaEscritura, int area, String numeroTorre, String tipoUnidad) {
-        return apartamentoDAO.insertarApartamento(matricula, numeroApartamento, valorApartamento, fechaEscritura, area, numeroTorre, tipoUnidad);
+    public boolean agregarInmueble(int matricula, String numeroInmueble, int valorInmueble, Date fechaEscritura, int area, int idTorre, String tipoUnidad) {
+        // Llama al método insertarInmueble con idTorre en lugar de numeroTorre
+        return inmuebleDAO.insertarInmueble(matricula, numeroInmueble, valorInmueble, fechaEscritura, area, idTorre, tipoUnidad);
     }
 
-    public List<Inmueble> listarInmueblePorTorre(String numeroTorre) {
-        return apartamentoDAO.obtenerApartamentosPorTorre(numeroTorre);
+    public List<Inmueble> listarInmueblePorTorre(int idTorre) {
+        // Llama al método obtenerInmueblesPorTorre con idTorre en lugar de numeroTorre
+        return inmuebleDAO.obtenerInmueblesPorTorre(idTorre);
     }
 
-    public boolean actualizarInmueble(Inmueble apartamento) {
-        return apartamentoDAO.actualizarApartamento(apartamento);
+    public boolean actualizarInmueble(Inmueble inmueble) {
+        return inmuebleDAO.actualizarInmueble(inmueble);
     }
 
     public boolean eliminarInmueble(int matricula) {
-        return apartamentoDAO.eliminarApartamento(matricula);
+        return inmuebleDAO.eliminarInmueble(matricula);
     }
 }
