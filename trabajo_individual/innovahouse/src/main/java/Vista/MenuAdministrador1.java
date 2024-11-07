@@ -5,7 +5,7 @@
 package Vista;
 
 import Controlador.ProyectoService;
-import Vista.MenuAdminProyectos.Apartamentos;
+import Vista.MenuAdminProyectos.Inmueble;
 import Vista.MenuAdminProyectos.Proyectos;
 import Vista.MenuAdminProyectos.Torres;
 import java.awt.BorderLayout;
@@ -104,7 +104,7 @@ public class MenuAdministrador1 extends javax.swing.JFrame {
         MenuSliding.add(ButtonTorres, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 200, 50));
 
         ButtonApartamentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/departamento.png"))); // NOI18N
-        ButtonApartamentos.setText("Apartamentos");
+        ButtonApartamentos.setText("Inmueble");
         ButtonApartamentos.setColorHover(new java.awt.Color(39, 33, 105));
         ButtonApartamentos.setColorNormal(new java.awt.Color(76, 69, 153));
         ButtonApartamentos.setColorPressed(new java.awt.Color(39, 33, 105));
@@ -180,7 +180,7 @@ public class MenuAdministrador1 extends javax.swing.JFrame {
             this.ButtonProyecto.setColorHover(new Color(39,33,105));
             this.ButtonProyecto.setColorPressed(new Color(76,69,153));
             
-            Apartamentos p3 = new Apartamentos();
+            Inmueble p3 = new Inmueble();
             p3.setSize(1190,620);
             p3.setLocation(20,20);
             jPanel3.removeAll();

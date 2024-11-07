@@ -1,31 +1,27 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Modelo;
 
 import java.sql.Date;
 
 public class Inmueble {
     private int matricula;
-    private String numeroapartamento;
-    private int valorapartamento;
-    private Date fechaescritura;
+    private int numeroInmueble;
+    private long valorInmueble;
+    private Date fechaEscritura;
     private int area;
-    private String numerotorre;
-    private String tipounidad;
+    private int idTorre;
+    private String tipoInmueble;
 
     public Inmueble() {
     }
 
-    public Inmueble(int matricula, String numeroapartamento, int valorapartamento, Date fechaescritura, int area, String numerotorre, String tipounidad) {
+    public Inmueble(int matricula, int numeroInmueble, long valorInmueble, Date fechaEscritura, int area, int idTorre, String tipoInmueble) {
         this.matricula = matricula;
-        this.numeroapartamento = numeroapartamento;
-        this.valorapartamento = valorapartamento;
-        this.fechaescritura = fechaescritura;
+        this.numeroInmueble = numeroInmueble;
+        this.valorInmueble = valorInmueble;
+        this.fechaEscritura = fechaEscritura;
         this.area = area;
-        this.numerotorre = numerotorre;
-        this.tipounidad = tipounidad;
+        this.idTorre = idTorre;
+        this.tipoInmueble = tipoInmueble;
     }
 
     public int getMatricula() {
@@ -36,28 +32,28 @@ public class Inmueble {
         this.matricula = matricula;
     }
 
-    public String getNumeroapartamento() {
-        return numeroapartamento;
+    public int getNumeroInmueble() {
+        return numeroInmueble;
     }
 
-    public void setNumeroapartamento(String numeroapartamento) {
-        this.numeroapartamento = numeroapartamento;
+    public void setNumeroInmueble(int numeroInmueble) {
+        this.numeroInmueble = numeroInmueble;
     }
 
-    public int getValorapartamento() {
-        return valorapartamento;
+    public long getValorInmueble() {
+        return valorInmueble;
     }
 
-    public void setValorapartamento(int valorapartamento) {
-        this.valorapartamento = valorapartamento;
+    public void setValorInmueble(long valorInmueble) {
+        this.valorInmueble = valorInmueble;
     }
 
-    public Date getFechaescritura() {
-        return fechaescritura;
+    public Date getFechaEscritura() {
+        return fechaEscritura;
     }
 
-    public void setFechaescritura(Date fechaescritura) {
-        this.fechaescritura = fechaescritura;
+    public void setFechaEscritura(Date fechaEscritura) {
+        this.fechaEscritura = fechaEscritura;
     }
 
     public int getArea() {
@@ -68,21 +64,19 @@ public class Inmueble {
         this.area = area;
     }
 
-    public String getNumerotorre() {
-        return numerotorre;
+    public int getIdTorre() {
+        return idTorre;
     }
 
-    public void setNumerotorre(String numerotorre) {
-        this.numerotorre = numerotorre;
+    public void setIdTorre(int idTorre) {
+        this.idTorre = idTorre;
     }
 
-    public String getTipounidad() {
-        return tipounidad;
+    public String getTipoInmueble() {
+        return tipoInmueble;
     }
 
-    public void setTipounidad(String tipounidad) {
-        this.tipounidad = tipounidad;
+    public void setTipoInmueble(String tipoInmueble) {
+        this.tipoInmueble = tipoInmueble;
     }
-
-    
 }

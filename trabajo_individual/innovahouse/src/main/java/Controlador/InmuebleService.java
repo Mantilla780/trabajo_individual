@@ -6,25 +6,29 @@ import java.sql.Date;
 import java.util.List;
 
 public class InmuebleService {
-    private InmuebleDAO apartamentoDAO;
+    private InmuebleDAO inmuebleDAO;
 
-    public InmuebleService(InmuebleDAO apartamentoDAO) {
-        this.apartamentoDAO = apartamentoDAO;
+    public InmuebleService(InmuebleDAO inmuebleDAO) {
+        this.inmuebleDAO = inmuebleDAO;
     }
 
-    public boolean agregarInmueble(int matricula, String numeroApartamento, int valorApartamento, Date fechaEscritura, int area, String numeroTorre, String tipoUnidad) {
-        return apartamentoDAO.insertarApartamento(matricula, numeroApartamento, valorApartamento, fechaEscritura, area, numeroTorre, tipoUnidad);
+    // Método para agregar un nuevo inmueble
+    public boolean agregarInmueble(int matricula, int numeroInmueble, long valorInmueble, Date fechaEscritura, int area, int idTorre, String tipoInmueble) {
+        return inmuebleDAO.insertarInmueble(matricula, numeroInmueble, valorInmueble, fechaEscritura, area, idTorre, tipoInmueble);
     }
 
-    public List<Inmueble> listarInmueblePorTorre(String numeroTorre) {
-        return apartamentoDAO.obtenerApartamentosPorTorre(numeroTorre);
+    // Método para listar inmuebles por torre
+    public List<Inmueble> listarInmueblePorTorre(int idTorre) {
+        return inmuebleDAO.obtenerInmueblesPorTorre(idTorre);
     }
 
-    public boolean actualizarInmueble(Inmueble apartamento) {
-        return apartamentoDAO.actualizarApartamento(apartamento);
+    // Método para actualizar un inmueble
+    public boolean actualizarInmueble(Inmueble inmueble) {
+        return inmuebleDAO.actualizarInmueble(inmueble);
     }
 
+    // Método para eliminar un inmueble por matrícula
     public boolean eliminarInmueble(int matricula) {
-        return apartamentoDAO.eliminarApartamento(matricula);
+        return inmuebleDAO.eliminarInmueble(matricula);
     }
 }
