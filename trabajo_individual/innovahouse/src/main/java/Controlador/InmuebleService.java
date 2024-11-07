@@ -12,20 +12,22 @@ public class InmuebleService {
         this.inmuebleDAO = inmuebleDAO;
     }
 
-    public boolean agregarInmueble(int matricula, String numeroInmueble, int valorInmueble, Date fechaEscritura, int area, int idTorre, String tipoUnidad) {
-        // Llama al método insertarInmueble con idTorre en lugar de numeroTorre
-        return inmuebleDAO.insertarInmueble(matricula, numeroInmueble, valorInmueble, fechaEscritura, area, idTorre, tipoUnidad);
+    // Método para agregar un nuevo inmueble
+    public boolean agregarInmueble(int matricula, int numeroInmueble, long valorInmueble, Date fechaEscritura, int area, int idTorre, String tipoInmueble) {
+        return inmuebleDAO.insertarInmueble(matricula, numeroInmueble, valorInmueble, fechaEscritura, area, idTorre, tipoInmueble);
     }
 
+    // Método para listar inmuebles por torre
     public List<Inmueble> listarInmueblePorTorre(int idTorre) {
-        // Llama al método obtenerInmueblesPorTorre con idTorre en lugar de numeroTorre
         return inmuebleDAO.obtenerInmueblesPorTorre(idTorre);
     }
 
+    // Método para actualizar un inmueble
     public boolean actualizarInmueble(Inmueble inmueble) {
         return inmuebleDAO.actualizarInmueble(inmueble);
     }
 
+    // Método para eliminar un inmueble por matrícula
     public boolean eliminarInmueble(int matricula) {
         return inmuebleDAO.eliminarInmueble(matricula);
     }

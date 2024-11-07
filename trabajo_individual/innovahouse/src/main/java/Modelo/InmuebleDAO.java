@@ -16,17 +16,17 @@ public class InmuebleDAO {
     }
 
     // Método para insertar un nuevo inmueble
-    public boolean insertarInmueble(int matricula, String numeroInmueble, int valorInmueble, Date fechaEscritura, int area, int idTorre, String tipoUnidad) {
-        String sqlInsert = "INSERT INTO INMUEBLE (MATRICULA, NUMEROINMUEBLE, VALORINMUEBLE, FECHAESCRITURA, AREA, IDTORRE, TIPOUNIDAD) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public boolean insertarInmueble(int matricula, int numeroInmueble, long valorInmueble, Date fechaEscritura, int area, int idTorre, String tipoInmueble) {
+        String sqlInsert = "INSERT INTO proyecto.INMUEBLE (MATRICULA, NUMEROINMUEBLE, VALORINMUEBLE, FECHAESCRITURA, AREA, IDTORRE, TIPOINMUEBLE) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement psInsert = conexion.prepareStatement(sqlInsert)) {
             psInsert.setInt(1, matricula);
-            psInsert.setString(2, numeroInmueble);
-            psInsert.setInt(3, valorInmueble);
+            psInsert.setInt(2, numeroInmueble);
+            psInsert.setLong(3, valorInmueble);
             psInsert.setDate(4, fechaEscritura);
             psInsert.setInt(5, area);
-            psInsert.setInt(6, idTorre); // Cambiado a idTorre
-            psInsert.setString(7, tipoUnidad);
+            psInsert.setInt(6, idTorre);
+            psInsert.setString(7, tipoInmueble);
 
             return psInsert.executeUpdate() > 0;
 
@@ -36,10 +36,10 @@ public class InmuebleDAO {
         }
     }
 
-    // Método para obtener una lista de inmuebles según el ID de la torre
+    // Método para obtener una lista de inmuebles según el ID de torre
     public List<Inmueble> obtenerInmueblesPorTorre(int idTorre) {
         List<Inmueble> inmuebles = new ArrayList<>();
-        String sqlSelect = "SELECT MATRICULA, NUMEROINMUEBLE, VALORINMUEBLE, FECHAESCRITURA, AREA, IDTORRE, TIPOUNIDAD FROM INMUEBLE WHERE IDTORRE = ?";
+        String sqlSelect = "SELECT MATRICULA, NUMEROINMUEBLE, VALORINMUEBLE, FECHAESCRITURA, AREA, IDTORRE, TIPOINMUEBLE FROM INMUEBLE WHERE IDTORRE = ?";
 
         try (PreparedStatement psSelect = conexion.prepareStatement(sqlSelect)) {
             psSelect.setInt(1, idTorre);
@@ -48,12 +48,12 @@ public class InmuebleDAO {
             while (rs.next()) {
                 Inmueble inmueble = new Inmueble();
                 inmueble.setMatricula(rs.getInt("MATRICULA"));
-                inmueble.setNumeroinmueble(rs.getString("NUMEROINMUEBLE"));
-                inmueble.setValorinmueble(rs.getInt("VALORINMUEBLE"));
-                inmueble.setFechaescritura(rs.getDate("FECHAESCRITURA"));
+                inmueble.setNumeroInmueble(rs.getInt("NUMEROINMUEBLE"));
+                inmueble.setValorInmueble(rs.getLong("VALORINMUEBLE"));
+                inmueble.setFechaEscritura(rs.getDate("FECHAESCRITURA"));
                 inmueble.setArea(rs.getInt("AREA"));
-                inmueble.setIdtorre(rs.getInt("IDTORRE")); // Cambiado a idTorre
-                inmueble.setTipounidad(rs.getString("TIPOUNIDAD"));
+                inmueble.setIdTorre(rs.getInt("IDTORRE"));
+                inmueble.setTipoInmueble(rs.getString("TIPOINMUEBLE"));
                 inmuebles.add(inmueble);
             }
         } catch (SQLException e) {
@@ -64,15 +64,15 @@ public class InmuebleDAO {
 
     // Método para actualizar un inmueble
     public boolean actualizarInmueble(Inmueble inmueble) {
-        String sqlUpdate = "UPDATE INMUEBLE SET NUMEROINMUEBLE = ?, VALORINMUEBLE = ?, FECHAESCRITURA = ?, AREA = ?, IDTORRE = ?, TIPOUNIDAD = ? WHERE MATRICULA = ?";
+        String sqlUpdate = "UPDATE INMUEBLE SET NUMEROINMUEBLE = ?, VALORINMUEBLE = ?, FECHAESCRITURA = ?, AREA = ?, IDTORRE = ?, TIPOINMUEBLE = ? WHERE MATRICULA = ?";
 
         try (PreparedStatement psUpdate = conexion.prepareStatement(sqlUpdate)) {
-            psUpdate.setString(1, inmueble.getNumeroinmueble());
-            psUpdate.setInt(2, inmueble.getValorinmueble());
-            psUpdate.setDate(3, inmueble.getFechaescritura());
+            psUpdate.setInt(1, inmueble.getNumeroInmueble());
+            psUpdate.setLong(2, inmueble.getValorInmueble());
+            psUpdate.setDate(3, inmueble.getFechaEscritura());
             psUpdate.setInt(4, inmueble.getArea());
-            psUpdate.setInt(5, inmueble.getIdtorre()); // Cambiado a idTorre
-            psUpdate.setString(6, inmueble.getTipounidad());
+            psUpdate.setInt(5, inmueble.getIdTorre());
+            psUpdate.setString(6, inmueble.getTipoInmueble());
             psUpdate.setInt(7, inmueble.getMatricula());
 
             return psUpdate.executeUpdate() > 0;
