@@ -8,13 +8,17 @@ import Controlador.ConexionBD;
 import Controlador.InmuebleService;
 import Modelo.Inmueble;
 import Modelo.InmuebleDAO;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.Timer;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -49,6 +53,43 @@ public class Inmuebles extends javax.swing.JPanel {
     
         // Iniciar el temporizador
         timer.start();
+        
+        // Configurar renderer para colorear cada columna de la tabla
+        jTable2.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                // Aplica un color de fondo específico para cada columna
+                switch (column) {
+                    case 0 -> // Primera columna
+                        cell.setBackground(Color.WHITE);
+                    case 1 -> // Segunda columna
+                        cell.setBackground(Color.WHITE);
+                    case 2 -> // Tercera columna
+                        cell.setBackground(Color.WHITE);
+                    case 3 -> // Cuarta columna
+                        cell.setBackground(Color.WHITE);
+                    case 4 -> // Quinta columna
+                        cell.setBackground(Color.WHITE);
+                    case 5 -> // Sexta columna
+                        cell.setBackground(Color.WHITE);
+                    default -> {
+                    }
+                }
+
+                // Cambia el color de fondo y del texto cuando la celda está seleccionada
+                if (isSelected) {
+                    cell.setBackground(table.getSelectionBackground());  // Color de fondo de selección
+                    cell.setForeground(Color.WHITE);                     // Color de texto de selección
+                } else {
+                    cell.setForeground(Color.BLACK);                    // Color de texto por defecto
+                }
+
+                return cell;
+
+            }
+    });
     }
     
     private void cargarInmueblesEnTabla() {
