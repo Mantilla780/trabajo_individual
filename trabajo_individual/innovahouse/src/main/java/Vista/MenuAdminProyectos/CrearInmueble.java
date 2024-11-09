@@ -28,7 +28,7 @@ public class CrearInmueble extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         ConexionBD conexionBD = new ConexionBD();
-        TorreDAO torreDAO = new TorreDAO(conexionBD.getConnection());
+        TorreDAO torreDAO = new TorreDAO(conexionBD.getConnection("Admin"));
         this.torreService = new TorreService(torreDAO);
         llenarComboBoxTorres();
     }
@@ -189,7 +189,7 @@ public class CrearInmueble extends javax.swing.JFrame {
 
         // Crear la conexión y el DAO
         ConexionBD conexionBD = new ConexionBD();
-        InmuebleDAO inmuebleDAO = new InmuebleDAO(conexionBD.getConnection());
+        InmuebleDAO inmuebleDAO = new InmuebleDAO(conexionBD.getConnection("Admin"));
 
         // Llamar al método insertarInmueble del DAO
         boolean resultado = inmuebleDAO.insertarInmueble(matricula, numeroInmueble, valorInmueble, null, area, idTorre, tipo);

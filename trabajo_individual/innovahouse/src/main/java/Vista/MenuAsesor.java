@@ -15,7 +15,7 @@ import java.awt.Color;
  *
  * @author omaci
  */
-public class MenuAdministrador1 extends javax.swing.JFrame {
+public class MenuAsesor extends javax.swing.JFrame {
     private String idUsuario;
     private String idProyecto;
     private String numerotorre;
@@ -23,7 +23,7 @@ public class MenuAdministrador1 extends javax.swing.JFrame {
     /**
      * Creates new form MenuAdministrador
      */
-    public MenuAdministrador1(String idUsuario) {
+    public MenuAsesor(String idUsuario) {
         initComponents(); 
         setLocationRelativeTo(null);
         this.idUsuario = idUsuario;
@@ -61,8 +61,8 @@ public class MenuAdministrador1 extends javax.swing.JFrame {
         MenuSliding.setForeground(new java.awt.Color(39, 33, 105));
         MenuSliding.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        ButtonProyecto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/Proyectoo.png"))); // NOI18N
-        ButtonProyecto.setText("Proyectos");
+        ButtonProyecto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/cliente.png"))); // NOI18N
+        ButtonProyecto.setText("Cliente");
         ButtonProyecto.setColorHover(new java.awt.Color(39, 33, 105));
         ButtonProyecto.setColorNormal(new java.awt.Color(76, 69, 153));
         ButtonProyecto.setColorPressed(new java.awt.Color(39, 33, 105));
@@ -82,8 +82,8 @@ public class MenuAdministrador1 extends javax.swing.JFrame {
         });
         MenuSliding.add(ButtonProyecto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 200, 50));
 
-        ButtonTorres.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/Torre.png"))); // NOI18N
-        ButtonTorres.setText("Torres");
+        ButtonTorres.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/venta.png"))); // NOI18N
+        ButtonTorres.setText("Ventas");
         ButtonTorres.setColorHover(new java.awt.Color(39, 33, 105));
         ButtonTorres.setColorNormal(new java.awt.Color(76, 69, 153));
         ButtonTorres.setColorPressed(new java.awt.Color(39, 33, 105));
@@ -103,8 +103,8 @@ public class MenuAdministrador1 extends javax.swing.JFrame {
         });
         MenuSliding.add(ButtonTorres, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 200, 50));
 
-        ButtonApartamentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/departamento.png"))); // NOI18N
-        ButtonApartamentos.setText("Inmueble");
+        ButtonApartamentos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/pagos.png"))); // NOI18N
+        ButtonApartamentos.setText("Pagos");
         ButtonApartamentos.setColorHover(new java.awt.Color(39, 33, 105));
         ButtonApartamentos.setColorNormal(new java.awt.Color(76, 69, 153));
         ButtonApartamentos.setColorPressed(new java.awt.Color(39, 33, 105));
@@ -180,7 +180,7 @@ public class MenuAdministrador1 extends javax.swing.JFrame {
             this.ButtonProyecto.setColorHover(new Color(39,33,105));
             this.ButtonProyecto.setColorPressed(new Color(76,69,153));
             
-            Inmuebles p3 = new Inmuebles(idUsuario);
+            Inmuebles p3 = new Inmuebles();
             p3.setSize(1190,620);
             p3.setLocation(20,20);
             jPanel3.removeAll();
@@ -290,21 +290,27 @@ public class MenuAdministrador1 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuAdministrador1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuAsesor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuAdministrador1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuAsesor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuAdministrador1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuAsesor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuAdministrador1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuAsesor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuAdministrador1("default").setVisible(true);
+                new MenuAsesor("default").setVisible(true);
             }
         });
     }

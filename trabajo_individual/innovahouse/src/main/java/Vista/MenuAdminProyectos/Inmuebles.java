@@ -31,12 +31,12 @@ public class Inmuebles extends javax.swing.JPanel {
     private Timer timer;
     private Connection conexion; 
 
-    public Inmuebles(String idUsuario) {
+    public Inmuebles() {
         initComponents();
         this.idUsuario = idUsuario;
     
         // Inicializa la conexión y el InmuebleDAO
-        this.conexion = ConexionBD.getInstancia().getConnection();
+        this.conexion = ConexionBD.getInstancia().getConnection("Admin");
         InmuebleDAO inmuebleDAO = new InmuebleDAO(this.conexion);
         inmuebleService = new InmuebleService(inmuebleDAO);
 
@@ -93,7 +93,7 @@ public class Inmuebles extends javax.swing.JPanel {
     }
     
     private void cargarInmueblesEnTabla() {
-        try (Connection conexion = ConexionBD.getInstancia().getConnection()) {
+        try (Connection conexion = ConexionBD.getInstancia().getConnection("Admin")) {
             InmuebleDAO inmuebleDAO = new InmuebleDAO(conexion);
             List<Inmueble> inmuebles = inmuebleDAO.obtenerInmuebles();
             DefaultTableModel model = (DefaultTableModel) jTable2.getModel();

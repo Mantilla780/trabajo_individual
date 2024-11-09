@@ -51,9 +51,9 @@
         <Component class="Vista.RSButtonMetro" name="ButtonProyecto">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Vista/Imagenes/Proyectoo.png"/>
+              <Image iconType="3" name="/Vista/Imagenes/cliente.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Proyectos"/>
+            <Property name="text" type="java.lang.String" value="Cliente"/>
             <Property name="colorHover" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="69" green="21" red="27" type="rgb"/>
             </Property>
@@ -83,9 +83,9 @@
         <Component class="Vista.RSButtonMetro" name="ButtonTorres">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Vista/Imagenes/Torre.png"/>
+              <Image iconType="3" name="/Vista/Imagenes/venta.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Torres"/>
+            <Property name="text" type="java.lang.String" value="Ventas"/>
             <Property name="colorHover" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="69" green="21" red="27" type="rgb"/>
             </Property>
@@ -115,9 +115,9 @@
         <Component class="Vista.RSButtonMetro" name="ButtonApartamentos">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Vista/Imagenes/departamento.png"/>
+              <Image iconType="3" name="/Vista/Imagenes/pagos.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Apartamentos"/>
+            <Property name="text" type="java.lang.String" value="Pagos"/>
             <Property name="colorHover" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="69" green="21" red="27" type="rgb"/>
             </Property>

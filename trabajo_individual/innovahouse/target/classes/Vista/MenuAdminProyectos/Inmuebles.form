@@ -116,7 +116,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Vista/Imagenes/agregar.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Crear Nuevo Apartamento"/>
+            <Property name="text" type="java.lang.String" value="Crear Nuevo Inmueble"/>
             <Property name="colorNormal" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="30" green="a" red="5" type="rgb"/>
             </Property>
