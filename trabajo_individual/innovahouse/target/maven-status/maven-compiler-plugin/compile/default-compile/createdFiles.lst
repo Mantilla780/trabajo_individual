@@ -9,6 +9,7 @@ Vista\MenuAdministrador$1.class
 Vista\MenuAdminProyectos\Inmuebles$2.class
 Vista\MenuAdminProyectos\ActualizarTorre$2.class
 Vista\MenuAdminProyectos\CrearInmueble$2.class
+Vista\MenuAdminProyectos\Proyectos$9.class
 Modelo\ProyectoDAO.class
 Vista\MenuAdminProyectos\Inmuebles$5.class
 Vista\MenuAdminProyectos\Torres$1.class
@@ -18,6 +19,7 @@ Vista\MenuAsesor$2.class
 Vista\MenuAdminProyectos\CrearInmueble$5.class
 Vista\MenuAsesor$5.class
 Modelo\InmuebleDAO.class
+Vista\MenuAdminProyectos\Inmuebles$8.class
 Vista\MenuAdminProyectos\Torres$4.class
 Vista\MenuAdminProyectos\Inmuebles$1.class
 Vista\Login$8.class
@@ -49,6 +51,7 @@ Vista\MenuAdminProyectos\Proyectos$8.class
 Vista\MenuAdminProyectos\CrearTorre$2.class
 Vista\MenuAdminProyectos\Inmuebles$6.class
 Vista\MenuAdminProyectos\CrearProyecto$1.class
+Vista\MenuAdminProyectos\Torres$8.class
 Vista\MenuAsesor$1.class
 Controlador\TorreService.class
 Vista\MenuAdminProyectos\CrearInmueble$4.class

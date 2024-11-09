@@ -100,7 +100,7 @@ public class InmuebleDAO {
             // Verifica si la conexión está cerrada
             if (conexion == null || conexion.isClosed()) {
                 System.out.println("Conexión cerrada, abriendo la conexión.");
-                conexion = ConexionBD.getInstancia().getConnection(); // Vuelve a abrir la conexión si está cerrada
+                conexion = ConexionBD.getInstancia().getConnection("Admin"); // Vuelve a abrir la conexión si está cerrada
             }
 
             try (PreparedStatement psDelete = conexion.prepareStatement(sqlDelete)) {
