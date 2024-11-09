@@ -26,7 +26,7 @@ public class CrearProyecto extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.idUsuario= idUsuario;
         ConexionBD conexionBD = new ConexionBD();
-        ProyectoDAO proyectoDAO = new ProyectoDAO(conexionBD.getConnection());
+        ProyectoDAO proyectoDAO = new ProyectoDAO(conexionBD.getConnection("Admin"));
         this.proyectoService = new ProyectoService(proyectoDAO);
         
     }

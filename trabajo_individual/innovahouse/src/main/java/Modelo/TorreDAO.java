@@ -124,7 +124,7 @@ public class TorreDAO {
         try {
             // Verificar si la conexión está cerrada y abrirla si es necesario
             if (conexion == null || conexion.isClosed()) {
-                conexion = ConexionBD.getInstancia().getConnection();
+                conexion = ConexionBD.getInstancia().getConnection("Admin");
             }
 
             try (PreparedStatement psUpdate = conexion.prepareStatement(sqlUpdate)) {

@@ -42,7 +42,7 @@ public class Inmuebles extends javax.swing.JPanel {
     }
     
     private void cargarInmueblesEnTabla() {
-        try (Connection conexion = ConexionBD.getInstancia().getConnection()) {
+        try (Connection conexion = ConexionBD.getInstancia().getConnection("Admin")) {
             InmuebleDAO inmuebleDAO = new InmuebleDAO(conexion);
             List<Inmueble> inmuebles = inmuebleDAO.obtenerInmuebles();
             DefaultTableModel model = (DefaultTableModel) jTable2.getModel();

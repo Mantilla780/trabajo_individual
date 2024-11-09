@@ -34,7 +34,7 @@ public class Proyectos extends javax.swing.JPanel {
         this.idUsuario = idUsuario;
     
         // Inicializa la conexión y el ProyectoDAO
-        this.conexion = ConexionBD.getInstancia().getConnection();
+        this.conexion = ConexionBD.getInstancia().getConnection("Admin");
         ProyectoDAO proyectoDAO = new ProyectoDAO(this.conexion);
         proyectoService = new ProyectoService(proyectoDAO);
 
@@ -54,7 +54,7 @@ public class Proyectos extends javax.swing.JPanel {
     }
     
     private void cargarProyectosEnTabla() {
-    try (Connection conexion = ConexionBD.getInstancia().getConnection()) {
+    try (Connection conexion = ConexionBD.getInstancia().getConnection("Admin")) {
         ProyectoDAO proyectoDAO = new ProyectoDAO(conexion);
         List<Proyecto> proyectos = proyectoDAO.obtenerProyectos();
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();

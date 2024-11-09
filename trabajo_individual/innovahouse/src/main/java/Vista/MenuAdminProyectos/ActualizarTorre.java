@@ -38,7 +38,7 @@ public class ActualizarTorre extends javax.swing.JFrame {
     
     
            private void cargarDatosTorre() {
-        try (Connection conexion = ConexionBD.getInstancia().getConnection()) {
+        try (Connection conexion = ConexionBD.getInstancia().getConnection("Admin")) {
             TorreDAO torreDAO = new TorreDAO(conexion);
             Torre torre = torreDAO.obtenerTorrePorNumero(this.torreNumero);
 
@@ -64,7 +64,7 @@ public class ActualizarTorre extends javax.swing.JFrame {
     }
 
     private void llenarComboBoxProyectos() {
-        this.proyectoService = new ProyectoService(new ProyectoDAO(ConexionBD.getInstancia().getConnection())); // Inicializa el servicio
+        this.proyectoService = new ProyectoService(new ProyectoDAO(ConexionBD.getInstancia().getConnection("Admin"))); // Inicializa el servicio
         List<Proyecto> proyectos = proyectoService.obtenerProyectosBasicos(); // Llama al método
         jComboBox1.removeAllItems(); // Limpia elementos anteriores
         proyectoMap.clear(); // Limpia el mapa de proyectos
@@ -180,7 +180,7 @@ public class ActualizarTorre extends javax.swing.JFrame {
         }
 
         // Obtener la torre actual de la base de datos
-        TorreDAO torreDAO = new TorreDAO(ConexionBD.getInstancia().getConnection());
+        TorreDAO torreDAO = new TorreDAO(ConexionBD.getInstancia().getConnection("Admin"));
         Torre torre = torreDAO.obtenerTorrePorNumero(torreNumero); // Obtener la torre actual usando torreNumero
 
         // Verificar si la torre existe en la base de datos
