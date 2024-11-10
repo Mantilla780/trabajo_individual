@@ -173,6 +173,7 @@ public class Inmuebles extends javax.swing.JPanel {
 
             }
         ));
+        jTable2.setSelectionBackground(new java.awt.Color(39, 33, 105));
         jScrollPane2.setViewportView(jTable2);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1120, 600));
