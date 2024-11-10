@@ -96,7 +96,7 @@ public class ProyectoDAO {
         try {
             // Verificar si la conexión está cerrada y crear una nueva si es necesario
             if (conexion == null || conexion.isClosed()) {
-                conexion = ConexionBD.getInstancia().getConnection(); // Asegúrate de que este método existe y devuelve una nueva conexión
+                conexion = ConexionBD.getInstancia().getConnection("Admin"); // Asegúrate de que este método existe y devuelve una nueva conexión
             }
 
             try (PreparedStatement psUpdate = conexion.prepareStatement(sqlUpdate)) {
@@ -114,7 +114,7 @@ public class ProyectoDAO {
 
     public boolean eliminarProyecto(int idProyecto) {
     // Obtén una conexión desde la instancia de ConexionBD
-    conexion = ConexionBD.getInstancia().getConnection();
+    conexion = ConexionBD.getInstancia().getConnection("Admin");
     TorreDAO torreDAO = new TorreDAO(conexion);
 
     try {

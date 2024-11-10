@@ -38,7 +38,7 @@ public class InmuebleDAO {
     }
 
     // Método para obtener una lista de inmuebles según el ID de torre
-    public List<Inmueble> obtenerInmueblesPorTorre(int idTorre) {
+    public List<Inmueble> obtenerInmueblePorNumero(int idTorre) {
         List<Inmueble> inmuebles = new ArrayList<>();
         String sqlSelect = "SELECT i.MATRICULA, i.NUMEROINMUEBLE, i.VALORINMUEBLE, i.FECHAESCRITURA, i.AREA, i.IDTORRE, t.NUMEROTORRE, i.TIPOINMUEBLE " +
                            "FROM INMUEBLE i JOIN TORRE t ON i.IDTORRE = t.IDTORRE WHERE i.IDTORRE = ?";
@@ -100,7 +100,7 @@ public class InmuebleDAO {
             // Verifica si la conexión está cerrada
             if (conexion == null || conexion.isClosed()) {
                 System.out.println("Conexión cerrada, abriendo la conexión.");
-                conexion = ConexionBD.getInstancia().getConnection(); // Vuelve a abrir la conexión si está cerrada
+                conexion = ConexionBD.getInstancia().getConnection("Admin"); // Vuelve a abrir la conexión si está cerrada
             }
 
             try (PreparedStatement psDelete = conexion.prepareStatement(sqlDelete)) {

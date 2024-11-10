@@ -9,24 +9,43 @@ import java.util.logging.Logger;
 
 public class ConexionBD {
     private static ConexionBD instancia;
-    private Connection con = null;
-    private String url = "jdbc:oracle:thin:@localhost:1521:XE";
-    private String user = "adminproyecto";
-    private String password = "adminproyecto";
+    private Connection adminConnection = null;
+    private Connection asesorConnection = null;
+
+    private final String url = "jdbc:oracle:thin:@localhost:1521:XE";
+    private final String adminUser = "adminproyecto";
+    private final String adminPassword = "adminproyecto";
+    private final String asesorUser = "asesorproyecto";
+    private final String asesorPassword = "asesorproyecto";
 
     public ConexionBD() {
-        conectar();
+        conectarAdmin();
+        conectarAsesor();
     }
 
-    private void conectar() {
+    // Conexión para administradores
+    private void conectarAdmin() {
         try {
-            con = DriverManager.getConnection(url, user, password);
-            if (con != null) {
-                DatabaseMetaData meta = con.getMetaData();
-                System.out.println("Base de datos conectada: " + meta.getDriverName());
+            adminConnection = DriverManager.getConnection(url, adminUser, adminPassword);
+            if (adminConnection != null) {
+                DatabaseMetaData meta = adminConnection.getMetaData();
+                System.out.println("Conexión de administrador establecida: " + meta.getDriverName());
             }
         } catch (SQLException ex) {
-            System.out.println("Error de conexión: " + ex.getMessage());
+            System.out.println("Error de conexión para administrador: " + ex.getMessage());
+        }
+    }
+
+    // Conexión para asesores
+    private void conectarAsesor() {
+        try {
+            asesorConnection = DriverManager.getConnection(url, asesorUser, asesorPassword);
+            if (asesorConnection != null) {
+                DatabaseMetaData meta = asesorConnection.getMetaData();
+                System.out.println("Conexión de asesor establecida: " + meta.getDriverName());
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error de conexión para asesor: " + ex.getMessage());
         }
     }
 
@@ -37,27 +56,49 @@ public class ConexionBD {
         return instancia;
     }
 
-    // Verifica si la conexión está activa o intenta restablecerla si está cerrada
-    public Connection getConnection() {
-        try {
-            if (con == null || con.isClosed()) {
-                System.out.println("La conexión estaba cerrada. Intentando reconectar...");
-                conectar();
+   
+    public Connection getConnection(String role) {
+    try {
+        if ("Admin".equalsIgnoreCase(role)) {
+            if (adminConnection == null || adminConnection.isClosed()) {
+                System.out.println("Conexión de administrador cerrada o no establecida. Intentando reconectar...");
+                conectarAdmin();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            if (adminConnection != null) {
+                System.out.println("Conexión de administrador válida.");
+                return adminConnection;
+            }
+        } else if ("Asesor".equalsIgnoreCase(role)) {
+            if (asesorConnection == null || asesorConnection.isClosed()) {
+                System.out.println("Conexión de asesor cerrada o no establecida. Intentando reconectar...");
+                conectarAsesor();
+            }
+            if (asesorConnection != null) {
+                System.out.println("Conexión de asesor válida.");
+                return asesorConnection;
+            }
         }
-        return con;
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+    return null;  // Si no se pudo obtener la conexión
+}
 
-    public void closeConnection() {
-        if (con != null) {
-            try {
-                con.close();
-                System.out.println("Conexión cerrada.");
-            } catch (SQLException ex) {
-                Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+
+
+    // Cerrar ambas conexiones
+    public void closeConnections() {
+        try {
+            if (adminConnection != null && !adminConnection.isClosed()) {
+                adminConnection.close();
+                System.out.println("Conexión de administrador cerrada.");
             }
+            if (asesorConnection != null && !asesorConnection.isClosed()) {
+                asesorConnection.close();
+                System.out.println("Conexión de asesor cerrada.");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

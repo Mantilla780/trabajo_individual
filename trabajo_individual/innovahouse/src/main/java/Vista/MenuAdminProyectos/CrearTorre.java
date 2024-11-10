@@ -30,8 +30,8 @@ public class CrearTorre extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         ConexionBD conexionBD = new ConexionBD();
-        TorreDAO torreDAO = new TorreDAO(conexionBD.getConnection());
-        ProyectoDAO proyectoDAO = new ProyectoDAO(conexionBD.getConnection());
+        TorreDAO torreDAO = new TorreDAO(conexionBD.getConnection("Admin"));
+        ProyectoDAO proyectoDAO = new ProyectoDAO(conexionBD.getConnection("Admin"));
 
         this.torreService = new TorreService(torreDAO);
         this.proyectoService = new ProyectoService(proyectoDAO);

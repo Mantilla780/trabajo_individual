@@ -160,18 +160,39 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_PasswordFieldContraseñaMouseClicked
 
     private void rButtonProyecto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto1ActionPerformed
-    String usuario = TextFieldUsuario.getText();
-        String contraseña = new String(PasswordFieldContraseña.getPassword());
+          // Obtener el nombre de usuario y la contraseña desde los campos de texto
+                String usuario = TextFieldUsuario.getText();
+                String contraseña = new String(PasswordFieldContraseña.getPassword());
 
-        String idUsuario = login.autenticar(usuario, contraseña); // Obtener ID del usuario
-        if (idUsuario != null) {
-            JOptionPane.showMessageDialog(this, "Login exitoso. ¡Bienvenido!");
-            MenuAdministrador1 home = new MenuAdministrador1(idUsuario); // Pasar el ID del usuario
-            home.setVisible(true);
-            this.dispose(); 
-        } else {
-            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
-        }        
+                // Usar el LoginControlador para autenticar al usuario
+                String[] autenticacion = login.autenticar(usuario, contraseña);
+
+                // Si la autenticación es exitosa y el idUsuario no es nulo
+                if (autenticacion != null) {
+                    String idUsuario = autenticacion[0];
+                    String rol = autenticacion[1].trim();
+
+                    System.out.println("Rol del usuario autenticado: " + rol);
+
+                    // Redirigir según el rol
+                    if ("Admin".equalsIgnoreCase(rol)) {
+                        JOptionPane.showMessageDialog(this, "Login exitoso. ¡Bienvenido Admin!");
+                        MenuAdministrador menuAdmin = new MenuAdministrador(idUsuario);
+                        menuAdmin.setVisible(true);
+                    } else if ("Asesor".equalsIgnoreCase(rol)) {
+                        JOptionPane.showMessageDialog(this, "Login exitoso. ¡Bienvenido Asesor!");
+                        MenuAsesor menuase = new MenuAsesor(idUsuario);
+                        menuase.setVisible(true);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Rol desconocido.");
+                    }
+
+                    // Cerrar la ventana de login
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
+                }
+          
     }//GEN-LAST:event_rButtonProyecto1ActionPerformed
 
     private void rButtonProyecto1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto1MouseClicked

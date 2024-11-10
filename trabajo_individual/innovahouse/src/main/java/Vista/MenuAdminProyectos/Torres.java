@@ -81,7 +81,7 @@ public class Torres extends javax.swing.JPanel {
     }
     
     private void cargarTorresEnTabla() {
-    try (Connection conexion = ConexionBD.getInstancia().getConnection()) {
+    try (Connection conexion = ConexionBD.getInstancia().getConnection("Admin")) {
         TorreDAO torreDAO = new TorreDAO(conexion);
         List<Torre> torres = torreDAO.obtenerTorresConCantidadInmuebles();
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
@@ -212,7 +212,7 @@ public class Torres extends javax.swing.JPanel {
 
             int confirm = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar la Torre " + torreNumero + "?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
-                try (Connection conexion = ConexionBD.getInstancia().getConnection()) {
+                try (Connection conexion = ConexionBD.getInstancia().getConnection("Admin")) {
                     TorreDAO torreDAO = new TorreDAO(conexion);
                     torreDAO.eliminarTorre(torreNumero); // Implementar el método eliminarTorre en TorreDAO
                     cargarTorresEnTabla(); // Recargar la tabla después de eliminar
