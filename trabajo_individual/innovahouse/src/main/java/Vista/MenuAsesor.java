@@ -8,6 +8,9 @@ import Controlador.ProyectoService;
 import Vista.MenuAdminProyectos.Inmuebles;
 import Vista.MenuAdminProyectos.Proyectos;
 import Vista.MenuAdminProyectos.Torres;
+import Vista.MenuAsesorProyectos.Clientes;
+import Vista.MenuAsesorProyectos.Pagos;
+import Vista.MenuAsesorProyectos.Ventas;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
@@ -180,7 +183,7 @@ public class MenuAsesor extends javax.swing.JFrame {
             this.ButtonProyecto.setColorHover(new Color(39,33,105));
             this.ButtonProyecto.setColorPressed(new Color(76,69,153));
             
-            Inmuebles p3 = new Inmuebles();
+            Pagos p3 = new Pagos();
             p3.setSize(1190,620);
             p3.setLocation(20,20);
             jPanel3.removeAll();
@@ -209,7 +212,7 @@ public class MenuAsesor extends javax.swing.JFrame {
             this.ButtonApartamentos.setColorHover(new Color(39,33,105));
             this.ButtonApartamentos.setColorPressed(new Color(76,69,153));
             
-            Proyectos p1 = new Proyectos(idUsuario);
+            Clientes p1 = new Clientes();
             p1.setSize(1190,620);
             p1.setLocation(20,20);
             jPanel3.removeAll();
@@ -237,7 +240,7 @@ public class MenuAsesor extends javax.swing.JFrame {
             this.ButtonApartamentos.setColorHover(new Color(39,33,105));
             this.ButtonApartamentos.setColorPressed(new Color(76,69,153));
             
-            Torres p2 = new Torres();
+            Ventas p2 = new Ventas();
             p2.setSize(1190,620);
             p2.setLocation(20,20);
             jPanel3.removeAll();

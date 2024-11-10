@@ -39,7 +39,7 @@ public class ActualizarInmueble extends javax.swing.JFrame {
     private void cargarDatosInmueble() {
         try (Connection conexion = ConexionBD.getInstancia().getConnection("Admin")) {
             InmuebleDAO inmuebleDAO = new InmuebleDAO(conexion);
-            Inmueble inmueble = inmuebleDAO.obtenerInmueblePorNumero(this.numeroInmueble);
+            Inmueble inmueble = inmuebleDAO.obtenerInmueblePorMatricula(this.numeroInmueble);
 
             if (inmueble != null) {
                 jtnumeroinmueble.setText(String.valueOf(inmueble.getNumeroInmueble()));

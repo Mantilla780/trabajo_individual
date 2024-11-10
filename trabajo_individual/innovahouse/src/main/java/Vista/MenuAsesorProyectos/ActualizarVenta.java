@@ -12,7 +12,7 @@ package Vista.MenuAsesorProyectos;
 public class ActualizarVenta extends javax.swing.JFrame {
  
     public ActualizarVenta() {
-    
+        initComponents(); 
         
     }
     

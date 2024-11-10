@@ -41,7 +41,7 @@ public class InmuebleDAO {
     public Inmueble obtenerInmueblePorNumero(int numeroInmueble) {
     Inmueble inmueble = null;
     String sqlSelect = "SELECT i.MATRICULA, i.NUMEROINMUEBLE, i.VALORINMUEBLE, i.FECHAESCRITURA, i.AREA, i.IDTORRE, t.NUMEROTORRE, i.TIPOINMUEBLE " +
-                       "FROM proyecto.INMUEBLE i JOIN TORRE t ON i.IDTORRE = t.IDTORRE WHERE i.NUMEROINMUEBLE = ?";
+                       "FROM proyecto.INMUEBLE i JOIN proyecto.TORRE t ON i.IDTORRE = t.IDTORRE WHERE i.NUMEROINMUEBLE = ?";
 
     try (PreparedStatement psSelect = conexion.prepareStatement(sqlSelect)) {
         psSelect.setInt(1, numeroInmueble);
@@ -65,34 +65,39 @@ public class InmuebleDAO {
 }
     
     public Inmueble obtenerInmueblePorMatricula(int matricula) {
-    Inmueble inmueble = null;
-    String sqlSelect = "SELECT MATRICULA, NUMEROINMUEBLE, VALORINMUEBLE, FECHAESCRITURA, AREA, IDTORRE, TIPOINMUEBLE FROM proyecto.INMUEBLE WHERE MATRICULA = ?";
+        Inmueble inmueble = null;
+        Connection conexion = ConexionBD.getInstancia().getConnection("Admin"); // Obtener o inicializar la conexión
+        String sqlSelect = "SELECT MATRICULA, NUMEROINMUEBLE, VALORINMUEBLE, FECHAESCRITURA, TIPOINMUEBLE, AREA, IDTORRE FROM proyecto.INMUEBLE WHERE MATRICULA = ?";
 
-    try (PreparedStatement psSelect = conexion.prepareStatement(sqlSelect)) {
-        psSelect.setInt(1, matricula);
-        ResultSet rs = psSelect.executeQuery();
 
-        if (rs.next()) {
-            inmueble = new Inmueble();
-            inmueble.setMatricula(rs.getInt("MATRICULA"));
-            inmueble.setNumeroInmueble(rs.getInt("NUMEROINMUEBLE"));
-            inmueble.setValorInmueble(rs.getLong("VALORINMUEBLE"));
-            inmueble.setFechaEscritura(rs.getDate("FECHAESCRITURA"));
-            inmueble.setArea(rs.getInt("AREA"));
-            inmueble.setIdTorre(rs.getInt("IDTORRE"));
-            inmueble.setTipoInmueble(rs.getString("TIPOINMUEBLE"));
+        try (PreparedStatement psSelect = conexion.prepareStatement(sqlSelect)) {
+            psSelect.setInt(1, matricula);
+            ResultSet rs = psSelect.executeQuery();
+
+            if (rs.next()) {
+                inmueble = new Inmueble();
+                inmueble.setMatricula(rs.getInt("MATRICULA"));
+                inmueble.setNumeroInmueble(rs.getInt("NUMEROINMUEBLE"));
+                inmueble.setValorInmueble(rs.getLong("VALORINMUEBLE"));
+                inmueble.setFechaEscritura(rs.getDate("FECHAESCRITURA"));
+                inmueble.setArea(rs.getInt("AREA"));
+                inmueble.setIdTorre(rs.getInt("IDTORRE"));
+                inmueble.setTipoInmueble(rs.getString("TIPOINMUEBLE"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return inmueble;
     }
-    return inmueble;
-}
+
+
+
 
 
 
     // Método para actualizar un inmueble
     public boolean actualizarInmueble(Inmueble inmueble) {
-        String sqlUpdate = "UPDATE INMUEBLE SET NUMEROINMUEBLE = ?, VALORINMUEBLE = ?, FECHAESCRITURA = ?, AREA = ?, IDTORRE = ?, TIPOINMUEBLE = ? WHERE MATRICULA = ?";
+        String sqlUpdate = "UPDATE proyecto.INMUEBLE SET NUMEROINMUEBLE = ?, VALORINMUEBLE = ?, FECHAESCRITURA = ?, AREA = ?, IDTORRE = ?, TIPOINMUEBLE = ? WHERE MATRICULA = ?";
 
         try (PreparedStatement psUpdate = conexion.prepareStatement(sqlUpdate)) {
             psUpdate.setInt(1, inmueble.getNumeroInmueble());

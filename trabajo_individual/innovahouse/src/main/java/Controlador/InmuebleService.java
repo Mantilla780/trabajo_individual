@@ -29,6 +29,7 @@ public class InmuebleService {
     }
     
    public Inmueble obtenerInmueblePorMatricula(int matricula) {
+       
     return inmuebleDAO.obtenerInmueblePorMatricula(matricula);
 }
 
