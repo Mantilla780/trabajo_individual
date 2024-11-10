@@ -62,6 +62,7 @@ Modelo\TorreDAO.class
 Vista\MenuAdministrador$5.class
 Vista\Login$5.class
 Modelo\UsuarioDAO.class
+Vista\MenuAdministrador$8.class
 Vista\Login$2.class
 Vista\MenuAdminProyectos\Proyectos$2.class
 com\mycompany\innovahouse\Innovahouse.class

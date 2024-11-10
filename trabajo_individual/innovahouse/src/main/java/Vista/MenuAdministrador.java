@@ -44,6 +44,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         ButtonProyecto = new Vista.RSButtonMetro();
         ButtonTorres = new Vista.RSButtonMetro();
         ButtonApartamentos = new Vista.RSButtonMetro();
+        logout = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -126,6 +127,15 @@ public class MenuAdministrador extends javax.swing.JFrame {
             }
         });
         MenuSliding.add(ButtonApartamentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 200, 50));
+
+        logout.setBackground(new java.awt.Color(0, 0, 0));
+        logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/logout.png"))); // NOI18N
+        logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutActionPerformed(evt);
+            }
+        });
+        MenuSliding.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 480, -1, -1));
 
         getContentPane().add(MenuSliding, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 80, 210, 800));
 
@@ -273,6 +283,15 @@ public class MenuAdministrador extends javax.swing.JFrame {
         this.ButtonApartamentos.setSelected(true);
     }//GEN-LAST:event_ButtonApartamentosMousePressed
 
+    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
+        // Cierra la ventana actual
+        this.dispose();
+
+        // Abre la ventana de Login
+        Login loginWindow = new Login();
+        loginWindow.setVisible(true);
+    }//GEN-LAST:event_logoutActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -323,5 +342,6 @@ public class MenuAdministrador extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JButton logout;
     // End of variables declaration//GEN-END:variables
 }
