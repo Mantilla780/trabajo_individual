@@ -19,7 +19,7 @@ public class InmuebleService {
 
     // Método para listar inmuebles por torre
     public List<Inmueble> listarInmueblePorTorre(int idTorre) {
-        return inmuebleDAO.obtenerInmueblesPorTorre(idTorre);
+        return inmuebleDAO.obtenerInmueblePorNumero(idTorre);
     }
 
     // Método para actualizar un inmueble
