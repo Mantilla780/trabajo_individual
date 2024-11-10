@@ -1,7 +1,9 @@
 Modelo\Inmueble.class
 Vista\Login$3.class
+Vista\MenuAdminProyectos\ActualizarInmueble$2.class
 Controlador\ConexionBD.class
 Vista\MenuAdminProyectos\Proyectos$1.class
+Vista\MenuAdminProyectos\ActualizarInmueble$5.class
 Vista\MenuAdminProyectos\ActualizarProyecto$2.class
 Vista\Login$6.class
 Vista\MenuAdminProyectos\CrearTorre$3.class
@@ -56,6 +58,7 @@ Vista\MenuAsesor$1.class
 Controlador\TorreService.class
 Vista\MenuAdminProyectos\CrearInmueble$4.class
 Modelo\Usuario.class
+Vista\MenuAdminProyectos\ActualizarInmueble$1.class
 Vista\MenuAdminProyectos\Inmuebles.class
 Vista\MenuAdminProyectos\ActualizarProyecto$3.class
 Modelo\TorreDAO.class
@@ -65,6 +68,7 @@ Modelo\UsuarioDAO.class
 Vista\Login$2.class
 Vista\MenuAdminProyectos\Proyectos$2.class
 com\mycompany\innovahouse\Innovahouse.class
+Vista\MenuAdminProyectos\ActualizarInmueble$4.class
 Modelo\Proyecto.class
 Vista\MenuAdministrador$7.class
 Vista\MenuAdminProyectos\Proyectos$3.class
@@ -78,10 +82,12 @@ Vista\MenuAdminProyectos\Torres.class
 Vista\PanelRound.class
 Vista\RSButtonMetro.class
 Vista\MenuAsesor.class
+Vista\MenuAdminProyectos\ActualizarInmueble$3.class
 Vista\Login$4.class
 Vista\MenuAdminProyectos\Proyectos$4.class
 Vista\MenuAdministrador$6.class
 Controlador\ProyectoService.class
+Vista\MenuAdminProyectos\ActualizarInmueble.class
 Vista\MenuAdminProyectos\Torres$2.class
 Vista\MenuAdminProyectos\ActualizarProyecto.class
 Vista\MenuAsesor$7.class

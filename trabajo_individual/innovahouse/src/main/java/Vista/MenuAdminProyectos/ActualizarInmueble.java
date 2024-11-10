@@ -29,7 +29,7 @@ public class ActualizarInmueble extends javax.swing.JFrame {
     // Mapa para almacenar el tipo de inmueble
     private HashMap<String, String> tipoMap = new HashMap<>();
 
-    public ActualizarInmueble(int numeroInmueble, int idProyecto) {
+    public ActualizarInmueble(int numeroInmueble) {
         initComponents();
         this.numeroInmueble = numeroInmueble;
         this.idProyecto = idProyecto;
@@ -37,7 +37,7 @@ public class ActualizarInmueble extends javax.swing.JFrame {
     }
 
     private void cargarDatosInmueble() {
-        try (Connection conexion = ConexionBD.getInstancia().getConnection()) {
+        try (Connection conexion = ConexionBD.getInstancia().getConnection("Admin")) {
             InmuebleDAO inmuebleDAO = new InmuebleDAO(conexion);
             Inmueble inmueble = inmuebleDAO.obtenerInmueblePorNumero(this.numeroInmueble);
 
@@ -75,21 +75,22 @@ public class ActualizarInmueble extends javax.swing.JFrame {
     }
     
         private void llenarComboBoxTorre() {
-        try (Connection conexion = ConexionBD.getInstancia().getConnection()) {
-            TorreDAO torreDAO = new TorreDAO(conexion);
-            List<Torre> torres = torreDAO.obtenerTodasLasTorres();
-            jctorre.removeAllItems();
-            torreMap.clear();
+    try (Connection conexion = ConexionBD.getInstancia().getConnection("Admin")) {
+        TorreDAO torreDAO = new TorreDAO(conexion);
+        List<Torre> torres = torreDAO.obtenerTorresBasicas();
+        jctorre.removeAllItems();
+        torreMap.clear();
 
-            for (Torre torre : torres) {
-                jctorre.addItem(torre.getNombreTorre());
-                torreMap.put(torre.getNombreTorre(), torre.getIdtorre());
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al cargar las torres.", "Error", JOptionPane.ERROR_MESSAGE);
+        for (Torre torre : torres) {
+            String numeroTorre = String.valueOf(torre.getNumerotorre());
+            jctorre.addItem(numeroTorre); // Mostramos numerotorre en lugar de nombreTorre
+            torreMap.put(numeroTorre, torre.getIdtorre());
         }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error al cargar las torres.", "Error", JOptionPane.ERROR_MESSAGE);
     }
+}
 
 
     
@@ -214,8 +215,8 @@ public class ActualizarInmueble extends javax.swing.JFrame {
             String tipo = (String) jctipo.getSelectedItem();
             Integer idTorreSeleccionada = torreMap.get(jctorre.getSelectedItem());
 
-            InmuebleDAO inmuebleDAO = new InmuebleDAO(ConexionBD.getInstancia().getConnection());
-            Inmueble inmueble = inmuebleDAO.obtenerInmueblePorNumero(this.numeroInmueble);
+            InmuebleDAO inmuebleDAO = new InmuebleDAO(ConexionBD.getInstancia().getConnection("Admin"));
+            Inmueble inmueble = inmuebleDAO.obtenerInmueblePorMatricula(this.numeroInmueble);
 
             if (inmueble != null) {
                 inmueble.setNumeroInmueble(numeroInmueble);
@@ -268,7 +269,7 @@ public class ActualizarInmueble extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ActualizarInmueble().setVisible(true);
+                new ActualizarInmueble(0).setVisible(true);
             }
         });
     }

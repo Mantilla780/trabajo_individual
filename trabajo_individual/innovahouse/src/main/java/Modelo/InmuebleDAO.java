@@ -38,37 +38,56 @@ public class InmuebleDAO {
     }
 
     // Método para obtener una lista de inmuebles según el ID de torre
-    public List<Inmueble> obtenerInmueblePorNumero(int idTorre) {
-        List<Inmueble> inmuebles = new ArrayList<>();
-        String sqlSelect = "SELECT i.MATRICULA, i.NUMEROINMUEBLE, i.VALORINMUEBLE, i.FECHAESCRITURA, i.AREA, i.IDTORRE, t.NUMEROTORRE, i.TIPOINMUEBLE " +
-                           "FROM INMUEBLE i JOIN TORRE t ON i.IDTORRE = t.IDTORRE WHERE i.IDTORRE = ?";
+    public Inmueble obtenerInmueblePorNumero(int numeroInmueble) {
+    Inmueble inmueble = null;
+    String sqlSelect = "SELECT i.MATRICULA, i.NUMEROINMUEBLE, i.VALORINMUEBLE, i.FECHAESCRITURA, i.AREA, i.IDTORRE, t.NUMEROTORRE, i.TIPOINMUEBLE " +
+                       "FROM proyecto.INMUEBLE i JOIN TORRE t ON i.IDTORRE = t.IDTORRE WHERE i.NUMEROINMUEBLE = ?";
 
-        try (PreparedStatement psSelect = conexion.prepareStatement(sqlSelect)) {
-            psSelect.setInt(1, idTorre);
-            ResultSet rs = psSelect.executeQuery();
+    try (PreparedStatement psSelect = conexion.prepareStatement(sqlSelect)) {
+        psSelect.setInt(1, numeroInmueble);
+        ResultSet rs = psSelect.executeQuery();
 
-            while (rs.next()) {
-                Inmueble inmueble = new Inmueble();
-                inmueble.setMatricula(rs.getInt("MATRICULA"));
-                inmueble.setNumeroInmueble(rs.getInt("NUMEROINMUEBLE"));
-                inmueble.setValorInmueble(rs.getLong("VALORINMUEBLE"));
-                inmueble.setFechaEscritura(rs.getDate("FECHAESCRITURA"));
-                inmueble.setArea(rs.getInt("AREA"));
-                inmueble.setIdTorre(rs.getInt("IDTORRE"));  // Sigue guardando el idTorre
-                inmueble.setTipoInmueble(rs.getString("TIPOINMUEBLE"));
-
-                // Mostrar numeroTorre pero mantener idTorre
-                int numeroTorre = rs.getInt("NUMEROTORRE");
-                // Puedes crear un setter para numeroTorre en la clase Inmueble si lo necesitas.
-                inmueble.setNumeroTorre(numeroTorre); // Guardamos el numeroTorre para mostrarlo en la tabla
-
-                inmuebles.add(inmueble);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (rs.next()) {
+            inmueble = new Inmueble();
+            inmueble.setMatricula(rs.getInt("MATRICULA"));
+            inmueble.setNumeroInmueble(rs.getInt("NUMEROINMUEBLE"));
+            inmueble.setValorInmueble(rs.getLong("VALORINMUEBLE"));
+            inmueble.setFechaEscritura(rs.getDate("FECHAESCRITURA"));
+            inmueble.setArea(rs.getInt("AREA"));
+            inmueble.setIdTorre(rs.getInt("IDTORRE"));
+            inmueble.setTipoInmueble(rs.getString("TIPOINMUEBLE"));
+            inmueble.setNumeroTorre(rs.getInt("NUMEROTORRE"));
         }
-        return inmuebles;
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+    return inmueble;
+}
+    
+    public Inmueble obtenerInmueblePorMatricula(int matricula) {
+    Inmueble inmueble = null;
+    String sqlSelect = "SELECT MATRICULA, NUMEROINMUEBLE, VALORINMUEBLE, FECHAESCRITURA, AREA, IDTORRE, TIPOINMUEBLE FROM proyecto.INMUEBLE WHERE MATRICULA = ?";
+
+    try (PreparedStatement psSelect = conexion.prepareStatement(sqlSelect)) {
+        psSelect.setInt(1, matricula);
+        ResultSet rs = psSelect.executeQuery();
+
+        if (rs.next()) {
+            inmueble = new Inmueble();
+            inmueble.setMatricula(rs.getInt("MATRICULA"));
+            inmueble.setNumeroInmueble(rs.getInt("NUMEROINMUEBLE"));
+            inmueble.setValorInmueble(rs.getLong("VALORINMUEBLE"));
+            inmueble.setFechaEscritura(rs.getDate("FECHAESCRITURA"));
+            inmueble.setArea(rs.getInt("AREA"));
+            inmueble.setIdTorre(rs.getInt("IDTORRE"));
+            inmueble.setTipoInmueble(rs.getString("TIPOINMUEBLE"));
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return inmueble;
+}
+
 
 
     // Método para actualizar un inmueble
