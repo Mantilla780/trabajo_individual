@@ -12,8 +12,7 @@ package Vista.MenuAsesorProyectos;
 public class AnadirVenta extends javax.swing.JFrame {
  
     public AnadirVenta() {
-    
-        
+        initComponents(); 
     }
     
     

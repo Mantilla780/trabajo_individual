@@ -4,6 +4,12 @@
  */
 package Vista.MenuAsesorProyectos;
 
+import Controlador.ClienteService;
+import Controlador.ConexionBD;
+import Modelo.Cliente;
+import java.sql.Connection;
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -12,8 +18,7 @@ package Vista.MenuAsesorProyectos;
 public class AnadirCliente extends javax.swing.JFrame {
  
     public AnadirCliente() {
-    
-        
+        initComponents();         
     }
     
     
@@ -45,11 +50,12 @@ public class AnadirCliente extends javax.swing.JFrame {
         nombreproyecto5 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(710, 440));
+        setMinimumSize(new java.awt.Dimension(880, 600));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(710, 440));
+        jPanel1.setPreferredSize(new java.awt.Dimension(880, 600));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -74,6 +80,8 @@ public class AnadirCliente extends javax.swing.JFrame {
             }
         });
         jPanel1.add(rSButtonMetro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 540, 200, 60));
+
+        nombreproyecto.setEnabled(false);
         jPanel1.add(nombreproyecto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 550, 380, 50));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -117,11 +125,55 @@ public class AnadirCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rSButtonMetro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro1ActionPerformed
- 
+        // Capturar los valores de los campos de texto
+        String nombre = nombreproyecto1.getText().trim();
+        String cedulaText = nombreproyecto2.getText().trim();
+        String direccion = nombreproyecto4.getText().trim();
+        String correo = nombreproyecto5.getText().trim();
+        String telefonoText = nombreproyecto3.getText().trim();
+        String sisben = (jCheckBox1.isSelected()) ? "Sí" : "No"; // Si el checkbox está seleccionado, asignar "Sí" al Sisben, si no "No"
+        String subsidioText = nombreproyecto.getText().trim();
+
+        // Validación de campos obligatorios (solo los campos que son necesarios)
+        if (nombre.isEmpty() || cedulaText.isEmpty() || direccion.isEmpty() || correo.isEmpty() || telefonoText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Los campos nombre, cédula, dirección, correo y teléfono son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            // Convertir los campos numéricos a enteros
+            int cedula = Integer.parseInt(cedulaText);
+            int telefono = Integer.parseInt(telefonoText);
+            int subsidio = (subsidioText.isEmpty()) ? 0 : Integer.parseInt(subsidioText); // Si subsidio está vacío, se asigna 0
+
+            // Crear el objeto Cliente
+            Cliente cliente = new Cliente(cedula, nombre, sisben, subsidio, direccion, telefono, correo);
+
+            // Obtener la conexión del rol "Asesor"
+            ConexionBD conexionBD = ConexionBD.getInstancia();
+            Connection conexion = conexionBD.getConnection("Asesor"); // Pasando el rol "Asesor"
+
+            // Crear el servicio y guardar el cliente
+            ClienteService clienteService = new ClienteService(conexion); // Pasando la conexión
+            boolean resultado = clienteService.agregarCliente(cliente);
+
+            if (resultado) {
+                JOptionPane.showMessageDialog(this, "Cliente guardado exitosamente.");
+                this.dispose(); // Cerrar la ventana actual
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al guardar el cliente.");
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Los campos de cédula, teléfono y subsidio deben ser numéricos.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al guardar el cliente: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_rSButtonMetro1ActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        // TODO add your handling code here:
+       nombreproyecto.setEnabled(jCheckBox1.isSelected()); 
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     /**
