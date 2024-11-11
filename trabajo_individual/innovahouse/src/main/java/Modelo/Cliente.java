@@ -22,11 +22,11 @@ public class Cliente {
         
     }
 
-    public Cliente(int cedula, String nombre, String sisben, int sussidioministerio, String direccion, int telefono, String correoelectronico) {
+    public Cliente(int cedula, String nombre, String sisben, int SUBSIDIOMINISTERIO, String direccion, int telefono, String correoelectronico) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.sisben = sisben;
-        this.SUBSIDIOMINISTERIO = sussidioministerio;
+        this.SUBSIDIOMINISTERIO = SUBSIDIOMINISTERIO;
         this.direccion = direccion;
         this.telefono = telefono;
         this.correoelectronico = correoelectronico;
@@ -56,12 +56,12 @@ public class Cliente {
         this.sisben = sisben;
     }
 
-    public int getSussidioministerio() {
+    public int getSUBSIDIOMINISTERIO() {
         return SUBSIDIOMINISTERIO;
     }
 
-    public void setSussidioministerio(int sussidioministerio) {
-        this.SUBSIDIOMINISTERIO = sussidioministerio;
+    public void setSUBSIDIOMINISTERIO(int SUBSIDIOMINISTERIO) {
+        this.SUBSIDIOMINISTERIO = SUBSIDIOMINISTERIO;
     }
 
     public String getDireccion() {
@@ -87,5 +87,5 @@ public class Cliente {
     public void setCorreoelectronico(String correoelectronico) {
         this.correoelectronico = correoelectronico;
     }
-    
+
 }

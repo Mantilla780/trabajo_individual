@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClienteDAO {
     private Connection conexion;
@@ -34,10 +37,10 @@ public class ClienteDAO {
         }
 
         // Si subsidio (sussidioministerio) es 0 o no se ha proporcionado, lo dejamos como NULL
-        if (cliente.getSussidioministerio() == 0) {
+        if (cliente.getSUBSIDIOMINISTERIO()== 0) {
             psInsert.setNull(4, java.sql.Types.INTEGER); // 'sussidioministerio' es de tipo INT
         } else {
-            psInsert.setInt(4, cliente.getSussidioministerio());
+            psInsert.setInt(4, cliente.getSUBSIDIOMINISTERIO());
         }
 
         psInsert.setString(5, cliente.getDireccion());
@@ -66,6 +69,27 @@ private boolean clienteExiste(int cedula) {
     }
     return false;
 }
+
+ public List<Cliente> listarClientes() throws SQLException {
+        List<Cliente> clientes = new ArrayList<>();
+        
+         String sql = "SELECT cedula, nombre, sisben, subsidioMinisterio, direccion, telefono, correoelectronico FROM proyecto.cliente";
+        try (Statement stmt = conexion.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                Cliente cliente = new Cliente(
+                        rs.getInt("cedula"),
+                        rs.getString("nombre"),
+                        rs.getString("sisben"),
+                        rs.getInt("subsidioMinisterio"),
+                        rs.getString("direccion"),
+                        rs.getInt("telefono"),
+                        rs.getString("correoelectronico")
+                );
+                clientes.add(cliente);
+            }
+        }
+        return clientes;
+    }
 
 
 }

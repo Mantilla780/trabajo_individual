@@ -7,6 +7,8 @@ package Controlador;
 import Modelo.Cliente;
 import Modelo.ClienteDAO;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -22,6 +24,10 @@ public class ClienteService {
 
     public boolean agregarCliente(Cliente cliente) {
         return clienteDAO.insertarCliente(cliente);
+    }
+    
+    public List<Cliente> obtenerclientes() throws SQLException {
+        return clienteDAO.listarClientes();
     }
 }
 
