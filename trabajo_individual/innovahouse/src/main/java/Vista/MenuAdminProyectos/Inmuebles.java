@@ -173,6 +173,7 @@ public class Inmuebles extends javax.swing.JPanel {
 
             }
         ));
+        jTable2.setSelectionBackground(new java.awt.Color(39, 33, 105));
         jScrollPane2.setViewportView(jTable2);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1120, 600));
@@ -277,7 +278,33 @@ public class Inmuebles extends javax.swing.JPanel {
     }//GEN-LAST:event_rButtonProyecto3MouseClicked
 
     private void rButtonProyecto3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto3ActionPerformed
-        // TODO add your handling code here:
+         int selectedRow = jTable2.getSelectedRow();
+            if (selectedRow != -1) {
+                // Obtener el valor correcto, que debería ser la matrícula, no el número de inmueble
+                int matriculaInmueble = (int) jTable2.getValueAt(selectedRow, 0); // Primera columna
+                System.out.println("Matrícula seleccionada: " + matriculaInmueble);
+
+                try {
+                    // Obtener el inmueble usando el servicio
+                    Inmueble inmueble = inmuebleService.obtenerInmueblePorMatricula(matriculaInmueble);
+                    System.out.println(inmueble);
+                    if (inmueble != null) {
+                        // Mostrar la ventana de edición de inmueble con la matrícula
+                        ActualizarInmueble editarInmueble = new ActualizarInmueble(matriculaInmueble);
+                        editarInmueble.setVisible(true);
+                    } else {
+                        // Si no se encuentra el inmueble
+                        JOptionPane.showMessageDialog(this, "No se encontró el inmueble seleccionado.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                    }
+                } catch (Exception e) {
+                    // Mostrar error en la consola y en el mensaje al usuario
+                    e.printStackTrace(); 
+                    JOptionPane.showMessageDialog(this, "Error al cargar los detalles del inmueble.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                // Si no se seleccionó ninguna fila
+                JOptionPane.showMessageDialog(this, "Por favor selecciona un inmueble para editar.");
+            }
     }//GEN-LAST:event_rButtonProyecto3ActionPerformed
 
 

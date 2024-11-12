@@ -17,11 +17,7 @@ public class InmuebleService {
         return inmuebleDAO.insertarInmueble(matricula, numeroInmueble, valorInmueble, fechaEscritura, area, idTorre, tipoInmueble);
     }
 
-    // Método para listar inmuebles por torre
-    public List<Inmueble> listarInmueblePorTorre(int idTorre) {
-        return inmuebleDAO.obtenerInmueblePorNumero(idTorre);
-    }
-
+  
     // Método para actualizar un inmueble
     public boolean actualizarInmueble(Inmueble inmueble) {
         return inmuebleDAO.actualizarInmueble(inmueble);
@@ -31,4 +27,10 @@ public class InmuebleService {
     public boolean eliminarInmueble(int matricula) {
         return inmuebleDAO.eliminarInmueble(matricula);
     }
+    
+   public Inmueble obtenerInmueblePorMatricula(int matricula) {
+       
+    return inmuebleDAO.obtenerInmueblePorMatricula(matricula);
+}
+
 }
