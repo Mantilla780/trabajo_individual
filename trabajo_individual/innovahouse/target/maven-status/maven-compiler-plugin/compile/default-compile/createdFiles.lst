@@ -1,6 +1,7 @@
 Vista\MenuAsesorProyectos\AnadirPago.class
 Modelo\Inmueble.class
 Vista\Login$3.class
+Vista\MenuAsesorProyectos\Clientes$ButtonRenderer.class
 Vista\MenuAdminProyectos\ActualizarInmueble$2.class
 Vista\MenuAsesorProyectos\AnadirPago$1.class
 Controlador\ConexionBD.class
@@ -68,6 +69,7 @@ Vista\MenuAdminProyectos\CrearProyecto$1.class
 Vista\MenuAdminProyectos\Torres$8.class
 Vista\MenuAsesor$1.class
 Controlador\TorreService.class
+Vista\MenuAsesorProyectos\Clientes$ButtonEditor$1.class
 Controlador\ClienteService.class
 Vista\MenuAdminProyectos\CrearInmueble$4.class
 Vista\MenuAsesorProyectos\AnadirPago$2.class
@@ -81,6 +83,7 @@ Vista\MenuAdministrador$5.class
 Vista\Login$5.class
 Modelo\UsuarioDAO.class
 Vista\MenuAsesorProyectos\Pagos$6.class
+Vista\MenuAsesorProyectos\Clientes$ButtonEditor.class
 Vista\MenuAsesorProyectos\ActualizarCliente$3.class
 Vista\Login$2.class
 Vista\MenuAdminProyectos\Proyectos$2.class
