@@ -12,6 +12,8 @@ import java.util.Map;
 import Controlador.TorreService;
 import Modelo.InmuebleDAO;
 import Modelo.TorreDAO;
+import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 /**
  *
@@ -26,6 +28,11 @@ public class CrearInmueble extends javax.swing.JFrame {
    
     public CrearInmueble() {
         initComponents();
+        
+        // Cargar la imagen como icono de la ventana
+        Image icono = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Vista/Imagenes/logo3.png"));
+        setIconImage(icono);
+        
         setLocationRelativeTo(null);
         ConexionBD conexionBD = new ConexionBD();
         TorreDAO torreDAO = new TorreDAO(conexionBD.getConnection("Admin"));

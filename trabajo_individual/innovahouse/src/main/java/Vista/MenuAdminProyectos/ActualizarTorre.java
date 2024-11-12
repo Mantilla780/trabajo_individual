@@ -10,6 +10,8 @@ import Modelo.Proyecto;
 import Modelo.ProyectoDAO;
 import Modelo.Torre;
 import Modelo.TorreDAO;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -30,6 +32,11 @@ public class ActualizarTorre extends javax.swing.JFrame {
      */
     public ActualizarTorre(int torreNumero, int idProyecto) {
         initComponents();
+        
+        // Cargar la imagen como icono de la ventana
+        Image icono = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Vista/Imagenes/logo3.png"));
+        setIconImage(icono);
+        
         this.torreNumero = torreNumero;
         this.idProyecto = idProyecto;
         cargarDatosTorre();

@@ -10,6 +10,8 @@ import Controlador.TorreService;
 import Modelo.Proyecto;
 import Modelo.ProyectoDAO;
 import Modelo.TorreDAO;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -28,6 +30,11 @@ public class CrearTorre extends javax.swing.JFrame {
      */
     public CrearTorre() {
         initComponents();
+        
+        // Cargar la imagen como icono de la ventana
+        Image icono = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Vista/Imagenes/logo3.png"));
+        setIconImage(icono);
+        
         setLocationRelativeTo(null);
         ConexionBD conexionBD = new ConexionBD();
         TorreDAO torreDAO = new TorreDAO(conexionBD.getConnection("Admin"));

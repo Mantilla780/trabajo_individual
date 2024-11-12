@@ -13,6 +13,8 @@ import Vista.MenuAsesorProyectos.Pagos;
 import Vista.MenuAsesorProyectos.Ventas;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
 
 /**
  *
@@ -28,6 +30,11 @@ public class MenuAsesor extends javax.swing.JFrame {
      */
     public MenuAsesor(String idUsuario) {
         initComponents(); 
+        
+        // Cargar la imagen como icono de la ventana
+        Image icono = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Vista/Imagenes/logo3.png"));
+        setIconImage(icono);
+        
         setLocationRelativeTo(null);
         this.idUsuario = idUsuario;
         

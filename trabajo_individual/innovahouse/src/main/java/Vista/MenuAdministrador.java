@@ -10,6 +10,8 @@ import Vista.MenuAdminProyectos.Proyectos;
 import Vista.MenuAdminProyectos.Torres;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
 
 /**
  *
@@ -25,6 +27,11 @@ public class MenuAdministrador extends javax.swing.JFrame {
      */
     public MenuAdministrador(String idUsuario) {
         initComponents(); 
+        
+        // Cargar la imagen como icono de la ventana
+        Image icono = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Vista/Imagenes/logo3.png"));
+        setIconImage(icono);
+        
         setLocationRelativeTo(null);
         this.idUsuario = idUsuario;
         
