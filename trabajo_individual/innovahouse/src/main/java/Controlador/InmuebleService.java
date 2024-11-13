@@ -34,7 +34,9 @@ public class InmuebleService {
 }
    
     public List<Inmueble> obtenerInmuebles() {
-        return inmuebleDAO.obtenerInmueblesbasico();
+        //return inmuebleDAO.obtenerInmueblesbasico();
+        return null;
+        //return inmuebleDAO.obtenerInmueblesbasico();
     }
 
 }
