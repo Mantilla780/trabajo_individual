@@ -29,5 +29,8 @@ public class ClienteService {
     public List<Cliente> obtenerclientes() throws SQLException {
         return clienteDAO.listarClientes();
     }
+    public boolean eliminarCliente(int cedula) {
+        return clienteDAO.eliminarCliente(cedula);
+    }
 }
 

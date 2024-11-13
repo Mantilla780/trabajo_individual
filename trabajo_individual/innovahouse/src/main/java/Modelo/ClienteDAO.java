@@ -91,5 +91,18 @@ private boolean clienteExiste(int cedula) {
         return clientes;
     }
 
+    public boolean eliminarCliente(int cedula) {
+       String sqlDelete = "DELETE FROM proyecto.cliente WHERE cedula = ?";
 
+       try (PreparedStatement psDelete = conexion.prepareStatement(sqlDelete)) {
+           psDelete.setInt(1, cedula);
+
+           // Ejecuta la eliminación y devuelve true si se eliminó al menos un registro
+           return psDelete.executeUpdate() > 0;
+
+       } catch (SQLException e) {
+           System.err.println("Error al eliminar cliente con cédula " + cedula + ": " + e.getMessage());
+           return false;
+       }
+   }
 }

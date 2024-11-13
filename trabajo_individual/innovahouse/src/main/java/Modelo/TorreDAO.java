@@ -147,17 +147,74 @@ public class TorreDAO {
             return false; // Retornar falso en caso de error
         }
     }
+    public List<Integer> obtenerIdsTorresPorProyecto(int idProyecto) {
+    List<Integer> idsTorres = new ArrayList<>();
+    String sql = "SELECT IDTORRE FROM proyecto.TORRE WHERE IDPROYECTO = ?";
 
-    public boolean eliminarTorre(int numeroTorre) {
-        String sql = "DELETE FROM proyecto.TORRE WHERE NUMEROTORRE = ?";
-        try (PreparedStatement pstmt = conexion.prepareStatement(sql)) {
-            pstmt.setInt(1, numeroTorre);
-            return pstmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            System.err.println("Error al eliminar torre: " + e.getMessage());
+    try (PreparedStatement ps = conexion.prepareStatement(sql)) {
+        ps.setInt(1, idProyecto);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            idsTorres.add(rs.getInt("IDTORRE"));
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al obtener IDs de torres por proyecto: " + e.getMessage());
+    }
+
+    return idsTorres;
+}
+
+public boolean eliminarTorre(int numeroTorre) {
+    // Obtén la conexión desde la instancia de ConexionBD
+    conexion = ConexionBD.getInstancia().getConnection("Admin");
+
+    try {
+        // Inicia una transacción
+        conexion.setAutoCommit(false);
+
+        // Obtener el ID de la torre a eliminar
+        Torre torre = obtenerTorrePorNumero(numeroTorre);
+        if (torre == null) {
+            System.out.println("La torre con el número especificado no existe.");
             return false;
         }
+
+        // Crear instancia de InmuebleDAO y eliminar inmuebles asociados a la torre
+        InmuebleDAO inmuebleDAO = new InmuebleDAO(conexion);
+        boolean inmueblesEliminados = inmuebleDAO.eliminarInmueblePorTorre(torre.getIdtorre());
+
+        if (!inmueblesEliminados) {
+            System.out.println("No se eliminaron inmuebles o no existen inmuebles para esta torre.");
+        }
+
+        // Eliminar la torre
+        String sqlDeleteTorre = "DELETE FROM proyecto.TORRE WHERE NUMEROTORRE = ?";
+        try (PreparedStatement psDeleteTorre = conexion.prepareStatement(sqlDeleteTorre)) {
+            psDeleteTorre.setInt(1, numeroTorre);
+            boolean torreEliminada = psDeleteTorre.executeUpdate() > 0;
+
+            // Confirma la transacción si todo va bien
+            conexion.commit();
+            return torreEliminada;
+        } catch (SQLException e) {
+            // Si hay un error, realiza un rollback de la transacción
+            conexion.rollback();
+            System.err.println("Error al eliminar la torre: " + e.getMessage());
+            return false;
+        }
+    } catch (SQLException e) {
+        System.err.println("Error en la operación de eliminación: " + e.getMessage());
+        return false;
+    } finally {
+        try {
+            if (conexion != null && !conexion.isClosed()) {
+                conexion.close();
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al cerrar la conexión: " + e.getMessage());
+        }
     }
-    
-    
+}
+  
 }
