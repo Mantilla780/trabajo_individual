@@ -90,11 +90,6 @@ public class InmuebleDAO {
         return inmueble;
     }
 
-
-
-
-
-
     // Método para actualizar un inmueble
     public boolean actualizarInmueble(Inmueble inmueble) {
         String sqlUpdate = "UPDATE proyecto.INMUEBLE SET NUMEROINMUEBLE = ?, VALORINMUEBLE = ?, FECHAESCRITURA = ?, AREA = ?, IDTORRE = ?, TIPOINMUEBLE = ? WHERE MATRICULA = ?";
@@ -161,5 +156,17 @@ public class InmuebleDAO {
             e.printStackTrace();
         }
         return inmuebles;
+    }
+    
+    public boolean eliminarInmueblePorTorre(int idTorre) {
+        String sqlDelete = "DELETE FROM proyecto.INMUEBLE WHERE IDTORRE = ?";
+
+        try (PreparedStatement psDelete = conexion.prepareStatement(sqlDelete)) {
+            psDelete.setInt(1, idTorre);
+            return psDelete.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al eliminar inmuebles por torre: " + e.getMessage());
+            return false;
+        }
     }
 }

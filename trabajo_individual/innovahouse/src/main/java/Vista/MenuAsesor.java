@@ -198,7 +198,6 @@ public class MenuAsesor extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonApartamentosActionPerformed
 
     private void ButtonProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonProyectoActionPerformed
-      
         if(this.ButtonProyecto.isSelected()){
             this.ButtonProyecto.setColorNormal(new Color(39,33,105));
             this.ButtonProyecto.setColorHover(new Color(39,33,105));

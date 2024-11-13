@@ -112,33 +112,40 @@ public class ProyectoDAO {
         }
     }
 
-    public boolean eliminarProyecto(int idProyecto) {
-    // Obtén una conexión desde la instancia de ConexionBD
+public boolean eliminarProyecto(int idProyecto) {
     conexion = ConexionBD.getInstancia().getConnection("Admin");
     TorreDAO torreDAO = new TorreDAO(conexion);
+    InmuebleDAO inmuebleDAO = new InmuebleDAO(conexion);
 
     try {
-        // Inicia una transacción
         conexion.setAutoCommit(false);
 
-        // Primero eliminamos las torres asociadas al proyecto
-        boolean torresEliminadas = torreDAO.eliminarTorresPorProyecto(idProyecto);
+        // Obtiene las torres relacionadas al proyecto
+        List<Integer> idsTorres = torreDAO.obtenerIdsTorresPorProyecto(idProyecto);
 
+        // Primero elimina los inmuebles asociados a cada torre
+        for (int idTorre : idsTorres) {
+            boolean inmueblesEliminados = inmuebleDAO.eliminarInmueblePorTorre(idTorre);
+            if (!inmueblesEliminados) {
+                System.out.println("No se encontraron inmuebles para la torre con ID " + idTorre);
+            }
+        }
+
+        // Luego elimina las torres asociadas al proyecto
+        boolean torresEliminadas = torreDAO.eliminarTorresPorProyecto(idProyecto);
         if (!torresEliminadas) {
             System.out.println("No se eliminaron torres o no existen torres para este proyecto.");
         }
 
-        // Luego eliminamos el proyecto
+        // Finalmente, elimina el proyecto
         String sqlDelete = "DELETE FROM proyecto.PROYECTOVIVIENDA WHERE IDPROYECTO = ?";
         try (PreparedStatement psDelete = conexion.prepareStatement(sqlDelete)) {
             psDelete.setInt(1, idProyecto);
             boolean proyectoEliminado = psDelete.executeUpdate() > 0;
 
-            // Confirma la transacción si todo va bien
             conexion.commit();
             return proyectoEliminado;
         } catch (SQLException e) {
-            // Si hay un error, realiza un rollback de la transacción
             conexion.rollback();
             System.err.println("Error al eliminar el proyecto: " + e.getMessage());
             return false;
