@@ -95,6 +95,12 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="jTable2">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="fe" green="fe" red="fe" type="rgb"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="0" type="rgb"/>
+                </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="0" rowCount="4"/>
                 </Property>
@@ -104,6 +110,7 @@
                 <Property name="selectionBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="69" green="21" red="27" type="rgb"/>
                 </Property>
+                <Property name="showHorizontalLines" type="boolean" value="true"/>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
@@ -119,7 +126,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Vista/Imagenes/agregar.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Crear Nuevo Inmueble"/>
+            <Property name="text" type="java.lang.String" value="A&#xf1;adir Nuevo Cliente"/>
             <Property name="colorNormal" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="30" green="a" red="5" type="rgb"/>
             </Property>
@@ -173,11 +180,11 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Apartamento"/>
+            <Property name="text" type="java.lang.String" value="Clientes"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="490" y="30" width="-1" height="-1"/>
+              <AbsoluteConstraints x="510" y="50" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>

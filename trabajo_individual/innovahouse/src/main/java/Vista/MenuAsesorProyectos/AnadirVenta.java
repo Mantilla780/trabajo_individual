@@ -4,6 +4,16 @@
  */
 package Vista.MenuAsesorProyectos;
 
+import Controlador.ClienteService;
+import Controlador.ConexionBD;
+import Controlador.InmuebleService;
+import Modelo.Cliente;
+import Modelo.Inmueble;
+import Modelo.InmuebleDAO;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+
 
 /**
  *
@@ -11,12 +21,51 @@ package Vista.MenuAsesorProyectos;
  */
 public class AnadirVenta extends javax.swing.JFrame {
  
+    private HashMap<String, Integer> clienteMap = new HashMap<>();
+    private HashMap<String, Integer> inmuebleMap = new HashMap<>();
+
+    private ClienteService clienteService;
+    
     public AnadirVenta() {
-        initComponents(); 
+          initComponents();
+        setLocationRelativeTo(null);
+        ConexionBD conexionBD = new ConexionBD();
+        this.clienteService = new ClienteService(conexionBD.getConnection("Asesor"));
+        
+       
+
+        llenarComboBoxClientes();
+        llenarComboBoxInmueble(); // Llamada para llenar el ComboBox
     }
     
     
+    // Método llenarComboBoxClientes en AnadirVenta
+    private void llenarComboBoxClientes() {
+        try {
+            List<Cliente> clientes = clienteService.obtenerclientes(); // Obtiene la lista de clientes correctamente
+            jComboBox2.removeAllItems(); // Limpiar el ComboBox antes de llenarlo
 
+            for (Cliente cliente : clientes) {
+                jComboBox2.addItem(cliente.getNombre()); // Agrega el nombre al ComboBox
+                clienteMap.put(cliente.getNombre(), cliente.getCedula()); // Relaciona nombre con cédula
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // O maneja la excepción de otra forma
+        }
+    }
+    
+    // Método llenarComboBoxInmueble
+     private void llenarComboBoxInmueble() {
+         
+    }
+
+
+
+
+
+
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,19 +75,20 @@ public class AnadirVenta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jComboBox1 = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         rSButtonMetro1 = new Vista.RSButtonMetro();
-        nombreproyecto = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        nombreproyecto1 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         nombreproyecto3 = new javax.swing.JTextField();
-        nombreproyecto4 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         nombreproyecto5 = new javax.swing.JTextField();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jComboBox3 = new javax.swing.JComboBox<>();
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(710, 440));
@@ -66,22 +116,15 @@ public class AnadirVenta extends javax.swing.JFrame {
             }
         });
         jPanel1.add(rSButtonMetro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 440, 200, 60));
-        jPanel1.add(nombreproyecto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, 380, 50));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel4.setText("Numero Venta");
+        jLabel4.setText("Matricula inmueble");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
-        jPanel1.add(nombreproyecto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 380, 50));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel5.setText("Numero Cuotas");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, -1));
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel6.setText("Subsidio");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, -1, -1));
         jPanel1.add(nombreproyecto3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 380, 50));
-        jPanel1.add(nombreproyecto4, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 150, 380, 50));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel7.setText("Nombre Cliente");
@@ -92,14 +135,49 @@ public class AnadirVenta extends javax.swing.JFrame {
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 230, -1, -1));
         jPanel1.add(nombreproyecto5, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 300, 380, 50));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 540));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 160, 380, 50));
+
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 380, 50));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, -20, 900, 540));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void rSButtonMetro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro1ActionPerformed
- 
+        
     }//GEN-LAST:event_rSButtonMetro1ActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        String clienteSeleccionado = (String) jComboBox2.getSelectedItem();
+        if (clienteSeleccionado != null && clienteMap.containsKey(clienteSeleccionado)) {
+            int cedulaCliente = clienteMap.get(clienteSeleccionado);
+            // Aquí puedes usar la cédula para otros procesos (como guardar en la base de datos)
+            System.out.println("Cédula del cliente seleccionado: " + cedulaCliente);
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+        String inmuebleSeleccionado = (String) jComboBox3.getSelectedItem();
+        if (inmuebleSeleccionado != null && inmuebleMap.containsKey(inmuebleSeleccionado)) {
+            Integer matriculaInmueble = inmuebleMap.get(inmuebleSeleccionado);
+            // Ahora tienes la matrícula del inmueble, la cual puedes usar para guardarla
+            System.out.println("Matrícula del inmueble seleccionado: " + matriculaInmueble);
+        }
+    }//GEN-LAST:event_jComboBox3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -135,17 +213,16 @@ public class AnadirVenta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField nombreproyecto;
-    private javax.swing.JTextField nombreproyecto1;
     private javax.swing.JTextField nombreproyecto3;
-    private javax.swing.JTextField nombreproyecto4;
     private javax.swing.JTextField nombreproyecto5;
     private Vista.RSButtonMetro rSButtonMetro1;
     // End of variables declaration//GEN-END:variables

@@ -16,7 +16,6 @@ public class LoginControlador {
     }
     
      public String[] autenticar(String nombreUsuario, String contraseña) {
-        // Realizamos la autenticación y obtenemos el idUsuario y el rol
         String[] resultado = usuarioDAO.autenticarUsuario(nombreUsuario, contraseña);
         if (resultado != null) {
             String idUsuario = resultado[0];

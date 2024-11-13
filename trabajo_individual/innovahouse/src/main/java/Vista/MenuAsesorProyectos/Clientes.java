@@ -37,93 +37,31 @@ public class Clientes extends javax.swing.JPanel {
         cargarClientesEnTabla();
     }
           // Método para mostrar los clientes en la tabla
-    private void cargarClientesEnTabla() {
-        try (Connection conexion = ConexionBD.getInstancia().getConnection("Asesor")) {
-            ClienteDAO clienteDAO = new ClienteDAO(conexion);
-            List<Cliente> clientes = clienteDAO.listarClientes();
-            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+       private void cargarClientesEnTabla() {
+    try (Connection conexion = ConexionBD.getInstancia().getConnection("Asesor")) {
+        ClienteDAO clienteDAO = new ClienteDAO(conexion);
+        List<Cliente> clientes = clienteDAO.listarClientes();
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
 
-            // Establecemos los nombres de las columnas
-            model.setColumnIdentifiers(new String[]{"Cédula", "Nombre", "Sisben", "Subsidio Ministerio", "Dirección", "Teléfono", "Correo Electrónico", "Vender"});
-            model.setRowCount(0); // Limpiar la tabla antes de cargar los datos
+        // Establecemos los nombres de las columnas
+        model.setColumnIdentifiers(new String[]{"Cédula", "Nombre", "Sisben", "Subsidio Ministerio", "Dirección", "Teléfono", "Correo Electrónico"});
+        model.setRowCount(0); // Limpiar la tabla antes de cargar los datos
 
-            for (Cliente cliente : clientes) {
-                model.addRow(new Object[]{
-                    cliente.getCedula(),
-                    cliente.getNombre(),
-                    cliente.getSisben() != null ? cliente.getSisben() : "No",
-                    cliente.getSUBSIDIOMINISTERIO()!= 0 ? cliente.getSUBSIDIOMINISTERIO() : "No",
-                    cliente.getDireccion(),
-                    cliente.getTelefono(),
-                    cliente.getCorreoelectronico(),
-                    "Vender" // Texto del botón
-                });
-            }
-
-            // Añadimos un renderer y un editor para la columna del botón "Vender"
-            TableColumn venderColumn = jTable2.getColumn("Vender");
-            venderColumn.setCellRenderer(new ButtonRenderer());
-            venderColumn.setCellEditor(new ButtonEditor(new JButton("Vender")));
-            
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // Renderer para el botón
-    class ButtonRenderer extends JButton implements TableCellRenderer {
-        public ButtonRenderer() {
-            setText("Vender");
-        }
-
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            return this;
-        }
-    }
-
-    // Editor para el botón
-    class ButtonEditor extends DefaultCellEditor {
-        private JButton button;
-        private String label;
-        private boolean isPushed;
-
-        public ButtonEditor(JButton button) {
-            super(new JCheckBox());
-            this.button = button;
-            this.button.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    fireEditingStopped();
-                    int selectedRow = jTable2.getSelectedRow();
-                    if (selectedRow != -1) {
-                        String cedula = (String) jTable2.getValueAt(selectedRow, 0);
-                        // Aquí puedes implementar la lógica para la acción de "Vender"
-                        JOptionPane.showMessageDialog(null, "Vender al cliente con cédula: " + cedula);
-                    }
-                }
+        for (Cliente cliente : clientes) {
+            model.addRow(new Object[]{
+                cliente.getCedula(),
+                cliente.getNombre(),
+                cliente.getSisben() != null ? cliente.getSisben() : "No",
+                cliente.getSUBSIDIOMINISTERIO()!= 0 ? cliente.getSUBSIDIOMINISTERIO() : "No",
+                cliente.getDireccion(),
+                cliente.getTelefono(),
+                cliente.getCorreoelectronico()
             });
         }
-
-        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-            label = (value == null) ? "Vender" : value.toString();
-            button.setText(label);
-            isPushed = true;
-            return button;
-        }
-
-        public Object getCellEditorValue() {
-            isPushed = false;
-            return label;
-        }
-
-        public boolean stopCellEditing() {
-            isPushed = false;
-            return super.stopCellEditing();
-        }
-
-        protected void fireEditingStopped() {
-            super.fireEditingStopped();
-        }
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+}
 
     
 
