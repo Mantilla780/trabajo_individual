@@ -90,25 +90,19 @@ private boolean clienteExiste(int cedula) {
         }
         return clientes;
     }
- 
-    public List<Cliente> obtenerClientes() throws SQLException {
-    List<Cliente> clientes = new ArrayList<>();
-    String query = "SELECT cedula, nombre FROM proyecto.Cliente"; // Ajusta según tu esquema y tabla
 
-    try (Connection conn = conexion;
-         PreparedStatement stmt = conn.prepareStatement(query);
-         ResultSet rs = stmt.executeQuery()) {
+    public boolean eliminarCliente(int cedula) {
+       String sqlDelete = "DELETE FROM proyecto.cliente WHERE cedula = ?";
 
-        while (rs.next()) {
-            int cedula = rs.getInt("cedula");
-            String nombre = rs.getString("nombre");
-            clientes.add(new Cliente(cedula, nombre, "", 0, "", 0, "")); // Ajusta según constructor de Cliente
-        }
-    }
-    return clientes;
-}
+       try (PreparedStatement psDelete = conexion.prepareStatement(sqlDelete)) {
+           psDelete.setInt(1, cedula);
 
+           // Ejecuta la eliminación y devuelve true si se eliminó al menos un registro
+           return psDelete.executeUpdate() > 0;
 
- 
-  
+       } catch (SQLException e) {
+           System.err.println("Error al eliminar cliente con cédula " + cedula + ": " + e.getMessage());
+           return false;
+       }
+   }
 }

@@ -16,10 +16,6 @@ public class InmuebleDAO {
         this.conexion = conexion;
     }
 
-    public InmuebleDAO() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
     // Método para insertar un nuevo inmueble
     public boolean insertarInmueble(int matricula, int numeroInmueble, long valorInmueble, Date fechaEscritura, int area, int idTorre, String tipoInmueble) {
         String sqlInsert = "INSERT INTO proyecto.INMUEBLE (MATRICULA, NUMEROINMUEBLE, VALORINMUEBLE, FECHAESCRITURA, AREA, IDTORRE, TIPOINMUEBLE) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -94,11 +90,6 @@ public class InmuebleDAO {
         return inmueble;
     }
 
-
-
-
-
-
     // Método para actualizar un inmueble
     public boolean actualizarInmueble(Inmueble inmueble) {
         String sqlUpdate = "UPDATE proyecto.INMUEBLE SET NUMEROINMUEBLE = ?, VALORINMUEBLE = ?, FECHAESCRITURA = ?, AREA = ?, IDTORRE = ?, TIPOINMUEBLE = ? WHERE MATRICULA = ?";
@@ -166,25 +157,16 @@ public class InmuebleDAO {
         }
         return inmuebles;
     }
-    public List<Inmueble> obtenerInmueblesbasico() {
-    List<Inmueble> inmuebles = new ArrayList<>();
-    String sqlSelect = "SELECT MATRICULA, NUMEROINMUEBLE, TIPOINMUEBLE FROM proyecto.INMUEBLE";
-
-    try (PreparedStatement psSelect = conexion.prepareStatement(sqlSelect)) {
-        ResultSet rs = psSelect.executeQuery();
-
-        while (rs.next()) {
-            Inmueble inmueble = new Inmueble();
-            inmueble.setMatricula(rs.getInt("MATRICULA"));
-            inmueble.setNumeroInmueble(rs.getInt("NUMEROINMUEBLE"));
-            inmueble.setTipoInmueble(rs.getString("TIPOINMUEBLE"));
-            inmuebles.add(inmueble);
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    return inmuebles;
-}
-
     
+    public boolean eliminarInmueblePorTorre(int idTorre) {
+        String sqlDelete = "DELETE FROM proyecto.INMUEBLE WHERE IDTORRE = ?";
+
+        try (PreparedStatement psDelete = conexion.prepareStatement(sqlDelete)) {
+            psDelete.setInt(1, idTorre);
+            return psDelete.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al eliminar inmuebles por torre: " + e.getMessage());
+            return false;
+        }
+    }
 }

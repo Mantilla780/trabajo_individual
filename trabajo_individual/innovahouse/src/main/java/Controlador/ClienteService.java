@@ -26,13 +26,11 @@ public class ClienteService {
         return clienteDAO.insertarCliente(cliente);
     }
     
-     public List<Cliente> listarClientes() throws SQLException {
+    public List<Cliente> obtenerclientes() throws SQLException {
         return clienteDAO.listarClientes();
     }
-    
-    public List<Cliente> obtenerclientes() throws SQLException {
-        return clienteDAO.obtenerClientes();
+    public boolean eliminarCliente(int cedula) {
+        return clienteDAO.eliminarCliente(cedula);
     }
-    
 }
 
