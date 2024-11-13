@@ -26,8 +26,13 @@ public class ClienteService {
         return clienteDAO.insertarCliente(cliente);
     }
     
-    public List<Cliente> obtenerclientes() throws SQLException {
+     public List<Cliente> listarClientes() throws SQLException {
         return clienteDAO.listarClientes();
     }
+    
+    public List<Cliente> obtenerclientes() throws SQLException {
+        return clienteDAO.obtenerClientes();
+    }
+    
 }
 

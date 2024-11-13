@@ -32,5 +32,9 @@ public class InmuebleService {
        
     return inmuebleDAO.obtenerInmueblePorMatricula(matricula);
 }
+   
+    public List<Inmueble> obtenerInmuebles() {
+        return inmuebleDAO.obtenerInmueblesbasico();
+    }
 
 }
