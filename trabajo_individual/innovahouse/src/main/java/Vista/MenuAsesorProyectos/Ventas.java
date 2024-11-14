@@ -4,6 +4,8 @@
  */
 package Vista.MenuAsesorProyectos;
 
+import javax.swing.table.DefaultTableModel;
+
 
 
 /**
@@ -11,13 +13,32 @@ package Vista.MenuAsesorProyectos;
  * @author omaci
  */
 public class Ventas extends javax.swing.JPanel {
-   
+    private String idUsuario;
 
     public Ventas() {
         initComponents();
     }
     
-    
+        private void cargarDatos() {
+        DefaultTableModel modelo = new DefaultTableModel();
+        jTable2.setModel(modelo);
+
+        modelo.addColumn("ID Venta");
+        modelo.addColumn("Cliente");
+        modelo.addColumn("Fecha");
+        modelo.addColumn("Total");
+
+        // Aquí debes cargar los datos de la base de datos
+        // Simulación de datos:
+        Object[][] datos = {
+            {1, "Cliente 1", "2024-11-01", "$200"},
+            {2, "Cliente 2", "2024-11-02", "$150"}
+        };
+
+        for (Object[] fila : datos) {
+            modelo.addRow(fila);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -147,7 +168,7 @@ public class Ventas extends javax.swing.JPanel {
     }//GEN-LAST:event_rButtonProyecto1ActionPerformed
 
     private void rButtonProyecto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto2MouseClicked
-        AnadirVenta v1 = new AnadirVenta();
+        AnadirVenta v1 = new AnadirVenta(idUsuario);
         v1.setVisible(true);
     }//GEN-LAST:event_rButtonProyecto2MouseClicked
 
