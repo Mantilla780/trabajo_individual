@@ -20,6 +20,8 @@ public class ProyectoDAO {
     public boolean insertarProyecto(String nombreProyecto, String idUsuario) {
     String sqlSequence = "SELECT proyecto.proyectovivienda_seq.NEXTVAL FROM dual"; // Asegúrate de que la secuencia exista
     String sqlInsert = "INSERT INTO proyecto.proyectovivienda (IDPROYECTO, NOMBREPROYECTO, IDUSUARIO) VALUES (?, ?, ?)";
+    //String sqlSequence = "SELECT IntegradorInnovahouse.proyectovivienda_seq.NEXTVAL FROM dual"; // Asegúrate de que la secuencia exista
+    //String sqlInsert = "INSERT INTO IntegradorInnovahouse.proyectovivienda (IDPROYECTO, NOMBREPROYECTO, IDUSUARIO) VALUES (?, ?, ?)";
 
     try (PreparedStatement psSeq = conexion.prepareStatement(sqlSequence);
          PreparedStatement psInsert = conexion.prepareStatement(sqlInsert)) {
@@ -48,7 +50,7 @@ public class ProyectoDAO {
   public List<Proyecto> obtenerProyectos() {
     List<Proyecto> proyectos = new ArrayList<>();
     String sql = "SELECT p.IDPROYECTO, p.NOMBREPROYECTO, COUNT(t.NUMEROTORRE) AS NUMEROTORRES, p.IDUSUARIO " +
-                 "FROM proyecto.PROYECTOVIVIENDA p " +
+                 "FROM proyecto.PROYECTOVIVIENDA p " + //  "FROM IntegradorInnovahouse.PROYECTOVIVIENDA p "
                  "LEFT JOIN proyecto.TORRE t ON p.IDPROYECTO = t.IDPROYECTO " +
                  "GROUP BY p.IDPROYECTO, p.NOMBREPROYECTO,p.IDUSUARIO"; // Cambiar aquí
 
@@ -73,6 +75,7 @@ public class ProyectoDAO {
     public List<Proyecto> obtenerProyectosBasicos() {
         List<Proyecto> proyectos = new ArrayList<>();
         String sql = "SELECT IDPROYECTO, NOMBREPROYECTO FROM proyecto.PROYECTOVIVIENDA"; // Cambiar aquí
+        //String sql = "SELECT IDPROYECTO, NOMBREPROYECTO FROM IntegradorInnovahouse.PROYECTOVIVIENDA"; // Cambiar aquí
 
         try (PreparedStatement ps = conexion.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
@@ -89,9 +92,10 @@ public class ProyectoDAO {
         return proyectos;
     }
 
-    // Método para actualizar un proyecto
+    // Método para actualizar un proyecto String sqlUpdate = "UPDATE IntegradorInnovahouse.PROYECTOVIVIENDA SET NOMBREPROYECTO = ?, IDUSUARIO = ? WHERE IDPROYECTO = ?";
     public boolean actualizarProyecto(Proyecto proyecto) {
         String sqlUpdate = "UPDATE proyecto.PROYECTOVIVIENDA SET NOMBREPROYECTO = ?, IDUSUARIO = ? WHERE IDPROYECTO = ?";
+        
 
         try {
             // Verificar si la conexión está cerrada y crear una nueva si es necesario
@@ -139,6 +143,7 @@ public boolean eliminarProyecto(int idProyecto) {
 
         // Finalmente, elimina el proyecto
         String sqlDelete = "DELETE FROM proyecto.PROYECTOVIVIENDA WHERE IDPROYECTO = ?";
+        //String sqlDelete = "DELETE FROM IntegradorInnovahouse.PROYECTOVIVIENDA WHERE IDPROYECTO = ?";
         try (PreparedStatement psDelete = conexion.prepareStatement(sqlDelete)) {
             psDelete.setInt(1, idProyecto);
             boolean proyectoEliminado = psDelete.executeUpdate() > 0;

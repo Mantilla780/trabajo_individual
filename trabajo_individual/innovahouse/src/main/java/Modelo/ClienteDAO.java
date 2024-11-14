@@ -23,6 +23,7 @@ public class ClienteDAO {
     }
 
     String sqlInsert = "INSERT INTO proyecto.cliente (cedula, nombre, sisben, SUBSIDIOMINISTERIO, direccion, telefono, correoelectronico) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    //String sqlInsert = "INSERT INTO IntegradorInnovahouse.cliente (cedula, nombre, sisben, SUBSIDIOMINISTERIO, direccion, telefono, correoelectronico) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     try (PreparedStatement psInsert = conexion.prepareStatement(sqlInsert)) {
         // Setea los valores en el PreparedStatement
@@ -58,6 +59,7 @@ public class ClienteDAO {
 
 private boolean clienteExiste(int cedula) {
     String sqlSelect = "SELECT COUNT(*) FROM proyecto.cliente WHERE cedula = ?";
+    //String sqlSelect = "SELECT COUNT(*) FROM IntegradorInnovahouse.cliente WHERE cedula = ?";
     try (PreparedStatement psSelect = conexion.prepareStatement(sqlSelect)) {
         psSelect.setInt(1, cedula);
         ResultSet rs = psSelect.executeQuery();
@@ -74,6 +76,7 @@ private boolean clienteExiste(int cedula) {
         List<Cliente> clientes = new ArrayList<>();
         
          String sql = "SELECT cedula, nombre, sisben, subsidioMinisterio, direccion, telefono, correoelectronico FROM proyecto.cliente";
+         //String sql = "SELECT cedula, nombre, sisben, subsidioMinisterio, direccion, telefono, correoelectronico FROM IntegradorInnovahouse.cliente";
         try (Statement stmt = conexion.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 Cliente cliente = new Cliente(
@@ -93,6 +96,7 @@ private boolean clienteExiste(int cedula) {
 
     public boolean eliminarCliente(int cedula) {
        String sqlDelete = "DELETE FROM proyecto.cliente WHERE cedula = ?";
+       //String sqlDelete = "DELETE FROM IntegradorInnovahouse.cliente WHERE cedula = ?";
 
        try (PreparedStatement psDelete = conexion.prepareStatement(sqlDelete)) {
            psDelete.setInt(1, cedula);

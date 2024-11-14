@@ -18,6 +18,8 @@ public class TorreDAO {
     public boolean insertarTorre(int numeroTorre, int idProyecto) {
     String sqlSequence = "SELECT proyecto.seq_idtorre.NEXTVAL FROM dual"; // Asegúrate de que la secuencia exista
     String sqlInsert = "INSERT INTO proyecto.TORRE(IDTORRE, NUMEROTORRE, IDPROYECTO) VALUES (?, ?, ?)";
+    //String sqlSequence = "SELECT IntegradorInnovaHouse.seq_idtorre.NEXTVAL FROM dual"; // Asegúrate de que la secuencia exista
+    //String sqlInsert = "INSERT INTO IntegradorInnovaHouse.TORRE(IDTORRE, NUMEROTORRE, IDPROYECTO) VALUES (?, ?, ?)";
 
     try (PreparedStatement psSeq = conexion.prepareStatement(sqlSequence);
          PreparedStatement psInsert = conexion.prepareStatement(sqlInsert)) {
@@ -48,6 +50,7 @@ public class TorreDAO {
         String sql = "SELECT t.IDTORRE, t.NUMEROTORRE, t.IDPROYECTO, COUNT(i.MATRICULA) AS cantidad_inmuebles " +
                      "FROM proyecto.TORRE t LEFT JOIN proyecto.INMUEBLE i ON t.IDTORRE = i.IDTORRE " +
                      "GROUP BY t.IDTORRE, t.NUMEROTORRE, t.IDPROYECTO ORDER BY t.NUMEROTORRE";
+                     //"FROM IntegradorInnovahouse.TORRE t LEFT JOIN proyecto.INMUEBLE i ON t.IDTORRE = i.IDTORRE " 
 
         try (PreparedStatement ps = conexion.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
@@ -70,6 +73,7 @@ public class TorreDAO {
     public List<Torre> obtenerTorresBasicas() {
     List<Torre> torres = new ArrayList<>();
     String sql = "SELECT IDTORRE, NUMEROTORRE FROM proyecto.TORRE"; // Cambiar según esquema y tabla
+    //String sql = "SELECT IDTORRE, NUMEROTORRE FROM IntegradorInnovahouse.TORRE"; // Cambiar según esquema y tabla
 
     try (PreparedStatement ps = conexion.prepareStatement(sql);
          ResultSet rs = ps.executeQuery()) {
@@ -89,6 +93,7 @@ public class TorreDAO {
 
     public Torre obtenerTorrePorNumero(int numeroTorre) throws SQLException {
         String query = "SELECT idtorre, numerotorre, idproyecto FROM proyecto.TORRE WHERE numerotorre = ?";
+        //String query = "SELECT idtorre, numerotorre, idproyecto FROM IntegradorInnovahouse.TORRE WHERE numerotorre = ?";
         try (PreparedStatement stmt = conexion.prepareStatement(query)) {
             stmt.setInt(1, numeroTorre);
             ResultSet rs = stmt.executeQuery();
@@ -108,6 +113,7 @@ public class TorreDAO {
 
     public boolean eliminarTorresPorProyecto(int idProyecto) {
         String sqlDelete = "DELETE FROM proyecto.TORRE WHERE IDPROYECTO = ?";
+        //String sqlDelete = "DELETE FROM IntegradorInnovahouse.TORRE WHERE IDPROYECTO = ?";
 
         try (PreparedStatement psDelete = conexion.prepareStatement(sqlDelete)) {
             psDelete.setInt(1, idProyecto);
@@ -120,6 +126,7 @@ public class TorreDAO {
 
     public boolean actualizarTorre(Torre torre) {
         String sqlUpdate = "UPDATE proyecto.TORRE SET NUMEROTORRE = ?, IDPROYECTO = ? WHERE IDTORRE = ?";
+        //String sqlUpdate = "UPDATE IntegradorInnovahouse.TORRE SET NUMEROTORRE = ?, IDPROYECTO = ? WHERE IDTORRE = ?";
 
         try {
             // Verificar si la conexión está cerrada y abrirla si es necesario
@@ -150,6 +157,7 @@ public class TorreDAO {
     public List<Integer> obtenerIdsTorresPorProyecto(int idProyecto) {
     List<Integer> idsTorres = new ArrayList<>();
     String sql = "SELECT IDTORRE FROM proyecto.TORRE WHERE IDPROYECTO = ?";
+    //String sql = "SELECT IDTORRE FROM IntegradorInnovahouse.TORRE WHERE IDPROYECTO = ?";
 
     try (PreparedStatement ps = conexion.prepareStatement(sql)) {
         ps.setInt(1, idProyecto);
@@ -190,6 +198,7 @@ public boolean eliminarTorre(int numeroTorre) {
 
         // Eliminar la torre
         String sqlDeleteTorre = "DELETE FROM proyecto.TORRE WHERE NUMEROTORRE = ?";
+        //String sqlDeleteTorre = "DELETE FROM IntegradorInnovahouse.TORRE WHERE NUMEROTORRE = ?";
         try (PreparedStatement psDeleteTorre = conexion.prepareStatement(sqlDeleteTorre)) {
             psDeleteTorre.setInt(1, numeroTorre);
             boolean torreEliminada = psDeleteTorre.executeUpdate() > 0;
