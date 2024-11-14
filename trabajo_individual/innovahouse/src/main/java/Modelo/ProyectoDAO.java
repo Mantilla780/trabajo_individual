@@ -50,7 +50,8 @@ public class ProyectoDAO {
   public List<Proyecto> obtenerProyectos() {
     List<Proyecto> proyectos = new ArrayList<>();
     String sql = "SELECT p.IDPROYECTO, p.NOMBREPROYECTO, COUNT(t.NUMEROTORRE) AS NUMEROTORRES, p.IDUSUARIO " +
-                 "FROM proyecto.PROYECTOVIVIENDA p " + //  "FROM IntegradorInnovahouse.PROYECTOVIVIENDA p "
+                 "FROM proyecto.PROYECTOVIVIENDA p " + 
+                 //"FROM IntegradorInnovahouse.PROYECTOVIVIENDA p " +
                  "LEFT JOIN proyecto.TORRE t ON p.IDPROYECTO = t.IDPROYECTO " +
                  "GROUP BY p.IDPROYECTO, p.NOMBREPROYECTO,p.IDUSUARIO"; // Cambiar aquí
 
