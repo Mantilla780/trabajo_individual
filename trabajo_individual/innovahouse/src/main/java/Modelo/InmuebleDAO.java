@@ -19,7 +19,7 @@ public class InmuebleDAO {
     // Método para insertar un nuevo inmueble
     public boolean insertarInmueble(int matricula, int numeroInmueble, long valorInmueble, Date fechaEscritura, int area, int idTorre, String tipoInmueble) {
         String sqlInsert = "INSERT INTO proyecto.INMUEBLE (MATRICULA, NUMEROINMUEBLE, VALORINMUEBLE, FECHAESCRITURA, AREA, IDTORRE, TIPOINMUEBLE) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
+        //String sqlInsert = "INSERT INTO IntegradorInnovahouse.INMUEBLE (MATRICULA, NUMEROINMUEBLE, VALORINMUEBLE, FECHAESCRITURA, AREA, IDTORRE, TIPOINMUEBLE) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement psInsert = conexion.prepareStatement(sqlInsert)) {
             psInsert.setInt(1, matricula);
             psInsert.setInt(2, numeroInmueble);
@@ -42,6 +42,7 @@ public class InmuebleDAO {
     Inmueble inmueble = null;
     String sqlSelect = "SELECT i.MATRICULA, i.NUMEROINMUEBLE, i.VALORINMUEBLE, i.FECHAESCRITURA, i.AREA, i.IDTORRE, t.NUMEROTORRE, i.TIPOINMUEBLE " +
                        "FROM proyecto.INMUEBLE i JOIN proyecto.TORRE t ON i.IDTORRE = t.IDTORRE WHERE i.NUMEROINMUEBLE = ?";
+    //"FROM IntegradorInnovahouse.INMUEBLE i JOIN proyecto.TORRE t ON i.IDTORRE = t.IDTORRE WHERE i.NUMEROINMUEBLE = ?";
 
     try (PreparedStatement psSelect = conexion.prepareStatement(sqlSelect)) {
         psSelect.setInt(1, numeroInmueble);
@@ -68,6 +69,7 @@ public class InmuebleDAO {
         Inmueble inmueble = null;
         Connection conexion = ConexionBD.getInstancia().getConnection("Admin"); // Obtener o inicializar la conexión
         String sqlSelect = "SELECT MATRICULA, NUMEROINMUEBLE, VALORINMUEBLE, FECHAESCRITURA, TIPOINMUEBLE, AREA, IDTORRE FROM proyecto.INMUEBLE WHERE MATRICULA = ?";
+        //String sqlSelect = "SELECT MATRICULA, NUMEROINMUEBLE, VALORINMUEBLE, FECHAESCRITURA, TIPOINMUEBLE, AREA, IDTORRE FROM IntegradorInnovahouse.INMUEBLE WHERE MATRICULA = ?";
 
 
         try (PreparedStatement psSelect = conexion.prepareStatement(sqlSelect)) {
@@ -93,6 +95,7 @@ public class InmuebleDAO {
     // Método para actualizar un inmueble
     public boolean actualizarInmueble(Inmueble inmueble) {
         String sqlUpdate = "UPDATE proyecto.INMUEBLE SET NUMEROINMUEBLE = ?, VALORINMUEBLE = ?, FECHAESCRITURA = ?, AREA = ?, IDTORRE = ?, TIPOINMUEBLE = ? WHERE MATRICULA = ?";
+        //String sqlUpdate = "UPDATE IntegradorInnovahouse.INMUEBLE SET NUMEROINMUEBLE = ?, VALORINMUEBLE = ?, FECHAESCRITURA = ?, AREA = ?, IDTORRE = ?, TIPOINMUEBLE = ? WHERE MATRICULA = ?";
 
         try (PreparedStatement psUpdate = conexion.prepareStatement(sqlUpdate)) {
             psUpdate.setInt(1, inmueble.getNumeroInmueble());
@@ -114,6 +117,7 @@ public class InmuebleDAO {
     // Método para eliminar un inmueble por matrícula
     public boolean eliminarInmueble(int matricula) {
         String sqlDelete = "DELETE FROM proyecto.INMUEBLE WHERE MATRICULA = ?";
+        // String sqlDelete = "DELETE FROM IntegradorInnovahouse.INMUEBLE WHERE MATRICULA = ?";
 
         try {
             // Verifica si la conexión está cerrada
@@ -137,6 +141,7 @@ public class InmuebleDAO {
     public List<Inmueble> obtenerInmuebles() {
         List<Inmueble> inmuebles = new ArrayList<>();
         String sqlSelect = "SELECT MATRICULA, NUMEROINMUEBLE, VALORINMUEBLE, FECHAESCRITURA, AREA, IDTORRE, TIPOINMUEBLE FROM proyecto.INMUEBLE";
+        //String sqlSelect = "SELECT MATRICULA, NUMEROINMUEBLE, VALORINMUEBLE, FECHAESCRITURA, AREA, IDTORRE, TIPOINMUEBLE FROM IntegradorInnovahouse.INMUEBLE";
 
         try (PreparedStatement psSelect = conexion.prepareStatement(sqlSelect)) {
             ResultSet rs = psSelect.executeQuery();
@@ -160,6 +165,7 @@ public class InmuebleDAO {
     
     public boolean eliminarInmueblePorTorre(int idTorre) {
         String sqlDelete = "DELETE FROM proyecto.INMUEBLE WHERE IDTORRE = ?";
+        //String sqlDelete = "DELETE FROM IntegradorInnovahouse.INMUEBLE WHERE IDTORRE = ?";
 
         try (PreparedStatement psDelete = conexion.prepareStatement(sqlDelete)) {
             psDelete.setInt(1, idTorre);
