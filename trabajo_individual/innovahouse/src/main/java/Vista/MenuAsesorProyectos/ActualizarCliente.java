@@ -4,6 +4,12 @@
  */
 package Vista.MenuAsesorProyectos;
 
+import Controlador.ClienteService;
+import Controlador.ConexionBD;
+import Modelo.Cliente;
+import java.sql.Connection;
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -11,8 +17,22 @@ package Vista.MenuAsesorProyectos;
  */
 public class ActualizarCliente extends javax.swing.JFrame {
     
-    public ActualizarCliente() {
+    private ClienteService clienteService;
+    
+    public ActualizarCliente(int cedula, String nombre, String sisben, int subsidio, String direccion, int telefono, String correoElectronico) {
         initComponents(); 
+          Connection conexion = ConexionBD.getInstancia().getConnection("Asesor");
+        
+        // Inicializar ClienteService con la conexión
+        clienteService = new ClienteService(conexion);
+    // Establece los valores en los campos correspondientes
+        nombreproyecto1.setText(nombre); // Campo para el nombre
+        nombreproyecto3.setText(String.valueOf(cedula)); // Convierte int a String para mostrar
+        jCheckBox1.setSelected("Sí".equalsIgnoreCase(sisben)); // Maneja sisben como booleano o similar
+        nombreproyecto.setText(subsidio > 0 ? String.valueOf(subsidio) : ""); // Manejo de nulo o 0
+        nombreproyecto4.setText(direccion != null ? direccion : ""); // Manejo de nulo
+        nombreproyecto2.setText(telefono > 0 ? String.valueOf(telefono) : ""); // Manejo de nulo o 0
+        nombreproyecto5.setText(correoElectronico != null ? correoElectronico : ""); // Manejo de nulo
     }
 
     /**
@@ -27,7 +47,6 @@ public class ActualizarCliente extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         nombreproyecto = new javax.swing.JTextField();
@@ -64,9 +83,6 @@ public class ActualizarCliente extends javax.swing.JFrame {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 540, 200, 60));
 
-        jLabel1.setText("jLabel1");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
-
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel5.setText("Actualizar Cliente");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 10, -1, -1));
@@ -74,6 +90,8 @@ public class ActualizarCliente extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel3.setText("Telefono");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 380, -1, -1));
+
+        nombreproyecto.setEnabled(false);
         jPanel1.add(nombreproyecto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 550, 380, 50));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -126,11 +144,50 @@ public class ActualizarCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    
+
+       // Obtener los datos de los campos del formulario
+        String nombre = nombreproyecto1.getText();
+        String direccion = nombreproyecto4.getText();
+        String correo = nombreproyecto5.getText();
+        int telefono = 0;
+        try {
+            telefono = Integer.parseInt(nombreproyecto2.getText()); // Convertir el teléfono a entero
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese un número de teléfono válido.");
+            return;
+        }
+
+        int cedula = 0;
+        try {
+            cedula = Integer.parseInt(nombreproyecto3.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese una cédula válida.");
+            return;
+        }
+
+        int subsidio = 0;
+        try {
+            subsidio = Integer.parseInt(nombreproyecto.getText());
+        } catch (NumberFormatException e) {
+            // Si no hay subsidio o es 0, lo dejamos como 0
+        }
+
+        boolean tieneSisben = jCheckBox1.isSelected();
+        
+        // Crear el objeto Cliente y llamar al método de actualización
+        Cliente cliente = new Cliente(cedula, nombre, tieneSisben ? "Sí" : "No", subsidio, direccion, telefono, correo);
+        boolean resultado = clienteService.actualizarCliente(cliente);
+
+        if (resultado) {
+            JOptionPane.showMessageDialog(this, "Cliente actualizado exitosamente.");
+            dispose(); 
+        } else {
+            JOptionPane.showMessageDialog(this, "Hubo un error al actualizar el cliente.");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        // TODO add your handling code here:
+        nombreproyecto.setEnabled(jCheckBox1.isSelected());         
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     /**
@@ -163,7 +220,7 @@ public class ActualizarCliente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ActualizarCliente().setVisible(true);
+                new ActualizarCliente(0,"default","default",0,"default",0,"default").setVisible(true);
             }
         });
     }
@@ -171,7 +228,6 @@ public class ActualizarCliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
