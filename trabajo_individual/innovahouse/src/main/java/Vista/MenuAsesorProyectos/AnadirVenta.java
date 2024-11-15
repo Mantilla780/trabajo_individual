@@ -7,12 +7,17 @@ package Vista.MenuAsesorProyectos;
 import Controlador.ClienteService;
 import Controlador.ConexionBD;
 import Controlador.InmuebleService;
+import Controlador.VentaService;
 import Modelo.Cliente;
 import Modelo.Inmueble;
 import Modelo.InmuebleDAO;
+import Modelo.Venta;
+import Modelo.VentaDAO;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -25,14 +30,27 @@ public class AnadirVenta extends javax.swing.JFrame {
     private HashMap<String, Integer> inmuebleMap = new HashMap<>();
 
     private ClienteService clienteService;
-    
-    public AnadirVenta() {
-          initComponents();
+    private VentaService ventaService; // Agregamos VentaService para manejar ventas
+    private String idUsuario; // Atributo para almacenar el idUsuario
+
+    /**
+     * Constructor que recibe el idUsuario.
+     *
+     * @param idUsuario
+     */
+    public AnadirVenta(String idUsuario) {
+        initComponents();
         setLocationRelativeTo(null);
+        this.idUsuario = idUsuario; // Asignación del idUsuario
+        System.out.println(idUsuario);
+
         ConexionBD conexionBD = new ConexionBD();
-        this.clienteService = new ClienteService(conexionBD.getConnection("Asesor"));
-        
-       
+
+        // Inicialización de servicios
+        Connection connectionAsesor = conexionBD.getConnection("Asesor");
+
+        this.clienteService = new ClienteService(connectionAsesor);
+        this.ventaService = new VentaService(connectionAsesor); // Inicialización del servicio de ventas usando conexión directamente
 
         llenarComboBoxClientes();
         llenarComboBoxInmueble(); // Llamada para llenar el ComboBox
@@ -41,22 +59,38 @@ public class AnadirVenta extends javax.swing.JFrame {
     
     // Método llenarComboBoxClientes en AnadirVenta
     private void llenarComboBoxClientes() {
-        try {
-            List<Cliente> clientes = clienteService.obtenerclientes(); // Obtiene la lista de clientes correctamente
-            jComboBox2.removeAllItems(); // Limpiar el ComboBox antes de llenarlo
+            try {
+                List<Cliente> clientes = clienteService.obtenerclientes(); // Obtiene la lista de clientes correctamente
+                jComboBox2.removeAllItems(); // Limpiar el ComboBox antes de llenarlo
 
-            for (Cliente cliente : clientes) {
-                jComboBox2.addItem(cliente.getNombre()); // Agrega el nombre al ComboBox
-                clienteMap.put(cliente.getNombre(), cliente.getCedula()); // Relaciona nombre con cédula
+                for (Cliente cliente : clientes) {
+                    jComboBox2.addItem(cliente.getNombre()); // Agrega el nombre al ComboBox
+                    clienteMap.put(cliente.getNombre(), cliente.getCedula()); // Relaciona nombre con cédula
+                }
+            } catch (SQLException e) {
+                e.printStackTrace(); // O maneja la excepción de otra forma
+            }
+        }
+
+        // Método llenarComboBoxInmueble
+         private void llenarComboBoxInmueble() {
+        try {
+            // Obtener la conexión desde ConexionBD
+            Connection conexion = ConexionBD.getInstancia().getConnection("Admin"); // Ajusta el rol según corresponda
+            InmuebleDAO inmuebleDAO = new InmuebleDAO(conexion);
+            InmuebleService inmuebleService = new InmuebleService(inmuebleDAO);
+
+            List<Inmueble> inmuebles = inmuebleService.obtenerInmuebles(); // Método que obtiene todos los inmuebles
+            jComboBox3.removeAllItems(); // Limpiar el ComboBox antes de llenarlo
+
+            for (Inmueble inmueble : inmuebles) {
+                String matriculaStr = String.valueOf(inmueble.getMatricula()); // Convertir la matrícula a String
+                jComboBox3.addItem(matriculaStr); // Agregar la matrícula al ComboBox
+                inmuebleMap.put(matriculaStr, inmueble.getMatricula()); // Guardar en el mapa para referencia rápida
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // O maneja la excepción de otra forma
+            e.printStackTrace(); // Manejo de la excepción
         }
-    }
-    
-    // Método llenarComboBoxInmueble
-     private void llenarComboBoxInmueble() {
-         
     }
 
 
@@ -157,9 +191,48 @@ public class AnadirVenta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rSButtonMetro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro1ActionPerformed
-        
+        String nombreCliente = (String) jComboBox2.getSelectedItem();
+        String matriculaInmuebleStr = (String) jComboBox3.getSelectedItem();
+        String numeroCuotasStr = nombreproyecto3.getText();
+        String interes = nombreproyecto5.getText();
+
+        if (nombreCliente == null || matriculaInmuebleStr == null || numeroCuotasStr.isEmpty() || interes.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            int numeroCuotas = Integer.parseInt(numeroCuotasStr);
+            int matriculaInmueble = inmuebleMap.get(matriculaInmuebleStr);
+            int cedulaCliente = clienteMap.get(nombreCliente);
+
+            Venta nuevaVenta = new Venta();
+            nuevaVenta.setNumerocuotas(numeroCuotas);
+            nuevaVenta.setIntereses(interes);
+            nuevaVenta.setCccliente(cedulaCliente);
+            nuevaVenta.setMatinmueble(matriculaInmueble);
+            nuevaVenta.setIdusuario(idUsuario); // Se utiliza idUsuario
+
+            if (guardarVenta(nuevaVenta)) {
+                JOptionPane.showMessageDialog(this, "Venta guardada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al guardar la venta.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Número de cuotas debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_rSButtonMetro1ActionPerformed
 
+    // Método para guardar la venta en la base de datos
+    private boolean guardarVenta(Venta venta) {
+        try {
+            return ventaService.agregarVenta(venta);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }  
+    }
+    
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         String clienteSeleccionado = (String) jComboBox2.getSelectedItem();
         if (clienteSeleccionado != null && clienteMap.containsKey(clienteSeleccionado)) {
