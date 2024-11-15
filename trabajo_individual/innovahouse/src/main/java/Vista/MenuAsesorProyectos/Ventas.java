@@ -15,8 +15,9 @@ import javax.swing.table.DefaultTableModel;
 public class Ventas extends javax.swing.JPanel {
     private String idUsuario;
 
-    public Ventas() {
+    public Ventas(String idUsuario) {
         initComponents();
+        this.idUsuario = idUsuario;
     }
     
         private void cargarDatos() {
@@ -169,6 +170,7 @@ public class Ventas extends javax.swing.JPanel {
 
     private void rButtonProyecto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto2MouseClicked
         AnadirVenta v1 = new AnadirVenta(idUsuario);
+        System.out.println(idUsuario);
         v1.setVisible(true);
     }//GEN-LAST:event_rButtonProyecto2MouseClicked
 
