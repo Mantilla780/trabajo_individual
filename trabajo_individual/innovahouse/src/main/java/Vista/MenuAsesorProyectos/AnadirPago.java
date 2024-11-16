@@ -4,8 +4,14 @@
  */
 package Vista.MenuAsesorProyectos;
 
+import Controlador.ConexionBD;
+import Modelo.PagoDAO;
+import Modelo.VentaDAO;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.sql.Connection;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -19,7 +25,25 @@ public class AnadirPago extends javax.swing.JFrame {
         // Cargar la imagen como icono de la ventana
         Image icono = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Vista/Imagenes/logo3.png"));
         setIconImage(icono);
+        cargarVentasEnComboBox();
     }
+    
+    private void cargarVentasEnComboBox() {
+    // Crear conexión con la base de datos (reemplaza con tu lógica)
+    Connection conexion = ConexionBD.getInstancia().getConnection("Asesor");
+    VentaDAO ventaDAO = new VentaDAO(conexion);
+
+    // Obtener los datos
+    List<String> ventasConCliente = ventaDAO.obtenerVentasConCliente();
+
+    // Limpiar el ComboBox antes de cargar datos
+    jComboBox1.removeAllItems();
+
+    // Agregar los elementos al ComboBox
+    for (String item : ventasConCliente) {
+        jComboBox1.addItem(item);
+    }
+}
     
     
 
@@ -109,7 +133,41 @@ public class AnadirPago extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void rSButtonMetro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro1ActionPerformed
+       // Obtener el elemento seleccionado del JComboBox
+    String ventaSeleccionada = (String) jComboBox1.getSelectedItem();
 
+    try {
+        // Extraer los valores de idVenta y ccCliente del string
+        // Suponiendo que el formato es "Venta: X - Cliente: Y"
+        String[] partes = ventaSeleccionada.split(" - ");
+        String[] ventaPartes = partes[0].split(":");
+        String[] clientePartes = partes[1].split(":");
+
+        int idVenta = Integer.parseInt(ventaPartes[1].trim()); // ID de la venta
+        int ccCliente = Integer.parseInt(clientePartes[1].trim()); // CC del cliente
+
+        // Obtener la fecha ingresada
+        String fechaPago = nombreproyecto4.getText();
+
+        // Crear conexión y llamar a insertarPago
+        Connection conexion = ConexionBD.getInstancia().getConnection("Asesor");
+        PagoDAO pagoDAO = new PagoDAO(conexion);
+
+        // Pasar los tres parámetros al método generarPagosPorVenta
+        boolean exito = pagoDAO.generarPagosPorVenta(idVenta, ccCliente, fechaPago);
+        if (exito) {
+            JOptionPane.showMessageDialog(this, "Pago registrado exitosamente.");
+            dispose(); // Cerrar la ventana actual si todo es exitoso
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al registrar el pago.");
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Error: formato de venta o cliente no válido.");
+        e.printStackTrace();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al registrar el pago: " + e.getMessage());
+        e.printStackTrace();
+    }
     }//GEN-LAST:event_rSButtonMetro1ActionPerformed
 
     private void nombreproyecto4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreproyecto4ActionPerformed

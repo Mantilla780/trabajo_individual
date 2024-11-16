@@ -106,4 +106,25 @@ public class VentaDAO {
             return false;
         }
     }
+    
+    public List<String> obtenerVentasConCliente() {
+        List<String> lista = new ArrayList<>();
+        String sql = "SELECT IDVENTA, CCCLIENTE FROM proyecto.venta";
+
+        try (PreparedStatement ps = conexion.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                int idVenta = rs.getInt("IDVENTA");
+                int ccCliente = rs.getInt("CCCLIENTE");
+                // Agregar formato personalizado al ComboBox
+                lista.add("Venta: " + idVenta + " - Cliente: " + ccCliente);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
 }

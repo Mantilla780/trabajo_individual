@@ -1,11 +1,13 @@
 C:\Users\omaci\Documents\integrador\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Modelo\Proyecto.java
 C:\Users\omaci\Documents\integrador\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Controlador\TorreService.java
+C:\Users\omaci\Documents\integrador\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Modelo\Pago.java
 C:\Users\omaci\Documents\integrador\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Controlador\LoginControlador.java
 C:\Users\omaci\Documents\integrador\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Modelo\Venta.java
 C:\Users\omaci\Documents\integrador\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Vista\RSButtonMetro.java
 C:\Users\omaci\Documents\integrador\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Controlador\ClienteService.java
 C:\Users\omaci\Documents\integrador\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Modelo\InmuebleDAO.java
 C:\Users\omaci\Documents\integrador\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Vista\MenuAsesorProyectos\ActualizarVenta.java
+C:\Users\omaci\Documents\integrador\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Modelo\PagoDAO.java
 C:\Users\omaci\Documents\integrador\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Controlador\InmuebleService.java
 C:\Users\omaci\Documents\integrador\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Modelo\ProyectoDAO.java
 C:\Users\omaci\Documents\integrador\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Vista\MenuAdminProyectos\CrearTorre.java
@@ -39,5 +41,4 @@ C:\Users\omaci\Documents\integrador\trabajo_individual\trabajo_individual\innova
 C:\Users\omaci\Documents\integrador\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Vista\MenuAdminProyectos\Inmuebles.java
 C:\Users\omaci\Documents\integrador\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Vista\MenuAdminProyectos\CrearInmueble.java
 C:\Users\omaci\Documents\integrador\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Vista\MenuAsesor.java
-C:\Users\omaci\Documents\integrador\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Vista\MenuAsesorProyectos\ActualizarPago.java
 C:\Users\omaci\Documents\integrador\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Vista\MenuAsesorProyectos\Ventas.java

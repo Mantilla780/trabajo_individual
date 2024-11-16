@@ -33,7 +33,6 @@ public class Pagos extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         rButtonProyecto2 = new Vista.RSButtonMetro();
-        jLabel1 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1190, 720));
 
@@ -79,9 +78,6 @@ public class Pagos extends javax.swing.JPanel {
         });
         jPanel1.add(rButtonProyecto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 250, 60));
 
-        jLabel1.setText("Pagos");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 50, -1, -1));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -99,7 +95,8 @@ public class Pagos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     
     private void rButtonProyecto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto2MouseClicked
-        
+        AnadirPago ap = new AnadirPago();
+        ap.setVisible(true);
     }//GEN-LAST:event_rButtonProyecto2MouseClicked
 
     private void rButtonProyecto2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto2ActionPerformed
@@ -108,7 +105,6 @@ public class Pagos extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
