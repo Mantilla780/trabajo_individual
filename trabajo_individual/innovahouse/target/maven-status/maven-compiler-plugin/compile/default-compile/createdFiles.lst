@@ -20,6 +20,7 @@ Vista\MenuAdminProyectos\CrearInmueble$2.class
 Vista\MenuAdminProyectos\Proyectos$9.class
 Vista\MenuAsesorProyectos\Ventas$2.class
 Modelo\ProyectoDAO.class
+Vista\MenuAsesor$8.class
 Vista\MenuAsesorProyectos\ActualizarPago.class
 Vista\MenuAdminProyectos\Inmuebles$5.class
 Vista\MenuAsesorProyectos\AnadirCliente.class
@@ -45,6 +46,7 @@ Vista\MenuAdministrador$4.class
 Vista\Login$1.class
 Vista\MenuAdminProyectos\Proyectos$6.class
 Vista\MenuAsesorProyectos\ActualizarPago$2.class
+Vista\MenuAsesor$9.class
 Controlador\LoginControlador.class
 Vista\MenuAdminProyectos\ActualizarTorre.class
 Vista\MenuAdminProyectos\CrearTorre.class

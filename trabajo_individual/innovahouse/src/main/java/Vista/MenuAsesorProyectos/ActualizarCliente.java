@@ -7,6 +7,8 @@ package Vista.MenuAsesorProyectos;
 import Controlador.ClienteService;
 import Controlador.ConexionBD;
 import Modelo.Cliente;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
 
@@ -21,6 +23,9 @@ public class ActualizarCliente extends javax.swing.JFrame {
     
     public ActualizarCliente(int cedula, String nombre, String sisben, int subsidio, String direccion, int telefono, String correoElectronico) {
         initComponents(); 
+        // Cargar la imagen como icono de la ventana
+        Image icono = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Vista/Imagenes/logo3.png"));
+        setIconImage(icono);
           Connection conexion = ConexionBD.getInstancia().getConnection("Asesor");
         
         // Inicializar ClienteService con la conexión

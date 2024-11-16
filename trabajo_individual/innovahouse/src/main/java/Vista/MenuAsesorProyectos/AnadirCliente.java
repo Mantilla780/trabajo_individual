@@ -7,6 +7,8 @@ package Vista.MenuAsesorProyectos;
 import Controlador.ClienteService;
 import Controlador.ConexionBD;
 import Modelo.Cliente;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
 
@@ -18,7 +20,10 @@ import javax.swing.JOptionPane;
 public class AnadirCliente extends javax.swing.JFrame {
  
     public AnadirCliente() {
-        initComponents();         
+        initComponents(); 
+        // Cargar la imagen como icono de la ventana
+        Image icono = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Vista/Imagenes/logo3.png"));
+        setIconImage(icono);        
     }
     
     

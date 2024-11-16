@@ -10,6 +10,8 @@ import Controlador.InmuebleService;
 import Modelo.Cliente;
 import Modelo.Inmueble;
 import Modelo.InmuebleDAO;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +30,9 @@ public class AnadirVenta extends javax.swing.JFrame {
     
     public AnadirVenta() {
           initComponents();
+          // Cargar la imagen como icono de la ventana
+        Image icono = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Vista/Imagenes/logo3.png"));
+        setIconImage(icono);
         setLocationRelativeTo(null);
         ConexionBD conexionBD = new ConexionBD();
         this.clienteService = new ClienteService(conexionBD.getConnection("Asesor"));
