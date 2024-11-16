@@ -47,6 +47,7 @@ Vista\Login$1.class
 Vista\MenuAdminProyectos\Proyectos$6.class
 Vista\MenuAsesorProyectos\ActualizarPago$2.class
 Controlador\VentaService.class
+Vista\MenuAsesor$9.class
 Controlador\LoginControlador.class
 Vista\MenuAdminProyectos\ActualizarTorre.class
 Vista\MenuAdminProyectos\CrearTorre.class
@@ -96,9 +97,11 @@ Vista\MenuAsesorProyectos\Clientes$1.class
 Vista\MenuAdministrador$5.class
 Vista\MenuAsesorProyectos\ActualizarVenta.class
 Vista\Login$5.class
+Vista\MenuAsesorProyectos\Clientes$7.class
 Modelo\UsuarioDAO.class
 Vista\MenuAsesorProyectos\Pagos$6.class
 Vista\MenuAsesorProyectos\ActualizarCliente$3.class
+Vista\MenuAdministrador$8.class
 Vista\Login$2.class
 Vista\MenuAdminProyectos\Proyectos$2.class
 Vista\MenuAsesorProyectos\AnadirVenta$3.class

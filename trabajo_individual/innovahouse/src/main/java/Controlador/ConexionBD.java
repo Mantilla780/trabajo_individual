@@ -13,6 +13,8 @@ public class ConexionBD {
     private Connection asesorConnection = null;
 
     private final String url = "jdbc:oracle:thin:@localhost:1521:XE";
+    // private final String url = "jdbc:oracle:thin:@192.168.254.215:1521:orcl";
+
     private final String adminUser = "adminproyecto";
     private final String adminPassword = "adminproyecto";
     private final String asesorUser = "asesorproyecto";

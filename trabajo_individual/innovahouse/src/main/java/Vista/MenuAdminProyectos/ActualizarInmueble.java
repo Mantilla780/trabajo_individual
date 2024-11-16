@@ -12,6 +12,8 @@ import Modelo.Proyecto;
 import Modelo.ProyectoDAO;
 import Modelo.Torre;
 import Modelo.TorreDAO;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -34,6 +36,9 @@ public class ActualizarInmueble extends javax.swing.JFrame {
         this.numeroInmueble = numeroInmueble;
         this.idProyecto = idProyecto;
         cargarDatosInmueble();
+        // Cargar la imagen como icono de la ventana
+        Image icono = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Vista/Imagenes/logo3.png"));
+        setIconImage(icono);
     }
 
     private void cargarDatosInmueble() {
