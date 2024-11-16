@@ -3,6 +3,7 @@ package Controlador;
 import Modelo.Inmueble;
 import Modelo.InmuebleDAO;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.List;
 
 public class InmuebleService {
@@ -33,10 +34,8 @@ public class InmuebleService {
     return inmuebleDAO.obtenerInmueblePorMatricula(matricula);
 }
    
-    public List<Inmueble> obtenerInmuebles() {
-        //return inmuebleDAO.obtenerInmueblesbasico();
-        return null;
-        //return inmuebleDAO.obtenerInmueblesbasico();
+    public List<Inmueble> obtenerInmuebles() throws SQLException {
+        return inmuebleDAO.obtenerInmuebles();
     }
 
 }

@@ -85,7 +85,5 @@ public class Venta {
 
     public void setMatinmueble(int matinmueble) {
         this.matinmueble = matinmueble;
-    }
-    
-    
+    } 
 }

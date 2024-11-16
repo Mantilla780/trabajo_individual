@@ -264,7 +264,7 @@ public class MenuAsesor extends javax.swing.JFrame {
             this.ButtonApartamentos.setColorHover(new Color(39,33,105));
             this.ButtonApartamentos.setColorPressed(new Color(76,69,153));
             
-            Ventas p2 = new Ventas();
+            Ventas p2 = new Ventas(idUsuario);
             p2.setSize(1190,620);
             p2.setLocation(20,20);
             jPanel3.removeAll();

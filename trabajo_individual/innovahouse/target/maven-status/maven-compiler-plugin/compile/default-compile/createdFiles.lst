@@ -46,6 +46,7 @@ Vista\MenuAdministrador$4.class
 Vista\Login$1.class
 Vista\MenuAdminProyectos\Proyectos$6.class
 Vista\MenuAsesorProyectos\ActualizarPago$2.class
+Controlador\VentaService.class
 Vista\MenuAsesor$9.class
 Controlador\LoginControlador.class
 Vista\MenuAdminProyectos\ActualizarTorre.class
@@ -135,6 +136,7 @@ Controlador\ProyectoService.class
 Vista\MenuAdminProyectos\ActualizarInmueble.class
 Vista\MenuAdminProyectos\Torres$2.class
 Vista\MenuAdminProyectos\ActualizarProyecto.class
+Modelo\VentaDAO.class
 Vista\MenuAsesor$7.class
 Vista\MenuAsesorProyectos\Clientes$2.class
 Vista\MenuAsesorProyectos\AnadirVenta.class
