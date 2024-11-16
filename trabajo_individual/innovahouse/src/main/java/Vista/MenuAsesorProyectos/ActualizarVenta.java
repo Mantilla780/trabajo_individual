@@ -4,6 +4,9 @@
  */
 package Vista.MenuAsesorProyectos;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+
 
 /**
  *
@@ -13,6 +16,9 @@ public class ActualizarVenta extends javax.swing.JFrame {
  
     public ActualizarVenta() {
         initComponents(); 
+        // Cargar la imagen como icono de la ventana
+        Image icono = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Vista/Imagenes/logo3.png"));
+        setIconImage(icono);
         
     }
     
