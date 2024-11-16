@@ -29,6 +29,12 @@ public class ClienteService {
     public List<Cliente> obtenerclientes() throws SQLException {
         return clienteDAO.listarClientes();
     }
+    
+    public boolean actualizarCliente(Cliente cliente) {
+    // Llamamos al método del ClienteDAO para actualizar los datos del cliente en la base de datos
+    return clienteDAO.actualizarCliente(cliente);
+}
+
     public boolean eliminarCliente(int cedula) {
         return clienteDAO.eliminarCliente(cedula);
     }

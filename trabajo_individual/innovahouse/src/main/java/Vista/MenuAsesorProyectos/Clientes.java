@@ -229,7 +229,41 @@ public class Clientes extends javax.swing.JPanel {
     }//GEN-LAST:event_rButtonProyecto3MouseClicked
 
     private void rButtonProyecto3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto3ActionPerformed
+          // Verificar que hay una fila seleccionada
+    int selectedRow = jTable2.getSelectedRow();
 
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(this, "Por favor, selecciona un cliente para editar.", "Error", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    // Obtener los datos del cliente seleccionado
+   int cedula = (int) jTable2.getValueAt(selectedRow, 0); // Cedula es int
+    String nombre = (String) jTable2.getValueAt(selectedRow, 1); // Nombre es String
+    Object sisbenObj = jTable2.getValueAt(selectedRow, 2); // Sisben
+    String sisben = (sisbenObj != null) ? sisbenObj.toString() : "No"; // Valor predeterminado si es nulo
+    Object subsidioObj = jTable2.getValueAt(selectedRow, 3); // Campo SUBSIDIOMINISTERIO
+    int subsidio = 0; // Valor predeterminado
+
+    if (subsidioObj != null && !subsidioObj.toString().isEmpty()) {
+        subsidio = subsidioObj.toString().equalsIgnoreCase("No") ? 0 : Integer.parseInt(subsidioObj.toString());
+    }
+
+    String direccion = (String) jTable2.getValueAt(selectedRow, 4); // Dirección es String
+    int telefono = (int) jTable2.getValueAt(selectedRow, 5); // Teléfono es int
+    String correoElectronico = (String) jTable2.getValueAt(selectedRow, 6); // Correo es String
+
+    // Crear y abrir el formulario de edición
+    ActualizarCliente editarClienteForm = new ActualizarCliente(cedula, nombre, sisben, subsidio, direccion, telefono, correoElectronico);
+    editarClienteForm.setVisible(true);
+
+    // Actualizar la tabla cuando se cierre el formulario
+    editarClienteForm.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent e) {
+            cargarClientesEnTabla(); // Refrescar la tabla con los datos actualizados
+        }
+    });
     }//GEN-LAST:event_rButtonProyecto3ActionPerformed
 
 

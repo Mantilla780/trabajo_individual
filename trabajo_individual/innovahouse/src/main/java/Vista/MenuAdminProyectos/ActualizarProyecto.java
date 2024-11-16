@@ -6,6 +6,8 @@ package Vista.MenuAdminProyectos;
 
 import Controlador.ProyectoService;
 import Modelo.Proyecto;
+import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,6 +23,9 @@ public class ActualizarProyecto extends javax.swing.JFrame {
      */
     public ActualizarProyecto(int idProyecto, String nombreProyecto,String idUsuario, ProyectoService proyectoService) {
         initComponents();
+        // Cargar la imagen como icono de la ventana
+        Image icono = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Vista/Imagenes/logo3.png"));
+        setIconImage(icono);
         this.proyectoService = proyectoService;
         this.idProyecto = idProyecto;
         this.idUsuario = idUsuario;        
