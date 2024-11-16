@@ -42,15 +42,15 @@ public class AnadirVenta extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         this.idUsuario = idUsuario; // Asignación del idUsuario
+        System.out.println(idUsuario);
 
         ConexionBD conexionBD = new ConexionBD();
 
         // Inicialización de servicios
         Connection connectionAsesor = conexionBD.getConnection("Asesor");
-        Connection connectionAdmin = conexionBD.getConnection("Admin");
 
         this.clienteService = new ClienteService(connectionAsesor);
-        this.ventaService = new VentaService(connectionAdmin); // Inicialización del servicio de ventas usando conexión directamente
+        this.ventaService = new VentaService(connectionAsesor); // Inicialización del servicio de ventas usando conexión directamente
 
         llenarComboBoxClientes();
         llenarComboBoxInmueble(); // Llamada para llenar el ComboBox
