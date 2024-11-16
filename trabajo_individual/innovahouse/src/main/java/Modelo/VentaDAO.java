@@ -1,5 +1,6 @@
 package Modelo;
 
+import Controlador.ConexionBD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +17,7 @@ public class VentaDAO {
     }
 
     // Método para insertar una nueva venta en la base de datos
-    public boolean guardar(Venta venta) {
+    public boolean guardarVenta(Venta venta) {
         String sqlInsert = "INSERT INTO proyecto.venta (IDVENTA, PRECIOTOTALVENTA, NUMEROCUOTAS, INTERESES, IDUSUARIO, CCCLIENTE, MATINMUEBLE) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement psInsert = conexion.prepareStatement(sqlInsert)) {
@@ -46,27 +47,39 @@ public class VentaDAO {
     }
 
     // Método para listar todas las ventas
-    public List<Venta> listarVentas() throws SQLException {
-        List<Venta> ventas = new ArrayList<>();
-        String sql = "SELECT idventa, preciototalventa, numerocuotas, intereses, idusuario, cccliente, matinmueble FROM proyecto.venta";
-        
-        try (PreparedStatement psSelect = conexion.prepareStatement(sql);
-             ResultSet rs = psSelect.executeQuery()) {
+    public List<Venta> listarVentas() {
+        List<Venta> lista = new ArrayList<>();
+        String sql = "SELECT v.idventa, " +
+                     "       v.preciototalventa, " +
+                     "       v.numerocuotas, " +
+                     "       v.intereses, " +
+                     "       v.matinmueble, " +
+                     "       u.nombreUsuario AS nombreUsuario, " +
+                     "       c.nombre AS nombreCliente " +
+                     "FROM proyecto.venta v " +
+                     "JOIN proyecto.usuario u ON v.idusuario = u.idUsuario " +
+                     "JOIN proyecto.cliente c ON v.cccliente = c.cedula " +
+                     "GROUP BY v.idventa, v.preciototalventa, v.numerocuotas, " +
+                     "         v.intereses, v.matinmueble, u.nombreUsuario, c.nombre";
 
+        try (Connection conn = ConexionBD.getInstancia().getConnection("Asesor");
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
-                Venta venta = new Venta(
-                        rs.getInt("idventa"),
-                        rs.getInt("preciototalventa"),
-                        rs.getInt("numerocuotas"),
-                        rs.getString("intereses"),
-                        rs.getString("idusuario"),
-                        rs.getInt("cccliente"),
-                        rs.getInt("matinmueble")
-                );
-                ventas.add(venta);
+                Venta venta = new Venta();
+                venta.setIdventa(rs.getInt("idventa"));
+                venta.setPRECIOTOTALVENTA(rs.getInt("preciototalventa"));
+                venta.setNumerocuotas(rs.getInt("numerocuotas"));
+                venta.setIntereses(rs.getString("intereses"));
+                venta.setMatinmueble(rs.getInt("matinmueble"));
+                venta.setNombreUsuario(rs.getString("nombreUsuario"));
+                venta.setNombreCliente(rs.getString("nombreCliente"));
+                lista.add(venta);
             }
+        } catch (SQLException e) {
+            System.out.println("Error al listar ventas: " + e.getMessage());
         }
-        return ventas;
+        return lista;
     }
 
     // Método para eliminar una venta por ID

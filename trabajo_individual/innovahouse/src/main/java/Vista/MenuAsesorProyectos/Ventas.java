@@ -4,6 +4,12 @@
  */
 package Vista.MenuAsesorProyectos;
 
+import Controlador.ConexionBD;
+import Modelo.Venta;
+import Modelo.VentaDAO;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -18,26 +24,35 @@ public class Ventas extends javax.swing.JPanel {
     public Ventas(String idUsuario) {
         initComponents();
         this.idUsuario = idUsuario;
+        cargarVentasEnTabla();
     }
     
-        private void cargarDatos() {
-        DefaultTableModel modelo = new DefaultTableModel();
-        jTable2.setModel(modelo);
+    private void cargarVentasEnTabla() {
+        try (Connection conexion = ConexionBD.getInstancia().getConnection("Asesor")) {
+            VentaDAO ventaDAO = new VentaDAO(conexion);
+            List<Venta> ventas = ventaDAO.listarVentas();
+            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
 
-        modelo.addColumn("ID Venta");
-        modelo.addColumn("Cliente");
-        modelo.addColumn("Fecha");
-        modelo.addColumn("Total");
+            // Establecer las columnas
+            model.setColumnIdentifiers(new String[]{
+                "ID Venta", "Precio Total", "Número de Cuotas", "Intereses", "Nombre usuario", "Nombre cliente", "Matrícula Inmueble"
+            });
+            model.setRowCount(0); // Limpiar la tabla antes de cargar los datos
 
-        // Aquí debes cargar los datos de la base de datos
-        // Simulación de datos:
-        Object[][] datos = {
-            {1, "Cliente 1", "2024-11-01", "$200"},
-            {2, "Cliente 2", "2024-11-02", "$150"}
-        };
-
-        for (Object[] fila : datos) {
-            modelo.addRow(fila);
+            // Añadir filas con las ventas
+            for (Venta venta : ventas) {
+                model.addRow(new Object[]{
+                    venta.getIdventa(),
+                    venta.getPRECIOTOTALVENTA(),
+                    venta.getNumerocuotas(),
+                    venta.getIntereses(),
+                    venta.getNombreUsuario(),
+                    venta.getNombreCliente(),
+                    venta.getMatinmueble()
+                });
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

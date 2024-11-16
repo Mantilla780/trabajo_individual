@@ -16,6 +16,8 @@ public class Venta {
     private String idusuario;
     private int cccliente;
     private int matinmueble;
+    private String nombreUsuario;
+    private String nombreCliente;
     
     
     public Venta(){
@@ -86,4 +88,22 @@ public class Venta {
     public void setMatinmueble(int matinmueble) {
         this.matinmueble = matinmueble;
     } 
+
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    public String getNombreCliente() {
+        return nombreCliente;
+    }
+
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
+    }
+    
+    
 }
