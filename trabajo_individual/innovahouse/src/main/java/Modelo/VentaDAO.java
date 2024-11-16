@@ -16,7 +16,7 @@ public class VentaDAO {
     }
 
     // Método para insertar una nueva venta en la base de datos
-    public boolean guardar(Venta venta) {
+    public boolean guardarVenta(Venta venta) {
         String sqlInsert = "INSERT INTO proyecto.venta (IDVENTA, PRECIOTOTALVENTA, NUMEROCUOTAS, INTERESES, IDUSUARIO, CCCLIENTE, MATINMUEBLE) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement psInsert = conexion.prepareStatement(sqlInsert)) {

@@ -20,6 +20,7 @@ Vista\MenuAdminProyectos\CrearInmueble$2.class
 Vista\MenuAdminProyectos\Proyectos$9.class
 Vista\MenuAsesorProyectos\Ventas$2.class
 Modelo\ProyectoDAO.class
+Vista\MenuAsesor$8.class
 Vista\MenuAsesorProyectos\ActualizarPago.class
 Vista\MenuAdminProyectos\Inmuebles$5.class
 Vista\MenuAsesorProyectos\AnadirCliente.class

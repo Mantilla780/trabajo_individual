@@ -24,7 +24,7 @@ public class VentaService {
      * @return true si la venta se guardó correctamente, false en caso contrario.
      */
     public boolean agregarVenta(Venta venta) {
-        return ventaDAO.guardar(venta);
+        return ventaDAO.guardarVenta(venta);
     }
 
     /**
