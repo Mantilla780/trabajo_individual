@@ -19,9 +19,11 @@ import javax.swing.JOptionPane;
  * @author omaci
  */
 public class AnadirPago extends javax.swing.JFrame {
+    private String idUsuario;
  
-    public AnadirPago() {
-        initComponents(); 
+    public AnadirPago(String idusuario) {
+        initComponents();
+        this.idUsuario=idusuario;
         // Cargar la imagen como icono de la ventana
         Image icono = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Vista/Imagenes/logo3.png"));
         setIconImage(icono);
@@ -133,41 +135,44 @@ public class AnadirPago extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void rSButtonMetro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro1ActionPerformed
-       // Obtener el elemento seleccionado del JComboBox
-    String ventaSeleccionada = (String) jComboBox1.getSelectedItem();
+      // Obtener el elemento seleccionado del JComboBox
+        String ventaSeleccionada = (String) jComboBox1.getSelectedItem();
 
-    try {
-        // Extraer los valores de idVenta y ccCliente del string
-        // Suponiendo que el formato es "Venta: X - Cliente: Y"
-        String[] partes = ventaSeleccionada.split(" - ");
-        String[] ventaPartes = partes[0].split(":");
-        String[] clientePartes = partes[1].split(":");
+        try {
+            // Extraer los valores de idVenta y ccCliente del string
+            // Suponiendo que el formato es "Venta: X - Cliente: Y"
+            String[] partes = ventaSeleccionada.split(" - ");
+            String[] ventaPartes = partes[0].split(":");
+            String[] clientePartes = partes[1].split(":");
 
-        int idVenta = Integer.parseInt(ventaPartes[1].trim()); // ID de la venta
-        int ccCliente = Integer.parseInt(clientePartes[1].trim()); // CC del cliente
+            int idVenta = Integer.parseInt(ventaPartes[1].trim()); // ID de la venta
+            int ccCliente = Integer.parseInt(clientePartes[1].trim()); // CC del cliente
 
-        // Obtener la fecha ingresada
-        String fechaPago = nombreproyecto4.getText();
+            // Obtener la fecha ingresada
+            String fechaPago = nombreproyecto4.getText();
 
-        // Crear conexión y llamar a insertarPago
-        Connection conexion = ConexionBD.getInstancia().getConnection("Asesor");
-        PagoDAO pagoDAO = new PagoDAO(conexion);
+            // Obtener el idUsuario
+            String idUsuario = this.idUsuario;  // El idUsuario es almacenado en el atributo de la clase
 
-        // Pasar los tres parámetros al método generarPagosPorVenta
-        boolean exito = pagoDAO.generarPagosPorVenta(idVenta, ccCliente, fechaPago);
-        if (exito) {
-            JOptionPane.showMessageDialog(this, "Pago registrado exitosamente.");
-            dispose(); // Cerrar la ventana actual si todo es exitoso
-        } else {
-            JOptionPane.showMessageDialog(this, "Error al registrar el pago.");
+            // Crear conexión y llamar a insertarPago
+            Connection conexion = ConexionBD.getInstancia().getConnection("Asesor");
+            PagoDAO pagoDAO = new PagoDAO(conexion);
+
+            // Pasar los tres parámetros al método generarPagosPorVenta
+            boolean exito = pagoDAO.generarPagosPorVenta(idVenta, ccCliente, fechaPago, idUsuario);
+            if (exito) {
+                JOptionPane.showMessageDialog(this, "Pago registrado exitosamente.");
+                dispose(); // Cerrar la ventana actual si todo es exitoso
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al registrar el pago.");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Error: formato de venta o cliente no válido.");
+            e.printStackTrace();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al registrar el pago: " + e.getMessage());
+            e.printStackTrace();
         }
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Error: formato de venta o cliente no válido.");
-        e.printStackTrace();
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Error al registrar el pago: " + e.getMessage());
-        e.printStackTrace();
-    }
     }//GEN-LAST:event_rSButtonMetro1ActionPerformed
 
     private void nombreproyecto4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreproyecto4ActionPerformed
