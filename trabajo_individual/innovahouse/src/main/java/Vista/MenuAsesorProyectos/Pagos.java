@@ -11,10 +11,11 @@ package Vista.MenuAsesorProyectos;
  * @author omaci
  */
 public class Pagos extends javax.swing.JPanel {
-   
+   private String idUsuario;
 
-    public Pagos() {
+    public Pagos(String idusuario) {
         initComponents();
+        this.idUsuario=idusuario;
     }
     
     
@@ -95,7 +96,7 @@ public class Pagos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     
     private void rButtonProyecto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto2MouseClicked
-        AnadirPago ap = new AnadirPago();
+        AnadirPago ap = new AnadirPago(idUsuario);
         ap.setVisible(true);
     }//GEN-LAST:event_rButtonProyecto2MouseClicked
 
