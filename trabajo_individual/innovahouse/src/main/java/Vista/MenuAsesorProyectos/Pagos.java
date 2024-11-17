@@ -6,6 +6,7 @@ package Vista.MenuAsesorProyectos;
 import Controlador.ConexionBD;
 import Modelo.Pago;
 import Modelo.PagoDAO;
+import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JButton;
 import javax.swing.JTable;
@@ -17,6 +18,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.AbstractCellEditor;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
     public class Pagos extends javax.swing.JPanel {
@@ -58,6 +60,45 @@ import javax.swing.table.DefaultTableModel;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        // Configurar renderer para colorear cada columna de la tabla
+        jTable2.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                // Aplica un color de fondo específico para cada columna
+                switch (column) {
+                    case 0 -> // Primera columna
+                        cell.setBackground(Color.WHITE);
+                    case 1 -> // Segunda columna
+                        cell.setBackground(Color.WHITE);
+                    case 2 -> // Tercera columna
+                        cell.setBackground(Color.WHITE);
+                    case 3 -> // Cuarta columna
+                        cell.setBackground(Color.WHITE);
+                    case 4 -> // Quinta columna
+                        cell.setBackground(Color.WHITE);
+                    case 5 -> // Sexta columna
+                        cell.setBackground(Color.WHITE);
+                    case 6 -> // Septima colimna
+                        cell.setBackground(Color.WHITE);
+                    default -> {
+                    }
+                }
+
+                // Cambia el color de fondo y del texto cuando la celda está seleccionada
+                if (isSelected) {
+                    cell.setBackground(table.getSelectionBackground());  // Color de fondo de selección
+                    cell.setForeground(Color.WHITE);                     // Color de texto de selección
+                } else {
+                    cell.setForeground(Color.BLACK);                    // Color de texto por defecto
+                }
+
+                return cell;
+
+            }
+    });
+        
     }
 
     class ButtonRenderer extends JButton implements TableCellRenderer {
