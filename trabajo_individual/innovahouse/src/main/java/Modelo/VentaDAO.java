@@ -81,40 +81,46 @@ public class VentaDAO {
         return lista;
     }
 
-    // Método para eliminar una venta por ID
     public boolean eliminarVenta(int idventa) {
-        String sqlDelete = "DELETE FROM proyecto.venta WHERE idventa = ?";
+        // Verificar si existen pagos con estado "PAG" para esta venta
+        String sqlCheckPagos = "SELECT COUNT(*) AS pagosPagados " +
+                                "FROM proyecto.pago " +
+                                "WHERE idventa = ? AND estadoPago = 'PAG'";
 
-        try (PreparedStatement psDelete = conexion.prepareStatement(sqlDelete)) {
-            psDelete.setInt(1, idventa);
+        try (PreparedStatement psCheck = conexion.prepareStatement(sqlCheckPagos)) {
+            psCheck.setInt(1, idventa);
 
-            // Ejecuta la eliminación y devuelve true si se eliminó al menos un registro
-            return psDelete.executeUpdate() > 0;
-
+            try (ResultSet rs = psCheck.executeQuery()) {
+                if (rs.next() && rs.getInt("pagosPagados") > 0) {
+                    // Si hay pagos con estado "PAG", no se puede eliminar la venta
+                    System.out.println("No se puede eliminar la venta. Existen pagos asociados con estado 'PAG'.");
+                    return false;
+                }
+            }
         } catch (SQLException e) {
-            System.err.println("Error al eliminar la venta con ID " + idventa + ": " + e.getMessage());
+            System.err.println("Error al verificar pagos asociados: " + e.getMessage());
             return false;
         }
-    }
 
-    // Método para actualizar una venta
-    public boolean actualizarVenta(Venta venta) {
-        String sqlUpdate = "UPDATE proyecto.venta SET preciototalventa = ?, numerocuotas = ?, intereses = ?, idusuario = ?, cccliente = ?, matinmueble = ? WHERE idventa = ?";
+        // Eliminar los pagos relacionados con esta venta (si tienen estado 'PEN')
+        String sqlDeletePagos = "DELETE FROM proyecto.pago WHERE idventa = ?";
 
-        try (PreparedStatement psUpdate = conexion.prepareStatement(sqlUpdate)) {
-            psUpdate.setInt(1, venta.getPRECIOTOTALVENTA());
-            psUpdate.setInt(2, venta.getNumerocuotas());
-            psUpdate.setString(3, venta.getIntereses());
-            psUpdate.setString(4, venta.getIdusuario());
-            psUpdate.setInt(5, venta.getCccliente());
-            psUpdate.setInt(6, venta.getMatinmueble());
-            psUpdate.setInt(7, venta.getIdventa());
-
-            // Ejecuta la actualización y devuelve true si se actualizó correctamente
-            return psUpdate.executeUpdate() > 0;
-
+        try (PreparedStatement psDeletePagos = conexion.prepareStatement(sqlDeletePagos)) {
+            psDeletePagos.setInt(1, idventa);
+            psDeletePagos.executeUpdate();
         } catch (SQLException e) {
-            System.err.println("Error al actualizar la venta: " + e.getMessage());
+            System.err.println("Error al eliminar los pagos de la venta con ID " + idventa + ": " + e.getMessage());
+            return false;
+        }
+
+        // Eliminar la venta
+        String sqlDeleteVenta = "DELETE FROM proyecto.venta WHERE idventa = ?";
+
+        try (PreparedStatement psDeleteVenta = conexion.prepareStatement(sqlDeleteVenta)) {
+            psDeleteVenta.setInt(1, idventa);
+            return psDeleteVenta.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al eliminar la venta con ID " + idventa + ": " + e.getMessage());
             return false;
         }
     }

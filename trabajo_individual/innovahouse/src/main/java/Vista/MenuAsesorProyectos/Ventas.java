@@ -4,6 +4,7 @@
  */
 package Vista.MenuAsesorProyectos;
 
+import Controlador.VentaService;
 import Modelo.ConexionBD;
 import Modelo.Venta;
 import Modelo.VentaDAO;
@@ -12,6 +13,7 @@ import java.awt.Component;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -119,7 +121,6 @@ public class Ventas extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         rButtonProyecto2 = new Vista.RSButtonMetro();
-        rButtonProyecto3 = new Vista.RSButtonMetro();
         jLabel1 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1190, 720));
@@ -184,25 +185,6 @@ public class Ventas extends javax.swing.JPanel {
         });
         jPanel1.add(rButtonProyecto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 250, 60));
 
-        rButtonProyecto3.setBackground(new java.awt.Color(5, 10, 48));
-        rButtonProyecto3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/edit.png"))); // NOI18N
-        rButtonProyecto3.setText("Editar");
-        rButtonProyecto3.setColorNormal(new java.awt.Color(5, 10, 48));
-        rButtonProyecto3.setColorPressed(new java.awt.Color(39, 33, 105));
-        rButtonProyecto3.setFocusPainted(false);
-        rButtonProyecto3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        rButtonProyecto3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                rButtonProyecto3MouseClicked(evt);
-            }
-        });
-        rButtonProyecto3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rButtonProyecto3ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(rButtonProyecto3, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 20, 140, 60));
-
         jLabel1.setText("Ventas");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 50, -1, -1));
 
@@ -227,7 +209,41 @@ public class Ventas extends javax.swing.JPanel {
     }//GEN-LAST:event_rButtonProyecto1MouseClicked
 
     private void rButtonProyecto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto1ActionPerformed
-            
+            // Verificar que se haya seleccionado una fila
+        int selectedRow = jTable2.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona una venta para eliminar.", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Obtener el ID de la venta seleccionada
+        int idVenta = (int) jTable2.getValueAt(selectedRow, 0);
+
+        // Confirmar eliminación
+        int confirmacion = JOptionPane.showConfirmDialog(this, 
+            "¿Estás seguro de que deseas eliminar la venta con ID " + idVenta + "?", 
+            "Confirmar eliminación", 
+            JOptionPane.YES_NO_OPTION);
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+            try (Connection conexion = ConexionBD.getInstancia().getConnection("Asesor")) {
+                // Crear el servicio de ventas
+                VentaService ventaService = new VentaService(conexion);
+
+                // Intentar eliminar la venta
+                boolean eliminada = ventaService.eliminarVenta(idVenta);
+
+                if (eliminada) {
+                    JOptionPane.showMessageDialog(this, "Venta eliminada con éxito.");
+                    cargarVentasEnTabla(); // Actualizar la tabla después de la eliminación
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se puede eliminar la venta. Existe al menos un pago ya realizado.", "Error", JOptionPane.WARNING_MESSAGE);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error de conexión a la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }      
     }//GEN-LAST:event_rButtonProyecto1ActionPerformed
 
     private void rButtonProyecto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto2MouseClicked
@@ -240,14 +256,6 @@ public class Ventas extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_rButtonProyecto2ActionPerformed
 
-    private void rButtonProyecto3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto3MouseClicked
-        
-    }//GEN-LAST:event_rButtonProyecto3MouseClicked
-
-    private void rButtonProyecto3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto3ActionPerformed
-
-    }//GEN-LAST:event_rButtonProyecto3ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -256,7 +264,6 @@ public class Ventas extends javax.swing.JPanel {
     private javax.swing.JTable jTable2;
     private Vista.RSButtonMetro rButtonProyecto1;
     private Vista.RSButtonMetro rButtonProyecto2;
-    private Vista.RSButtonMetro rButtonProyecto3;
     // End of variables declaration//GEN-END:variables
 
     

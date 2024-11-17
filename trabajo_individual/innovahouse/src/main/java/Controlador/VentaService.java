@@ -46,14 +46,4 @@ public class VentaService {
     public boolean eliminarVenta(int idVenta) {
         return ventaDAO.eliminarVenta(idVenta);
     }
-
-    /**
-     * Actualiza los datos de una venta existente.
-     * 
-     * @param venta La venta con los datos actualizados.
-     * @return true si la venta se actualizó correctamente, false en caso contrario.
-     */
-    public boolean actualizarVenta(Venta venta) {
-        return ventaDAO.actualizarVenta(venta);
-    }
 }

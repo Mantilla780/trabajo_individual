@@ -35,7 +35,7 @@ public class ClienteService {
     return clienteDAO.actualizarCliente(cliente);
 }
 
-    public boolean eliminarCliente(int cedula) {
+    public String eliminarCliente(int cedula) {
         return clienteDAO.eliminarCliente(cedula);
     }
 }
