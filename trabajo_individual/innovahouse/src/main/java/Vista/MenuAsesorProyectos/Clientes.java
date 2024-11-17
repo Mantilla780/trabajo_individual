@@ -152,7 +152,6 @@ public class Clientes extends javax.swing.JPanel {
         jPanel1.add(rButtonProyecto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 20, 140, 60));
 
         jTable2.setBackground(new java.awt.Color(254, 254, 254));
-        jTable2.setForeground(new java.awt.Color(0, 0, 0));
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -168,7 +167,7 @@ public class Clientes extends javax.swing.JPanel {
         jTable2.setShowHorizontalLines(true);
         jScrollPane2.setViewportView(jTable2);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1120, 600));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1120, 500));
 
         rButtonProyecto2.setBackground(new java.awt.Color(5, 10, 48));
         rButtonProyecto2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/agregar.png"))); // NOI18N
