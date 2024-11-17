@@ -120,21 +120,20 @@ public class Clientes extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         rButtonProyecto1 = new Vista.RSButtonMetro();
-        jScrollPane2 = new javax.swing.JScrollPane(); // Mantener el JScrollPane
+        jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         rButtonProyecto2 = new Vista.RSButtonMetro();
         rButtonProyecto3 = new Vista.RSButtonMetro();
         jLabel1 = new javax.swing.JLabel();
-    
+
         setPreferredSize(new java.awt.Dimension(1190, 720));
-    
+
         jPanel1.setBackground(new java.awt.Color(202, 232, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(1190, 720));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-    
-        // Botón "Eliminar"
+
         rButtonProyecto1.setBackground(new java.awt.Color(5, 10, 48));
-        rButtonProyecto1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/basura.png"))); // Cambia por tu ruta
+        rButtonProyecto1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/basura.png"))); // NOI18N
         rButtonProyecto1.setText("Eliminar");
         rButtonProyecto1.setColorNormal(new java.awt.Color(5, 10, 48));
         rButtonProyecto1.setColorPressed(new java.awt.Color(39, 33, 105));
@@ -151,10 +150,27 @@ public class Clientes extends javax.swing.JPanel {
             }
         });
         jPanel1.add(rButtonProyecto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 20, 140, 60));
-    
-        // Botón "Añadir Nuevo Cliente"
+
+        jTable2.setBackground(new java.awt.Color(254, 254, 254));
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jTable2.setSelectionBackground(new java.awt.Color(39, 33, 105));
+        jTable2.setShowHorizontalLines(true);
+        jScrollPane2.setViewportView(jTable2);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1120, 500));
+
         rButtonProyecto2.setBackground(new java.awt.Color(5, 10, 48));
-        rButtonProyecto2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/agregar.png"))); // Cambia por tu ruta
+        rButtonProyecto2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/agregar.png"))); // NOI18N
         rButtonProyecto2.setText("Añadir Nuevo Cliente");
         rButtonProyecto2.setColorNormal(new java.awt.Color(5, 10, 48));
         rButtonProyecto2.setColorPressed(new java.awt.Color(39, 33, 105));
@@ -171,10 +187,9 @@ public class Clientes extends javax.swing.JPanel {
             }
         });
         jPanel1.add(rButtonProyecto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 250, 60));
-    
-        // Botón "Editar"
+
         rButtonProyecto3.setBackground(new java.awt.Color(5, 10, 48));
-        rButtonProyecto3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/edit.png"))); // Cambia por tu ruta
+        rButtonProyecto3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/edit.png"))); // NOI18N
         rButtonProyecto3.setText("Editar");
         rButtonProyecto3.setColorNormal(new java.awt.Color(5, 10, 48));
         rButtonProyecto3.setColorPressed(new java.awt.Color(39, 33, 105));
@@ -191,28 +206,10 @@ public class Clientes extends javax.swing.JPanel {
             }
         });
         jPanel1.add(rButtonProyecto3, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 20, 140, 60));
-    
-        // Configuración de la tabla
-        jTable2.setBackground(new java.awt.Color(254, 254, 254));
-        jTable2.setForeground(new java.awt.Color(0, 0, 0));
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {},
-            new String [] {"Cédula", "Nombre", "Sisben", "Subsidio Ministerio", "Dirección", "Teléfono", "Correo Electrónico"}
-        ));
-        jTable2.setSelectionBackground(new java.awt.Color(39, 33, 105));
-        jTable2.setShowHorizontalLines(true);
-    
-        // Habilitar desplazamiento
-        jScrollPane2.setViewportView(jTable2);
-        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1120, 600));
-    
-        // Etiqueta "Clientes"
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // Estilo más visible
+
         jLabel1.setText("Clientes");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 50, -1, -1));
-    
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
