@@ -3,19 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Vista.MenuAsesorProyectos;
+import Controlador.ConexionBD;
 import Modelo.Pago;
 import Modelo.PagoDAO;
-import Controlador.ConexionBD;
+import java.awt.Component;
+import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableCellEditor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import javax.swing.AbstractCellEditor;
 import javax.swing.table.DefaultTableModel;
 
-
-/**
- *
- * @author omaci
- */
     public class Pagos extends javax.swing.JPanel {
        private String idUsuario;
 
@@ -30,9 +33,9 @@ import javax.swing.table.DefaultTableModel;
             List<Pago> pagos = pagoDAO.listarPagos();
             DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
 
-            // Establecer nombres de columnas
+            // Establecer nombres de columnas, incluyendo la nueva columna de botones
             model.setColumnIdentifiers(new String[]{
-                "ID Pago", "Fecha de Pago", "Valor del Pago", "Estado", "ID Venta", "Cédula Cliente"
+                "ID Pago", "Fecha de Pago", "Valor del Pago", "Estado", "ID Venta", "Cédula Cliente", "Pagar"
             });
 
             model.setRowCount(0); // Limpiar la tabla antes de cargar los datos
@@ -44,13 +47,103 @@ import javax.swing.table.DefaultTableModel;
                     pago.getValorPago(),
                     pago.getEstadoPago(),
                     pago.getIdVenta(),
-                    pago.getCcCliente()
+                    pago.getCcCliente(),
+                    "Pagar" // Placeholder para el botón 
                 });
             }
+
+            // Asignar el renderizador y editor a la columna de botones
+            jTable2.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
+            jTable2.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(jTable2));
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+    class ButtonRenderer extends JButton implements TableCellRenderer {
+        public ButtonRenderer() {
+            setText("Pagar"); // Texto del botón
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            return this;
+        }
+    }
+
+    class ButtonEditor extends AbstractCellEditor implements TableCellEditor, ActionListener {
+        private JButton button;
+        private int selectedRow;
+
+        public ButtonEditor(JTable table) {
+            button = new JButton("Acción");
+            button.addActionListener(this);
+        }
+
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+            this.selectedRow = row; // Guarda la fila seleccionada
+            return button;
+        }
+
+        @Override
+        public Object getCellEditorValue() {
+            return null;
+        }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        int confirmacion = javax.swing.JOptionPane.showConfirmDialog(
+            null,
+            "¿Quieres completar el pago?",
+            "Confirmación de Pago",
+            javax.swing.JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirmacion == javax.swing.JOptionPane.YES_OPTION) {
+            // Obtén el ID del Pago desde la fila seleccionada
+            int idPago = (int) jTable2.getValueAt(selectedRow, 0); // Columna 0: ID Pago
+
+            try (Connection conexion = ConexionBD.getInstancia().getConnection("Asesor")) {
+                PagoDAO pagoDAO = new PagoDAO(conexion);
+                boolean actualizado = pagoDAO.actualizarEstadoPago(idPago, "PAG");
+
+                if (actualizado) {
+                    // Actualizar la tabla visualmente con la nueva fecha y estado
+                    String fechaSistema = new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
+                    jTable2.setValueAt("PAG", selectedRow, 3); // Columna 3: Estado
+                    jTable2.setValueAt(fechaSistema, selectedRow, 1); // Columna 1: Fecha de Pago
+
+                    javax.swing.JOptionPane.showMessageDialog(
+                        null,
+                        "El estado del pago ha sido actualizado a 'PAG' y la fecha de pago se actualizó a " + fechaSistema + ".",
+                        "Pago Completado",
+                        javax.swing.JOptionPane.INFORMATION_MESSAGE
+                    );
+                } else {
+                    javax.swing.JOptionPane.showMessageDialog(
+                        null,
+                        "No se pudo completar el pago. Intenta nuevamente.",
+                        "Error",
+                        javax.swing.JOptionPane.ERROR_MESSAGE
+                    );
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                javax.swing.JOptionPane.showMessageDialog(
+                    null,
+                    "Ocurrió un error al completar el pago.",
+                    "Error",
+                    javax.swing.JOptionPane.ERROR_MESSAGE
+                );
+            }
+        }
+
+        fireEditingStopped(); // Finaliza la edición del botón
+    }
+
+   }
+
     
     
 
