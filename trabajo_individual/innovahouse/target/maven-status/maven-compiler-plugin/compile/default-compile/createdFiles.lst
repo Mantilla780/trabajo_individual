@@ -63,6 +63,7 @@ Vista\MenuAdminProyectos\Torres$6.class
 Vista\MenuAsesor$3.class
 Vista\MenuAsesorProyectos\AnadirVenta$1.class
 Vista\MenuAsesorProyectos\Ventas$6.class
+Vista\MenuAsesorProyectos\Pagos$ButtonRenderer.class
 Vista\MenuAdminProyectos\CrearInmueble$3.class
 Vista\MenuAdminProyectos\Proyectos$7.class
 Vista\Login$7.class
@@ -86,6 +87,7 @@ Vista\MenuAsesor$1.class
 Controlador\TorreService.class
 Controlador\ClienteService.class
 Vista\MenuAdminProyectos\CrearInmueble$4.class
+Vista\MenuAsesorProyectos\Pagos$ButtonEditor.class
 Vista\MenuAsesorProyectos\AnadirPago$2.class
 Modelo\Usuario.class
 Vista\MenuAdminProyectos\ActualizarInmueble$1.class

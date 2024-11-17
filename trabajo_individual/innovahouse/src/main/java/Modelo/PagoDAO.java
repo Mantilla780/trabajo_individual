@@ -63,4 +63,17 @@ public class PagoDAO {
         }
         return pagos;
     }
+    
+    public boolean actualizarEstadoPago(int idPago, String nuevoEstado) {
+        String sql = "UPDATE proyecto.Pago SET EstadoPago = ?, FechaPago = CURRENT_DATE WHERE idPago = ?";
+        try (PreparedStatement ps = conexion.prepareStatement(sql)) {
+            ps.setString(1, nuevoEstado);
+            ps.setInt(2, idPago);
+            int filasActualizadas = ps.executeUpdate();
+            return filasActualizadas > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
