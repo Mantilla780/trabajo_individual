@@ -124,6 +124,8 @@ private boolean clienteExiste(int cedula) {
         }
     }
 
+ 
+ 
 
     public boolean eliminarCliente(int cedula) {
        String sqlDelete = "DELETE FROM proyecto.cliente WHERE cedula = ?";

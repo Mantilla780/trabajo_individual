@@ -7,6 +7,7 @@ Vista\MenuAdminProyectos\ActualizarInmueble$2.class
 Vista\MenuAsesorProyectos\AnadirPago$1.class
 Vista\MenuAdminProyectos\Proyectos$1.class
 Modelo\PagoDAO.class
+Vista\MenuAsesorProyectos\Ventas$7.class
 Vista\MenuAdminProyectos\ActualizarInmueble$5.class
 Vista\MenuAsesorProyectos\Clientes$3.class
 Vista\MenuAdminProyectos\ActualizarProyecto$2.class
@@ -92,6 +93,7 @@ Vista\MenuAsesorProyectos\AnadirPago$2.class
 Modelo\Usuario.class
 Vista\MenuAdminProyectos\ActualizarInmueble$1.class
 Vista\MenuAdminProyectos\Inmuebles.class
+Vista\MenuAsesorProyectos\Pagos$3.class
 Vista\MenuAdminProyectos\ActualizarProyecto$3.class
 Modelo\TorreDAO.class
 Vista\MenuAsesorProyectos\Clientes$1.class
@@ -119,6 +121,7 @@ Vista\MenuAdminProyectos\CrearTorre$1.class
 Vista\MenuAsesor$6.class
 Vista\MenuAsesorProyectos\ActualizarCliente$2.class
 Vista\MenuAdminProyectos\Inmuebles$4.class
+Vista\MenuAsesorProyectos\Clientes$8.class
 Vista\MenuAdminProyectos\Torres.class
 Vista\MenuAsesorProyectos\Ventas.class
 Vista\PanelRound.class
