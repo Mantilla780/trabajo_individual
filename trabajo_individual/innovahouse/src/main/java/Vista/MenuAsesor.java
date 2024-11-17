@@ -4,7 +4,9 @@
  */
 package Vista;
 
+import Controlador.ConexionBD;
 import Controlador.ProyectoService;
+import Modelo.PagoDAO;
 import Vista.MenuAdminProyectos.Inmuebles;
 import Vista.MenuAdminProyectos.Proyectos;
 import Vista.MenuAdminProyectos.Torres;
@@ -13,8 +15,14 @@ import Vista.MenuAsesorProyectos.Pagos;
 import Vista.MenuAsesorProyectos.Ventas;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.sql.Connection;
+import java.util.List;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -24,7 +32,8 @@ public class MenuAsesor extends javax.swing.JFrame {
     private String idUsuario;
     private String idProyecto;
     private String numerotorre;
-    private ProyectoService proyectoService; 
+    private ProyectoService proyectoService;
+    private PagoDAO pagoDAO;
     /**
      * Creates new form MenuAdministrador
      */
@@ -37,9 +46,61 @@ public class MenuAsesor extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.idUsuario = idUsuario;
         
+        try {
+            Connection conexionAsesor = ConexionBD.getInstancia().getConnection("Asesor");
+            if (conexionAsesor != null) {
+                pagoDAO = new PagoDAO(conexionAsesor); // Pasa la conexión al constructor de PagoDAO
+            } else {
+                System.err.println("No se pudo obtener la conexión de asesor.");
+            }
+        } catch (Exception e) {
+            System.err.println("Error al inicializar PagoDAO: " + e.getMessage());
+        }
         
+        cargarTablaPagos();
     }
+    
+    private void cargarTablaPagos() {
+        DefaultTableModel modeloTabla = new DefaultTableModel();
+        modeloTabla.addColumn("Cuotas");
 
+        List<String> pagos = pagoDAO.obtenerPagosProximos();
+
+        for (String pago : pagos) {
+            // Parsear los datos del mensaje (puedes ajustar esto si obtienes la lista directamente como objetos)
+            String[] partes = pago.split(","); // Asumiendo que los valores están separados por comas
+            modeloTabla.addRow(partes);
+        }
+
+        jTable2.setModel(modeloTabla);
+        
+        // Configurar renderer para colorear cada columna de la tabla
+        jTable2.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                // Aplica un color de fondo específico para cada columna
+                switch (column) {
+                    case 0 -> // Primera columna
+                        cell.setBackground(Color.RED);
+                    default -> {
+                    }
+                }
+
+                // Cambia el color de fondo y del texto cuando la celda está seleccionada
+                if (isSelected) {
+                    cell.setBackground(table.getSelectionBackground());  // Color de fondo de selección
+                    cell.setForeground(Color.WHITE);                     // Color de texto de selección
+                } else {
+                    cell.setForeground(Color.BLACK);                    // Color de texto por defecto
+                }
+
+                return cell;
+
+            }
+    });
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,6 +118,8 @@ public class MenuAsesor extends javax.swing.JFrame {
         logout1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -163,6 +226,21 @@ public class MenuAsesor extends javax.swing.JFrame {
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/logo3 (1).png"))); // NOI18N
         jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, 540, 360));
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(jTable2);
+
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1080, 770));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 1190, 800));
 
@@ -372,6 +450,8 @@ public class MenuAsesor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JButton logout;
     private javax.swing.JButton logout1;
     // End of variables declaration//GEN-END:variables
