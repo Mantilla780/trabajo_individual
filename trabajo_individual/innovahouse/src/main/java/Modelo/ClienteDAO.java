@@ -125,40 +125,7 @@ private boolean clienteExiste(int cedula) {
     }
 
  
- public boolean actualizarCliente(Cliente cliente) {
-    String sqlUpdate = "UPDATE proyecto.cliente SET nombre = ?, sisben = ?, SUBSIDIOMINISTERIO = ?, direccion = ?, telefono = ?, correoelectronico = ? WHERE cedula = ?";
-
-    try (PreparedStatement psUpdate = conexion.prepareStatement(sqlUpdate)) {
-        // Asigna los valores al PreparedStatement
-        psUpdate.setString(1, cliente.getNombre());
-
-        // Si sisben está vacío, lo dejamos como NULL
-        if (cliente.getSisben().isEmpty()) {
-            psUpdate.setNull(2, java.sql.Types.VARCHAR);
-        } else {
-            psUpdate.setString(2, cliente.getSisben());
-        }
-
-        // Si SUBSIDIOMINISTERIO es 0 o no se ha proporcionado, lo dejamos como NULL
-        if (cliente.getSUBSIDIOMINISTERIO() == 0) {
-            psUpdate.setNull(3, java.sql.Types.INTEGER);
-        } else {
-            psUpdate.setInt(3, cliente.getSUBSIDIOMINISTERIO());
-        }
-
-        psUpdate.setString(4, cliente.getDireccion());
-        psUpdate.setInt(5, cliente.getTelefono());
-        psUpdate.setString(6, cliente.getCorreoelectronico());
-        psUpdate.setInt(7, cliente.getCedula());
-
-        // Ejecuta la actualización
-        return psUpdate.executeUpdate() > 0;
-
-    } catch (SQLException e) {
-        System.err.println("Error al actualizar cliente: " + e.getMessage());
-        return false;
-    }
-}
+ 
 
     public boolean eliminarCliente(int cedula) {
        String sqlDelete = "DELETE FROM proyecto.cliente WHERE cedula = ?";
