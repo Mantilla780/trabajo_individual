@@ -16,6 +16,9 @@ public class ActualizarVenta extends javax.swing.JFrame {
  
     public ActualizarVenta() {
         initComponents(); 
+        // Cargar la imagen como icono de la ventana
+        Image icono = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Vista/Imagenes/logo3.png"));
+        setIconImage(icono);
         
         // Cargar la imagen como icono de la ventana
         Image icono = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Vista/Imagenes/logo3.png"));

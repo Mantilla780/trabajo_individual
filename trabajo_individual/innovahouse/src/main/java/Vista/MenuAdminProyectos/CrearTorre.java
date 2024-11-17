@@ -30,11 +30,9 @@ public class CrearTorre extends javax.swing.JFrame {
      */
     public CrearTorre() {
         initComponents();
-        
         // Cargar la imagen como icono de la ventana
         Image icono = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Vista/Imagenes/logo3.png"));
         setIconImage(icono);
-        
         setLocationRelativeTo(null);
         ConexionBD conexionBD = new ConexionBD();
         TorreDAO torreDAO = new TorreDAO(conexionBD.getConnection("Admin"));

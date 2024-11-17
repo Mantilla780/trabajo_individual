@@ -25,11 +25,9 @@ public class CrearProyecto extends javax.swing.JFrame {
      */
     public CrearProyecto(String idUsuario) {
         initComponents();
-        
         // Cargar la imagen como icono de la ventana
         Image icono = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Vista/Imagenes/logo3.png"));
         setIconImage(icono);
-        
         setLocationRelativeTo(null);
         this.idUsuario= idUsuario;
         ConexionBD conexionBD = new ConexionBD();

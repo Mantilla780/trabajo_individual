@@ -4,8 +4,14 @@
  */
 package Vista.MenuAsesorProyectos;
 
+import Controlador.ConexionBD;
+import Modelo.PagoDAO;
+import Modelo.VentaDAO;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.sql.Connection;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -13,14 +19,33 @@ import java.awt.Toolkit;
  * @author omaci
  */
 public class AnadirPago extends javax.swing.JFrame {
+    private String idUsuario;
  
-    public AnadirPago() {
-        initComponents(); 
-        
+    public AnadirPago(String idusuario) {
+        initComponents();
+        this.idUsuario=idusuario;
         // Cargar la imagen como icono de la ventana
         Image icono = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Vista/Imagenes/logo3.png"));
         setIconImage(icono);
+        cargarVentasEnComboBox();
     }
+    
+    private void cargarVentasEnComboBox() {
+    // Crear conexión con la base de datos (reemplaza con tu lógica)
+    Connection conexion = ConexionBD.getInstancia().getConnection("Asesor");
+    VentaDAO ventaDAO = new VentaDAO(conexion);
+
+    // Obtener los datos
+    List<String> ventasConCliente = ventaDAO.obtenerVentasConCliente();
+
+    // Limpiar el ComboBox antes de cargar datos
+    jComboBox1.removeAllItems();
+
+    // Agregar los elementos al ComboBox
+    for (String item : ventasConCliente) {
+        jComboBox1.addItem(item);
+    }
+}
     
     
 
@@ -36,17 +61,11 @@ public class AnadirPago extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         rSButtonMetro1 = new Vista.RSButtonMetro();
-        nombreproyecto = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        nombreproyecto1 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        nombreproyecto3 = new javax.swing.JTextField();
         nombreproyecto4 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        nombreproyecto5 = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(710, 440));
@@ -58,7 +77,7 @@ public class AnadirPago extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setText("Nuevo Pago");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 10, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, -1, -1));
 
         rSButtonMetro1.setBackground(new java.awt.Color(0, 191, 99));
         rSButtonMetro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/save.png"))); // NOI18N
@@ -73,32 +92,22 @@ public class AnadirPago extends javax.swing.JFrame {
                 rSButtonMetro1ActionPerformed(evt);
             }
         });
-        jPanel1.add(rSButtonMetro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 440, 200, 60));
-        jPanel1.add(nombreproyecto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 440, 380, 50));
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel4.setText("Referencia");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
-        jPanel1.add(nombreproyecto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 380, 50));
+        jPanel1.add(rSButtonMetro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 440, 200, 60));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel5.setText("Venta");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel6.setText("Numero Cuota");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, -1, -1));
-        jPanel1.add(nombreproyecto3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 380, 50));
-        jPanel1.add(nombreproyecto4, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 150, 380, 50));
+        nombreproyecto4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nombreproyecto4ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(nombreproyecto4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 380, 50));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel7.setText("Fecha Pago");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 80, -1, -1));
-
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel8.setText("Valor Pago");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 230, -1, -1));
-        jPanel1.add(nombreproyecto5, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 300, 380, 50));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, -1));
 
         jButton3.setBackground(new java.awt.Color(1, 60, 136));
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -113,6 +122,9 @@ public class AnadirPago extends javax.swing.JFrame {
         });
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 540, 200, 60));
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 380, 50));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 540));
 
         pack();
@@ -123,8 +135,49 @@ public class AnadirPago extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void rSButtonMetro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro1ActionPerformed
+      // Obtener el elemento seleccionado del JComboBox
+        String ventaSeleccionada = (String) jComboBox1.getSelectedItem();
 
+        try {
+            // Extraer los valores de idVenta y ccCliente del string
+            // Suponiendo que el formato es "Venta: X - Cliente: Y"
+            String[] partes = ventaSeleccionada.split(" - ");
+            String[] ventaPartes = partes[0].split(":");
+            String[] clientePartes = partes[1].split(":");
+
+            int idVenta = Integer.parseInt(ventaPartes[1].trim()); // ID de la venta
+            int ccCliente = Integer.parseInt(clientePartes[1].trim()); // CC del cliente
+
+            // Obtener la fecha ingresada
+            String fechaPago = nombreproyecto4.getText();
+
+            // Obtener el idUsuario
+            String idUsuario = this.idUsuario;  // El idUsuario es almacenado en el atributo de la clase
+
+            // Crear conexión y llamar a insertarPago
+            Connection conexion = ConexionBD.getInstancia().getConnection("Asesor");
+            PagoDAO pagoDAO = new PagoDAO(conexion);
+
+            // Pasar los tres parámetros al método generarPagosPorVenta
+            boolean exito = pagoDAO.generarPagosPorVenta(idVenta, ccCliente, fechaPago, idUsuario);
+            if (exito) {
+                JOptionPane.showMessageDialog(this, "Pago registrado exitosamente.");
+                dispose(); // Cerrar la ventana actual si todo es exitoso
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al registrar el pago.");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Error: formato de venta o cliente no válido.");
+            e.printStackTrace();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al registrar el pago: " + e.getMessage());
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_rSButtonMetro1ActionPerformed
+
+    private void nombreproyecto4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreproyecto4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombreproyecto4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -160,21 +213,13 @@ public class AnadirPago extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField nombreproyecto;
-    private javax.swing.JTextField nombreproyecto1;
-    private javax.swing.JTextField nombreproyecto3;
     private javax.swing.JTextField nombreproyecto4;
-    private javax.swing.JTextField nombreproyecto5;
     private Vista.RSButtonMetro rSButtonMetro1;
     // End of variables declaration//GEN-END:variables
 }

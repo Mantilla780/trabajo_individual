@@ -32,11 +32,9 @@ public class ActualizarTorre extends javax.swing.JFrame {
      */
     public ActualizarTorre(int torreNumero, int idProyecto) {
         initComponents();
-        
         // Cargar la imagen como icono de la ventana
         Image icono = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Vista/Imagenes/logo3.png"));
         setIconImage(icono);
-        
         this.torreNumero = torreNumero;
         this.idProyecto = idProyecto;
         cargarDatosTorre();

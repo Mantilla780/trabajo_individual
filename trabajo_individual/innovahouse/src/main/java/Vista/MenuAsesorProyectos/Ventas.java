@@ -4,6 +4,14 @@
  */
 package Vista.MenuAsesorProyectos;
 
+import Controlador.ConexionBD;
+import Modelo.Venta;
+import Modelo.VentaDAO;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 
 
 /**
@@ -11,13 +19,42 @@ package Vista.MenuAsesorProyectos;
  * @author omaci
  */
 public class Ventas extends javax.swing.JPanel {
-   
+    private String idUsuario;
 
-    public Ventas() {
+    public Ventas(String idUsuario) {
         initComponents();
+        this.idUsuario = idUsuario;
+        cargarVentasEnTabla();
     }
     
-    
+    private void cargarVentasEnTabla() {
+        try (Connection conexion = ConexionBD.getInstancia().getConnection("Asesor")) {
+            VentaDAO ventaDAO = new VentaDAO(conexion);
+            List<Venta> ventas = ventaDAO.listarVentas();
+            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+
+            // Establecer las columnas
+            model.setColumnIdentifiers(new String[]{
+                "ID Venta", "Precio Total", "Número de Cuotas", "Intereses", "Nombre usuario", "Nombre cliente", "Matrícula Inmueble"
+            });
+            model.setRowCount(0); // Limpiar la tabla antes de cargar los datos
+
+            // Añadir filas con las ventas
+            for (Venta venta : ventas) {
+                model.addRow(new Object[]{
+                    venta.getIdventa(),
+                    venta.getPRECIOTOTALVENTA(),
+                    venta.getNumerocuotas(),
+                    venta.getIntereses(),
+                    venta.getNombreUsuario(),
+                    venta.getNombreCliente(),
+                    venta.getMatinmueble()
+                });
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -147,7 +184,9 @@ public class Ventas extends javax.swing.JPanel {
     }//GEN-LAST:event_rButtonProyecto1ActionPerformed
 
     private void rButtonProyecto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto2MouseClicked
-        
+        AnadirVenta v1 = new AnadirVenta(idUsuario);
+        System.out.println(idUsuario);
+        v1.setVisible(true);
     }//GEN-LAST:event_rButtonProyecto2MouseClicked
 
     private void rButtonProyecto2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto2ActionPerformed

@@ -15,7 +15,8 @@ public class UsuarioDAO {
     }
 
    public String[] autenticarUsuario(String nombreUsuario, String contraseña) {
-    String sql = "SELECT idUsuario, tipoUsuario FROM proyecto.Usuario WHERE nombreUsuario = ? AND contrasena = ?";
+    String sql = "SELECT idUsuario, tipoUsuario FROM proyecto.Usuario WHERE CORREOUSUARIO = ? AND contrasena = ?";
+    //String sql = "SELECT idUsuario, tipoUsuario FROM IntegradorInnovahouse.Usuario WHERE CORREOUSUARIO = ? AND contrasena = ?";
     try (Connection con = conexionBD.getConnection("Admin"); // Establecer conexión de tipo "Admin"
          PreparedStatement stmt = con.prepareStatement(sql)) {
 

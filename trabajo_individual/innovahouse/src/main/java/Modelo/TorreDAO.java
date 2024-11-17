@@ -18,6 +18,8 @@ public class TorreDAO {
     public boolean insertarTorre(int numeroTorre, int idProyecto) {
     String sqlSequence = "SELECT proyecto.seq_idtorre.NEXTVAL FROM dual"; // Asegúrate de que la secuencia exista
     String sqlInsert = "INSERT INTO proyecto.TORRE(IDTORRE, NUMEROTORRE, IDPROYECTO) VALUES (?, ?, ?)";
+    //String sqlSequence = "SELECT IntegradorInnovaHouse.seq_idtorre.NEXTVAL FROM dual"; // Asegúrate de que la secuencia exista
+    //String sqlInsert = "INSERT INTO IntegradorInnovaHouse.TORRE(IDTORRE, NUMEROTORRE, IDPROYECTO) VALUES (?, ?, ?)";
 
     try (PreparedStatement psSeq = conexion.prepareStatement(sqlSequence);
          PreparedStatement psInsert = conexion.prepareStatement(sqlInsert)) {
@@ -47,7 +49,9 @@ public class TorreDAO {
         List<Torre> torres = new ArrayList<>();
         String sql = "SELECT t.IDTORRE, t.NUMEROTORRE, t.IDPROYECTO, COUNT(i.MATRICULA) AS cantidad_inmuebles " +
                      "FROM proyecto.TORRE t LEFT JOIN proyecto.INMUEBLE i ON t.IDTORRE = i.IDTORRE " +
+                     //"FROM IntegradorInnovahouse.TORRE t LEFT JOIN proyecto.INMUEBLE i ON t.IDTORRE = i.IDTORRE " +
                      "GROUP BY t.IDTORRE, t.NUMEROTORRE, t.IDPROYECTO ORDER BY t.NUMEROTORRE";
+                    
 
         try (PreparedStatement ps = conexion.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
@@ -70,6 +74,7 @@ public class TorreDAO {
     public List<Torre> obtenerTorresBasicas() {
     List<Torre> torres = new ArrayList<>();
     String sql = "SELECT IDTORRE, NUMEROTORRE FROM proyecto.TORRE"; // Cambiar según esquema y tabla
+    //String sql = "SELECT IDTORRE, NUMEROTORRE FROM IntegradorInnovahouse.TORRE"; // Cambiar según esquema y tabla
 
     try (PreparedStatement ps = conexion.prepareStatement(sql);
          ResultSet rs = ps.executeQuery()) {
@@ -89,6 +94,7 @@ public class TorreDAO {
 
     public Torre obtenerTorrePorNumero(int numeroTorre) throws SQLException {
         String query = "SELECT idtorre, numerotorre, idproyecto FROM proyecto.TORRE WHERE numerotorre = ?";
+        //String query = "SELECT idtorre, numerotorre, idproyecto FROM IntegradorInnovahouse.TORRE WHERE numerotorre = ?";
         try (PreparedStatement stmt = conexion.prepareStatement(query)) {
             stmt.setInt(1, numeroTorre);
             ResultSet rs = stmt.executeQuery();
@@ -108,6 +114,7 @@ public class TorreDAO {
 
     public boolean eliminarTorresPorProyecto(int idProyecto) {
         String sqlDelete = "DELETE FROM proyecto.TORRE WHERE IDPROYECTO = ?";
+        //String sqlDelete = "DELETE FROM IntegradorInnovahouse.TORRE WHERE IDPROYECTO = ?";
 
         try (PreparedStatement psDelete = conexion.prepareStatement(sqlDelete)) {
             psDelete.setInt(1, idProyecto);
@@ -120,6 +127,7 @@ public class TorreDAO {
 
     public boolean actualizarTorre(Torre torre) {
         String sqlUpdate = "UPDATE proyecto.TORRE SET NUMEROTORRE = ?, IDPROYECTO = ? WHERE IDTORRE = ?";
+        //String sqlUpdate = "UPDATE IntegradorInnovahouse.TORRE SET NUMEROTORRE = ?, IDPROYECTO = ? WHERE IDTORRE = ?";
 
         try {
             // Verificar si la conexión está cerrada y abrirla si es necesario
@@ -147,17 +155,76 @@ public class TorreDAO {
             return false; // Retornar falso en caso de error
         }
     }
+    public List<Integer> obtenerIdsTorresPorProyecto(int idProyecto) {
+    List<Integer> idsTorres = new ArrayList<>();
+    String sql = "SELECT IDTORRE FROM proyecto.TORRE WHERE IDPROYECTO = ?";
+    //String sql = "SELECT IDTORRE FROM IntegradorInnovahouse.TORRE WHERE IDPROYECTO = ?";
 
-    public boolean eliminarTorre(int numeroTorre) {
-        String sql = "DELETE FROM proyecto.TORRE WHERE NUMEROTORRE = ?";
-        try (PreparedStatement pstmt = conexion.prepareStatement(sql)) {
-            pstmt.setInt(1, numeroTorre);
-            return pstmt.executeUpdate() > 0;
-        } catch (SQLException e) {
-            System.err.println("Error al eliminar torre: " + e.getMessage());
+    try (PreparedStatement ps = conexion.prepareStatement(sql)) {
+        ps.setInt(1, idProyecto);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            idsTorres.add(rs.getInt("IDTORRE"));
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al obtener IDs de torres por proyecto: " + e.getMessage());
+    }
+
+    return idsTorres;
+}
+
+public boolean eliminarTorre(int numeroTorre) {
+    // Obtén la conexión desde la instancia de ConexionBD
+    conexion = ConexionBD.getInstancia().getConnection("Admin");
+
+    try {
+        // Inicia una transacción
+        conexion.setAutoCommit(false);
+
+        // Obtener el ID de la torre a eliminar
+        Torre torre = obtenerTorrePorNumero(numeroTorre);
+        if (torre == null) {
+            System.out.println("La torre con el número especificado no existe.");
             return false;
         }
+
+        // Crear instancia de InmuebleDAO y eliminar inmuebles asociados a la torre
+        InmuebleDAO inmuebleDAO = new InmuebleDAO(conexion);
+        boolean inmueblesEliminados = inmuebleDAO.eliminarInmueblePorTorre(torre.getIdtorre());
+
+        if (!inmueblesEliminados) {
+            System.out.println("No se eliminaron inmuebles o no existen inmuebles para esta torre.");
+        }
+
+        // Eliminar la torre
+        String sqlDeleteTorre = "DELETE FROM proyecto.TORRE WHERE NUMEROTORRE = ?";
+        //String sqlDeleteTorre = "DELETE FROM IntegradorInnovahouse.TORRE WHERE NUMEROTORRE = ?";
+        try (PreparedStatement psDeleteTorre = conexion.prepareStatement(sqlDeleteTorre)) {
+            psDeleteTorre.setInt(1, numeroTorre);
+            boolean torreEliminada = psDeleteTorre.executeUpdate() > 0;
+
+            // Confirma la transacción si todo va bien
+            conexion.commit();
+            return torreEliminada;
+        } catch (SQLException e) {
+            // Si hay un error, realiza un rollback de la transacción
+            conexion.rollback();
+            System.err.println("Error al eliminar la torre: " + e.getMessage());
+            return false;
+        }
+    } catch (SQLException e) {
+        System.err.println("Error en la operación de eliminación: " + e.getMessage());
+        return false;
+    } finally {
+        try {
+            if (conexion != null && !conexion.isClosed()) {
+                conexion.close();
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al cerrar la conexión: " + e.getMessage());
+        }
     }
-    
-    
+}
+  
 }

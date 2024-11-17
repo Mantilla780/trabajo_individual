@@ -3,18 +3,53 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Vista.MenuAsesorProyectos;
-
+import Modelo.Pago;
+import Modelo.PagoDAO;
+import Controlador.ConexionBD;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 
 /**
  *
  * @author omaci
  */
-public class Pagos extends javax.swing.JPanel {
-   
+    public class Pagos extends javax.swing.JPanel {
+       private String idUsuario;
 
-    public Pagos() {
-        initComponents();
+        public Pagos(String idusuario) {
+            initComponents();
+            this.idUsuario=idusuario;
+            cargarPagosEnTabla();
+        }
+    private void cargarPagosEnTabla() {
+        try (Connection conexion = ConexionBD.getInstancia().getConnection("Asesor")) {
+            PagoDAO pagoDAO = new PagoDAO(conexion);
+            List<Pago> pagos = pagoDAO.listarPagos();
+            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+
+            // Establecer nombres de columnas
+            model.setColumnIdentifiers(new String[]{
+                "ID Pago", "Fecha de Pago", "Valor del Pago", "Estado", "ID Venta", "Cédula Cliente"
+            });
+
+            model.setRowCount(0); // Limpiar la tabla antes de cargar los datos
+
+            for (Pago pago : pagos) {
+                model.addRow(new Object[]{
+                    pago.getIdPago(),
+                    pago.getFechaPago(),
+                    pago.getValorPago(),
+                    pago.getEstadoPago(),
+                    pago.getIdVenta(),
+                    pago.getCcCliente()
+                });
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     
     
@@ -30,37 +65,15 @@ public class Pagos extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        rButtonProyecto1 = new Vista.RSButtonMetro();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         rButtonProyecto2 = new Vista.RSButtonMetro();
-        rButtonProyecto3 = new Vista.RSButtonMetro();
-        jLabel1 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1190, 720));
 
         jPanel1.setBackground(new java.awt.Color(202, 232, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(1190, 720));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        rButtonProyecto1.setBackground(new java.awt.Color(5, 10, 48));
-        rButtonProyecto1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/basura.png"))); // NOI18N
-        rButtonProyecto1.setText("Eliminar");
-        rButtonProyecto1.setColorNormal(new java.awt.Color(5, 10, 48));
-        rButtonProyecto1.setColorPressed(new java.awt.Color(39, 33, 105));
-        rButtonProyecto1.setFocusPainted(false);
-        rButtonProyecto1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        rButtonProyecto1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                rButtonProyecto1MouseClicked(evt);
-            }
-        });
-        rButtonProyecto1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rButtonProyecto1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(rButtonProyecto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 20, 140, 60));
 
         jTable2.setBackground(new java.awt.Color(254, 254, 254));
         jTable2.setForeground(new java.awt.Color(0, 0, 0));
@@ -83,7 +96,7 @@ public class Pagos extends javax.swing.JPanel {
 
         rButtonProyecto2.setBackground(new java.awt.Color(5, 10, 48));
         rButtonProyecto2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/agregar.png"))); // NOI18N
-        rButtonProyecto2.setText("Añadir Nuevo Pago");
+        rButtonProyecto2.setText("Generar Cuotas");
         rButtonProyecto2.setColorNormal(new java.awt.Color(5, 10, 48));
         rButtonProyecto2.setColorPressed(new java.awt.Color(39, 33, 105));
         rButtonProyecto2.setFocusPainted(false);
@@ -99,28 +112,6 @@ public class Pagos extends javax.swing.JPanel {
             }
         });
         jPanel1.add(rButtonProyecto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 250, 60));
-
-        rButtonProyecto3.setBackground(new java.awt.Color(5, 10, 48));
-        rButtonProyecto3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/edit.png"))); // NOI18N
-        rButtonProyecto3.setText("Editar");
-        rButtonProyecto3.setColorNormal(new java.awt.Color(5, 10, 48));
-        rButtonProyecto3.setColorPressed(new java.awt.Color(39, 33, 105));
-        rButtonProyecto3.setFocusPainted(false);
-        rButtonProyecto3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        rButtonProyecto3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                rButtonProyecto3MouseClicked(evt);
-            }
-        });
-        rButtonProyecto3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rButtonProyecto3ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(rButtonProyecto3, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 20, 140, 60));
-
-        jLabel1.setText("Pagos");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 50, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -138,39 +129,21 @@ public class Pagos extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
     
-    private void rButtonProyecto1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto1MouseClicked
-        
-    }//GEN-LAST:event_rButtonProyecto1MouseClicked
-
-    private void rButtonProyecto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto1ActionPerformed
-            
-    }//GEN-LAST:event_rButtonProyecto1ActionPerformed
-
     private void rButtonProyecto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto2MouseClicked
-        
+        AnadirPago ap = new AnadirPago(idUsuario);
+        ap.setVisible(true);
     }//GEN-LAST:event_rButtonProyecto2MouseClicked
 
     private void rButtonProyecto2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rButtonProyecto2ActionPerformed
 
-    private void rButtonProyecto3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto3MouseClicked
-        
-    }//GEN-LAST:event_rButtonProyecto3MouseClicked
-
-    private void rButtonProyecto3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto3ActionPerformed
-
-    }//GEN-LAST:event_rButtonProyecto3ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
-    private Vista.RSButtonMetro rButtonProyecto1;
     private Vista.RSButtonMetro rButtonProyecto2;
-    private Vista.RSButtonMetro rButtonProyecto3;
     // End of variables declaration//GEN-END:variables
 
     
