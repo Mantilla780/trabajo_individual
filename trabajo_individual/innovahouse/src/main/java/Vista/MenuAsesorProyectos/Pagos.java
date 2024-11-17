@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Vista.MenuAsesorProyectos;
-import Controlador.ConexionBD;
+import Modelo.ConexionBD;
 import Modelo.Pago;
 import Modelo.PagoDAO;
 import java.awt.Color;

@@ -4,7 +4,7 @@
  */
 package Vista.MenuAdminProyectos;
 
-import Controlador.ConexionBD;
+import Modelo.ConexionBD;
 import Modelo.Torre;
 import java.util.HashMap;
 import java.util.List;

@@ -4,7 +4,7 @@
  */
 package Vista;
 
-import Controlador.ConexionBD;
+import Modelo.ConexionBD;
 import Controlador.ProyectoService;
 import Modelo.PagoDAO;
 import Vista.MenuAdminProyectos.Inmuebles;

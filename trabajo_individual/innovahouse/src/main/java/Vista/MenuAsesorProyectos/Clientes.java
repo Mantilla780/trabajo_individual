@@ -5,7 +5,7 @@
 package Vista.MenuAsesorProyectos;
 
 import Controlador.ClienteService;
-import Controlador.ConexionBD;
+import Modelo.ConexionBD;
 import Modelo.Cliente;
 import Modelo.ClienteDAO;
 import java.awt.Color;
