@@ -1,6 +1,5 @@
 package Modelo;
 
-import Controlador.ConexionBD;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -176,15 +175,40 @@ public class InmuebleDAO {
         }
     }
     
-    public boolean estaVendido(int matricula) {
-    String sql = "SELECT 1 FROM proyecto.VENTA WHERE MATINMUEBLE = ?";
+   public boolean existenVentasPorTorre(int idTorre) {
+    String sql = "SELECT COUNT(*) AS TOTAL_VENTAS " +
+                 "FROM proyecto.venta v " +
+                 "JOIN proyecto.inmueble i ON v.MATINMUEBLE = i.MATRICULA " +
+                 "WHERE i.IDTORRE = ?";
     try (PreparedStatement ps = conexion.prepareStatement(sql)) {
-        ps.setInt(1, matricula);
-        ResultSet rs = ps.executeQuery();
-        return rs.next(); // Si existe un registro, el inmueble está vendido
+        ps.setInt(1, idTorre); // Reemplaza el marcador de posición con el ID de la torre
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt("TOTAL_VENTAS") > 0; // Devuelve true si hay ventas asociadas
+            }
+        }
     } catch (SQLException e) {
-        e.printStackTrace();
-        return false; // Asumir no vendido en caso de error
+        System.err.println("Error al verificar ventas por torre: " + e.getMessage());
     }
+    return false; // Por defecto, devuelve false si ocurre un error
 }
+   
+   public boolean existeVentaPorTorre(int idTorre) throws SQLException {
+    // SQL para contar ventas relacionadas con los inmuebles de la torre
+    String sql = "SELECT COUNT(*) FROM proyecto.venta WHERE MATINMUEBLE IN (SELECT MATRICULA FROM proyecto.inmueble WHERE IDTORRE = ?)";
+    
+    try (PreparedStatement ps = conexion.prepareStatement(sql)) {
+        ps.setInt(1, idTorre);  // Establecemos el idTorre como parámetro
+        
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // Si el conteo es mayor que 0, hay ventas asociadas
+            }
+        }
+    }
+    return false; // Si no hay ventas asociadas, retorna false
+}
+
+
+
 }

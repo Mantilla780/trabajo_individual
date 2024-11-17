@@ -4,7 +4,7 @@
  */
 package Vista.MenuAdminProyectos;
 
-import Controlador.ConexionBD;
+import Modelo.ConexionBD;
 import Controlador.TorreService;
 import Modelo.Torre;
 import Modelo.TorreDAO;
@@ -111,93 +111,95 @@ public class Torres extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        rButtonProyecto1 = new Vista.RSButtonMetro();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        rButtonProyecto2 = new Vista.RSButtonMetro();
-        rButtonProyecto3 = new Vista.RSButtonMetro();
+    rButtonProyecto1 = new Vista.RSButtonMetro();
+    jScrollPane2 = new javax.swing.JScrollPane();
+    jTable2 = new javax.swing.JTable();
+    rButtonProyecto2 = new Vista.RSButtonMetro();
+    rButtonProyecto3 = new Vista.RSButtonMetro();
 
-        setPreferredSize(new java.awt.Dimension(1190, 720));
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+    setPreferredSize(new java.awt.Dimension(1190, 720));
+    setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(202, 232, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1190, 720));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+    jPanel1.setBackground(new java.awt.Color(202, 232, 255));
+    jPanel1.setPreferredSize(new java.awt.Dimension(1190, 720));
+    jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        rButtonProyecto1.setBackground(new java.awt.Color(5, 10, 48));
-        rButtonProyecto1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/basura.png"))); // NOI18N
-        rButtonProyecto1.setText("Eliminar");
-        rButtonProyecto1.setColorNormal(new java.awt.Color(5, 10, 48));
-        rButtonProyecto1.setColorPressed(new java.awt.Color(39, 33, 105));
-        rButtonProyecto1.setFocusPainted(false);
-        rButtonProyecto1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        rButtonProyecto1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                rButtonProyecto1MouseClicked(evt);
-            }
-        });
-        rButtonProyecto1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rButtonProyecto1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(rButtonProyecto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 20, 140, 60));
+    rButtonProyecto1.setBackground(new java.awt.Color(5, 10, 48));
+    rButtonProyecto1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/basura.png"))); // NOI18N
+    rButtonProyecto1.setText("Eliminar");
+    rButtonProyecto1.setColorNormal(new java.awt.Color(5, 10, 48));
+    rButtonProyecto1.setColorPressed(new java.awt.Color(39, 33, 105));
+    rButtonProyecto1.setFocusPainted(false);
+    rButtonProyecto1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+    rButtonProyecto1.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            rButtonProyecto1MouseClicked(evt);
+        }
+    });
+    rButtonProyecto1.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            rButtonProyecto1ActionPerformed(evt);
+        }
+    });
+    jPanel1.add(rButtonProyecto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 20, 140, 60));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
+    jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        new Object [][] {
+            {},
+            {},
+            {},
+            {}
+        },
+        new String [] {
 
-            }
-        ));
-        jTable2.setSelectionBackground(new java.awt.Color(39, 33, 105));
-        jScrollPane2.setViewportView(jTable2);
+        }
+    ));
+    jTable2.setSelectionBackground(new java.awt.Color(39, 33, 105));
+    // Añadir un JScrollPane alrededor de la tabla
+    jScrollPane2.setViewportView(jTable2);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1120, 600));
+    // Establecer la posición y tamaño para asegurar el desplazamiento
+    jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1120, 520));
 
-        rButtonProyecto2.setBackground(new java.awt.Color(5, 10, 48));
-        rButtonProyecto2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/agregar.png"))); // NOI18N
-        rButtonProyecto2.setText("Crear Nueva Torre");
-        rButtonProyecto2.setColorNormal(new java.awt.Color(5, 10, 48));
-        rButtonProyecto2.setColorPressed(new java.awt.Color(39, 33, 105));
-        rButtonProyecto2.setFocusPainted(false);
-        rButtonProyecto2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        rButtonProyecto2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                rButtonProyecto2MouseClicked(evt);
-            }
-        });
-        rButtonProyecto2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rButtonProyecto2ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(rButtonProyecto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 250, 60));
+    rButtonProyecto2.setBackground(new java.awt.Color(5, 10, 48));
+    rButtonProyecto2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/agregar.png"))); // NOI18N
+    rButtonProyecto2.setText("Crear Nueva Torre");
+    rButtonProyecto2.setColorNormal(new java.awt.Color(5, 10, 48));
+    rButtonProyecto2.setColorPressed(new java.awt.Color(39, 33, 105));
+    rButtonProyecto2.setFocusPainted(false);
+    rButtonProyecto2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+    rButtonProyecto2.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            rButtonProyecto2MouseClicked(evt);
+        }
+    });
+    rButtonProyecto2.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            rButtonProyecto2ActionPerformed(evt);
+        }
+    });
+    jPanel1.add(rButtonProyecto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 250, 60));
 
-        rButtonProyecto3.setBackground(new java.awt.Color(5, 10, 48));
-        rButtonProyecto3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/edit.png"))); // NOI18N
-        rButtonProyecto3.setText("Editar");
-        rButtonProyecto3.setColorNormal(new java.awt.Color(5, 10, 48));
-        rButtonProyecto3.setColorPressed(new java.awt.Color(39, 33, 105));
-        rButtonProyecto3.setFocusPainted(false);
-        rButtonProyecto3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        rButtonProyecto3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                rButtonProyecto3MouseClicked(evt);
-            }
-        });
-        rButtonProyecto3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rButtonProyecto3ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(rButtonProyecto3, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 20, 140, 60));
+    rButtonProyecto3.setBackground(new java.awt.Color(5, 10, 48));
+    rButtonProyecto3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/edit.png"))); // NOI18N
+    rButtonProyecto3.setText("Editar");
+    rButtonProyecto3.setColorNormal(new java.awt.Color(5, 10, 48));
+    rButtonProyecto3.setColorPressed(new java.awt.Color(39, 33, 105));
+    rButtonProyecto3.setFocusPainted(false);
+    rButtonProyecto3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+    rButtonProyecto3.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            rButtonProyecto3MouseClicked(evt);
+        }
+    });
+    rButtonProyecto3.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            rButtonProyecto3ActionPerformed(evt);
+        }
+    });
+    jPanel1.add(rButtonProyecto3, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 20, 140, 60));
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 712));
+    add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 712));
     }// </editor-fold>//GEN-END:initComponents
 
     private void rButtonProyecto1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto1MouseClicked
@@ -205,25 +207,31 @@ public class Torres extends javax.swing.JPanel {
     }//GEN-LAST:event_rButtonProyecto1MouseClicked
 
     private void rButtonProyecto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto1ActionPerformed
-         // Eliminar la torre seleccionada
-        int selectedRow = jTable2.getSelectedRow();
-        if (selectedRow >= 0) {
-            int torreNumero = (Integer) jTable2.getValueAt(selectedRow, 0); // Asumiendo que 'Número Torre' es el primer campo
+// Eliminar la torre seleccionada
+    int selectedRow = jTable2.getSelectedRow();
+    if (selectedRow >= 0) {
+        int torreNumero = (Integer) jTable2.getValueAt(selectedRow, 0); // Asumiendo que 'Número Torre' es el primer campo
 
-            int confirm = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar la Torre " + torreNumero + "?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
-            if (confirm == JOptionPane.YES_OPTION) {
-                try (Connection conexion = ConexionBD.getInstancia().getConnection("Admin")) {
-                    TorreDAO torreDAO = new TorreDAO(conexion);
-                    torreDAO.eliminarTorre(torreNumero); // Implementar el método eliminarTorre en TorreDAO
+        int confirm = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar la Torre " + torreNumero + "?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            try (Connection conexion = ConexionBD.getInstancia().getConnection("Admin")) {
+                TorreDAO torreDAO = new TorreDAO(conexion);
+                boolean eliminado = torreDAO.eliminarTorre(torreNumero);
+
+                if (eliminado) {
                     cargarTorresEnTabla(); // Recargar la tabla después de eliminar
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    JOptionPane.showMessageDialog(this, "Error al eliminar la torre.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "La torre fue eliminada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudo eliminar la torre. Verifica si tiene ventas asociadas.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error al eliminar la torre.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Selecciona una torre para eliminar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
+    } else {
+        JOptionPane.showMessageDialog(this, "Selecciona una torre para eliminar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+    }
     }//GEN-LAST:event_rButtonProyecto1ActionPerformed
 
     private void rButtonProyecto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto2MouseClicked

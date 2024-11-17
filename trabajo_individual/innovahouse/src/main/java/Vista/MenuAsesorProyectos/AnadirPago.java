@@ -4,7 +4,7 @@
  */
 package Vista.MenuAsesorProyectos;
 
-import Controlador.ConexionBD;
+import Modelo.ConexionBD;
 import Modelo.PagoDAO;
 import Modelo.VentaDAO;
 import java.awt.Image;

@@ -23,7 +23,7 @@ public class ProyectoService {
         return proyectoDAO.actualizarProyecto(proyecto);
     } 
 
-    public boolean eliminarProyecto(int idProyecto) {
+    public String eliminarProyecto(int idProyecto) {
         return proyectoDAO.eliminarProyecto(idProyecto);
     }
     
