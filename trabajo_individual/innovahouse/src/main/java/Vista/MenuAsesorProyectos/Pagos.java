@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Vista.MenuAsesorProyectos;
+import Controlador.PagoService;
 import Modelo.ConexionBD;
 import Modelo.Pago;
 import Modelo.PagoDAO;
@@ -18,24 +19,32 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.AbstractCellEditor;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
     public class Pagos extends javax.swing.JPanel {
        private String idUsuario;
+       private PagoService pagoService;
 
         public Pagos(String idusuario) {
             initComponents();
-            this.idUsuario=idusuario;
+            this.idUsuario = idUsuario;
+
+            try (Connection conexion = ConexionBD.getInstancia().getConnection("Asesor")) {
+                this.pagoService = new PagoService(conexion);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error al conectar con la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
             cargarPagosEnTabla();
         }
     private void cargarPagosEnTabla() {
-        try (Connection conexion = ConexionBD.getInstancia().getConnection("Asesor")) {
-            PagoDAO pagoDAO = new PagoDAO(conexion);
-            List<Pago> pagos = pagoDAO.listarPagos();
+        try {
+            List<Pago> pagos = pagoService.listarPagos(); // Usando PagoService
             DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
 
-            // Establecer nombres de columnas, incluyendo la nueva columna de botones
             model.setColumnIdentifiers(new String[]{
                 "ID Pago", "Fecha de Pago", "Valor del Pago", "Estado", "ID Venta", "Cédula Cliente", "Pagar"
             });
@@ -50,15 +59,15 @@ import javax.swing.table.DefaultTableModel;
                     pago.getEstadoPago(),
                     pago.getIdVenta(),
                     pago.getCcCliente(),
-                    "Pagar" // Placeholder para el botón 
+                    "Pagar" // Placeholder para el botón
                 });
             }
 
-            // Asignar el renderizador y editor a la columna de botones
             jTable2.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
             jTable2.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(jTable2));
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al cargar los pagos", "Error", JOptionPane.ERROR_MESSAGE);
         }
         // Configurar renderer para colorear cada columna de la tabla
         jTable2.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
@@ -134,69 +143,62 @@ import javax.swing.table.DefaultTableModel;
 
             @Override
         public void actionPerformed(ActionEvent e) {
-            int confirmacion = javax.swing.JOptionPane.showConfirmDialog(
+            int confirmacion = JOptionPane.showConfirmDialog(
                 null,
                 "¿Quieres completar el pago?",
                 "Confirmación de Pago",
-                javax.swing.JOptionPane.YES_NO_OPTION
+                JOptionPane.YES_NO_OPTION
             );
 
-            if (confirmacion == javax.swing.JOptionPane.YES_OPTION) {
-                // Obtén el ID del Pago desde la fila seleccionada
+            if (confirmacion == JOptionPane.YES_OPTION) {
                 int idPago = (int) jTable2.getValueAt(selectedRow, 0); // Columna 0: ID Pago
 
-                try (Connection conexion = ConexionBD.getInstancia().getConnection("Asesor")) {
-                    PagoDAO pagoDAO = new PagoDAO(conexion);
-                    boolean actualizado = pagoDAO.actualizarEstadoPago(idPago, "PAG");
+                try {
+                    boolean actualizado = pagoService.actualizarEstadoPago(idPago, "PAG"); // Usando PagoService
 
                     if (actualizado) {
-                        // Actualizar la tabla visualmente con la nueva fecha y estado
                         String fechaSistema = new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
-                        jTable2.setValueAt("PAG", selectedRow, 3); // Columna 3: Estado
-                        jTable2.setValueAt(fechaSistema, selectedRow, 1); // Columna 1: Fecha de Pago
+                        jTable2.setValueAt("PAG", selectedRow, 3); // Estado
+                        jTable2.setValueAt(fechaSistema, selectedRow, 1); // Fecha de Pago
 
-                        javax.swing.JOptionPane.showMessageDialog(
+                        JOptionPane.showMessageDialog(
                             null,
-                            "El estado del pago ha sido actualizado a 'PAG' y la fecha de pago se actualizó a " + fechaSistema + ".",
+                            "El estado del pago ha sido actualizado.",
                             "Pago Completado",
-                            javax.swing.JOptionPane.INFORMATION_MESSAGE
+                            JOptionPane.INFORMATION_MESSAGE
                         );
 
-                        // Confirmar si se quiere generar la factura
-                        int generarFactura = javax.swing.JOptionPane.showConfirmDialog(
+                        int generarFactura = JOptionPane.showConfirmDialog(
                             null,
                             "¿Deseas generar una factura para este pago?",
                             "Generar Factura",
-                            javax.swing.JOptionPane.YES_NO_OPTION
+                            JOptionPane.YES_NO_OPTION
                         );
 
-                        if (generarFactura == javax.swing.JOptionPane.YES_OPTION) {
-                            // Llama al método para generar la factura en PDF, pasando la fila seleccionada
+                        if (generarFactura == JOptionPane.YES_OPTION) {
                             generarFacturaPDF(idPago, selectedRow);
                         }
                     } else {
-                        javax.swing.JOptionPane.showMessageDialog(
+                        JOptionPane.showMessageDialog(
                             null,
                             "No se pudo completar el pago. Intenta nuevamente.",
                             "Error",
-                            javax.swing.JOptionPane.ERROR_MESSAGE
+                            JOptionPane.ERROR_MESSAGE
                         );
                     }
-                } catch (SQLException ex) {
+                } catch (Exception ex) {
                     ex.printStackTrace();
-                    javax.swing.JOptionPane.showMessageDialog(
+                    JOptionPane.showMessageDialog(
                         null,
                         "Ocurrió un error al completar el pago.",
                         "Error",
-                        javax.swing.JOptionPane.ERROR_MESSAGE
+                        JOptionPane.ERROR_MESSAGE
                     );
                 }
             }
 
-            fireEditingStopped(); // Finaliza la edición del botón
+            fireEditingStopped();
         }
-
-
    }
     
     private void generarFacturaPDF(int idPago, int selectedRow) {

@@ -16,6 +16,7 @@ Vista\MenuAdminProyectos\CrearTorre$3.class
 Vista\MenuAdministrador$1.class
 Vista\MenuAdminProyectos\Inmuebles$2.class
 Vista\MenuAsesorProyectos\Ventas$4.class
+Controlador\PagoService.class
 Vista\MenuAdminProyectos\ActualizarTorre$2.class
 Vista\MenuAdminProyectos\CrearInmueble$2.class
 Vista\MenuAdminProyectos\Proyectos$9.class
@@ -41,7 +42,6 @@ Vista\MenuAsesorProyectos\Ventas$5.class
 Vista\MenuAdminProyectos\Inmuebles$1.class
 Vista\MenuAsesorProyectos\Ventas$1.class
 Vista\Login$8.class
-Vista\MenuAsesorProyectos\ActualizarVenta$1.class
 Vista\MenuAdministrador$4.class
 Vista\Login$1.class
 Vista\MenuAdminProyectos\Proyectos$6.class
@@ -97,7 +97,6 @@ Modelo\TorreDAO.class
 Vista\MenuAsesor$10.class
 Vista\MenuAsesorProyectos\Clientes$1.class
 Vista\MenuAdministrador$5.class
-Vista\MenuAsesorProyectos\ActualizarVenta.class
 Vista\Login$5.class
 Vista\MenuAsesorProyectos\Clientes$7.class
 Modelo\UsuarioDAO.class
