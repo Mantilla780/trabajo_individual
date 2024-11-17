@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import Controlador.ConexionBD;
 
 public class ProyectoDAO {
     private Connection conexion;
@@ -116,8 +115,9 @@ public class ProyectoDAO {
             return false;
         }
     }
+    
 
-public boolean eliminarProyecto(int idProyecto) {
+public String eliminarProyecto(int idProyecto) {
     conexion = ConexionBD.getInstancia().getConnection("Admin");
     TorreDAO torreDAO = new TorreDAO(conexion);
     InmuebleDAO inmuebleDAO = new InmuebleDAO(conexion);
@@ -128,38 +128,50 @@ public boolean eliminarProyecto(int idProyecto) {
         // Obtiene las torres relacionadas al proyecto
         List<Integer> idsTorres = torreDAO.obtenerIdsTorresPorProyecto(idProyecto);
 
-        // Primero elimina los inmuebles asociados a cada torre
+        // Verifica si hay inmuebles vendidos asociados a las torres del proyecto
         for (int idTorre : idsTorres) {
-            boolean inmueblesEliminados = inmuebleDAO.eliminarInmueblePorTorre(idTorre);
-            if (!inmueblesEliminados) {
-                System.out.println("No se encontraron inmuebles para la torre con ID " + idTorre);
+            if (inmuebleDAO.existenVentasPorTorre(idTorre)) {
+                conexion.rollback(); // Deshacer cualquier cambio realizado hasta ahora
+                return "No se puede eliminar el proyecto porque existen inmuebles vendidos en la torre con ID " + idTorre;
             }
         }
 
-        // Luego elimina las torres asociadas al proyecto
-        boolean torresEliminadas = torreDAO.eliminarTorresPorProyecto(idProyecto);
-        if (!torresEliminadas) {
-            System.out.println("No se eliminaron torres o no existen torres para este proyecto.");
+        // Elimina los inmuebles asociados a cada torre
+        for (int idTorre : idsTorres) {
+            if (!inmuebleDAO.eliminarInmueblePorTorre(idTorre)) {
+                return "No se encontraron inmuebles para la torre con ID " + idTorre;
+            }
+        }
+
+        // Elimina las torres asociadas al proyecto
+        if (!torreDAO.eliminarTorresPorProyecto(idProyecto)) {
+            return "No se eliminaron torres o no existen torres para este proyecto.";
         }
 
         // Finalmente, elimina el proyecto
         String sqlDelete = "DELETE FROM proyecto.PROYECTOVIVIENDA WHERE IDPROYECTO = ?";
-        //String sqlDelete = "DELETE FROM IntegradorInnovahouse.PROYECTOVIVIENDA WHERE IDPROYECTO = ?";
         try (PreparedStatement psDelete = conexion.prepareStatement(sqlDelete)) {
             psDelete.setInt(1, idProyecto);
             boolean proyectoEliminado = psDelete.executeUpdate() > 0;
 
-            conexion.commit();
-            return proyectoEliminado;
-        } catch (SQLException e) {
-            conexion.rollback();
-            System.err.println("Error al eliminar el proyecto: " + e.getMessage());
-            return false;
+            if (proyectoEliminado) {
+                conexion.commit(); // Confirmar la transacción
+                return "Proyecto eliminado con éxito.";
+            } else {
+                conexion.rollback();
+                return "No se pudo eliminar el proyecto, podría no existir.";
+            }
         }
-
     } catch (SQLException e) {
+        try {
+            if (conexion != null) {
+                conexion.rollback(); // Asegurarse de revertir cualquier cambio
+            }
+        } catch (SQLException rollbackEx) {
+            System.err.println("Error al realizar rollback: " + rollbackEx.getMessage());
+        }
         System.err.println("Error en la operación de eliminación: " + e.getMessage());
-        return false;
+        return "Error en la operación de eliminación: " + e.getMessage();
     } finally {
         try {
             if (conexion != null && !conexion.isClosed()) {
@@ -170,5 +182,10 @@ public boolean eliminarProyecto(int idProyecto) {
         }
     }
 }
+
+
+
+
+
 
 }

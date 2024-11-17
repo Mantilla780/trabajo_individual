@@ -1,5 +1,6 @@
 package Controlador;
 
+import Modelo.ConexionBD;
 import Modelo.UsuarioDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

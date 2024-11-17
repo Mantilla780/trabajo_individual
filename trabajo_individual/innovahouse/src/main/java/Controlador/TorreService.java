@@ -25,4 +25,6 @@ public class TorreService {
     public List<Torre> obtenerTorresBasicas() {
     return torreDAO.obtenerTorresBasicas();
 }
+    
+        
 }

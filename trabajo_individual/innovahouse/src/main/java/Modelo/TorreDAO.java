@@ -1,6 +1,5 @@
 package Modelo;
 
-import Controlador.ConexionBD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -189,8 +188,16 @@ public boolean eliminarTorre(int numeroTorre) {
             return false;
         }
 
-        // Crear instancia de InmuebleDAO y eliminar inmuebles asociados a la torre
+        // Verificar si existen ventas asociadas a los inmuebles de la torre
         InmuebleDAO inmuebleDAO = new InmuebleDAO(conexion);
+        boolean tieneVentas = inmuebleDAO.existeVentaPorTorre(torre.getIdtorre());
+
+        if (tieneVentas) {
+            System.out.println("La torre tiene ventas asociadas y no se puede eliminar.");
+            return false;
+        }
+
+        // Eliminar inmuebles asociados a la torre
         boolean inmueblesEliminados = inmuebleDAO.eliminarInmueblePorTorre(torre.getIdtorre());
 
         if (!inmueblesEliminados) {
@@ -199,7 +206,6 @@ public boolean eliminarTorre(int numeroTorre) {
 
         // Eliminar la torre
         String sqlDeleteTorre = "DELETE FROM proyecto.TORRE WHERE NUMEROTORRE = ?";
-        //String sqlDeleteTorre = "DELETE FROM IntegradorInnovahouse.TORRE WHERE NUMEROTORRE = ?";
         try (PreparedStatement psDeleteTorre = conexion.prepareStatement(sqlDeleteTorre)) {
             psDeleteTorre.setInt(1, numeroTorre);
             boolean torreEliminada = psDeleteTorre.executeUpdate() > 0;
@@ -226,5 +232,6 @@ public boolean eliminarTorre(int numeroTorre) {
         }
     }
 }
+
   
 }

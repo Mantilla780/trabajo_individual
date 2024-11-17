@@ -4,7 +4,7 @@
  */
 package Vista.MenuAdminProyectos;
 
-import Controlador.ConexionBD;
+import Modelo.ConexionBD;
 import Controlador.TorreService;
 import Modelo.Torre;
 import Modelo.TorreDAO;
@@ -205,25 +205,31 @@ public class Torres extends javax.swing.JPanel {
     }//GEN-LAST:event_rButtonProyecto1MouseClicked
 
     private void rButtonProyecto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto1ActionPerformed
-         // Eliminar la torre seleccionada
-        int selectedRow = jTable2.getSelectedRow();
-        if (selectedRow >= 0) {
-            int torreNumero = (Integer) jTable2.getValueAt(selectedRow, 0); // Asumiendo que 'Número Torre' es el primer campo
+// Eliminar la torre seleccionada
+    int selectedRow = jTable2.getSelectedRow();
+    if (selectedRow >= 0) {
+        int torreNumero = (Integer) jTable2.getValueAt(selectedRow, 0); // Asumiendo que 'Número Torre' es el primer campo
 
-            int confirm = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar la Torre " + torreNumero + "?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
-            if (confirm == JOptionPane.YES_OPTION) {
-                try (Connection conexion = ConexionBD.getInstancia().getConnection("Admin")) {
-                    TorreDAO torreDAO = new TorreDAO(conexion);
-                    torreDAO.eliminarTorre(torreNumero); // Implementar el método eliminarTorre en TorreDAO
+        int confirm = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar la Torre " + torreNumero + "?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            try (Connection conexion = ConexionBD.getInstancia().getConnection("Admin")) {
+                TorreDAO torreDAO = new TorreDAO(conexion);
+                boolean eliminado = torreDAO.eliminarTorre(torreNumero);
+
+                if (eliminado) {
                     cargarTorresEnTabla(); // Recargar la tabla después de eliminar
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    JOptionPane.showMessageDialog(this, "Error al eliminar la torre.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "La torre fue eliminada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudo eliminar la torre. Verifica si tiene ventas asociadas.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error al eliminar la torre.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Selecciona una torre para eliminar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
+    } else {
+        JOptionPane.showMessageDialog(this, "Selecciona una torre para eliminar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+    }
     }//GEN-LAST:event_rButtonProyecto1ActionPerformed
 
     private void rButtonProyecto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto2MouseClicked
