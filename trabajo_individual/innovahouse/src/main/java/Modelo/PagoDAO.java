@@ -76,4 +76,57 @@ public class PagoDAO {
             return false;
         }
     }
+    public List<String> obtenerPagosProximos() {
+        List<String> mensajes = new ArrayList<>();
+        String sql = 
+            "SELECT " +
+                "p.idPago, " +
+                "p.fechaPago, " +
+                "p.valorPago, " +
+                "c.nombre AS nombreCliente, " +
+                "CASE " +
+                    "WHEN p.fechaPago < CURRENT_DATE THEN 'VENCIDA' " +
+                    "WHEN p.fechaPago BETWEEN CURRENT_DATE AND (CURRENT_DATE + 7) THEN 'PROXIMA' " +
+                "END AS estadoCuota " +
+            "FROM " +
+                "proyecto.pago p " +
+            "INNER JOIN " +
+                "proyecto.cliente c ON p.ccCliente = c.cedula " +
+            "WHERE " +
+                "p.estadoPago = 'PEN' AND " +  // Solo pagos pendientes
+                "(p.fechaPago < CURRENT_DATE OR " + // Cuotas vencidas
+                "p.fechaPago BETWEEN CURRENT_DATE AND (CURRENT_DATE + 7))"; // Próximas a vencer
+
+        try (PreparedStatement stmt = conexion.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                int idPago = rs.getInt("idPago");
+                String fechaPago = rs.getString("fechaPago");
+                double valorPago = rs.getDouble("valorPago");
+                String nombreCliente = rs.getString("nombreCliente");
+                String estadoCuota = rs.getString("estadoCuota");
+
+                String mensaje;
+                if ("VENCIDA".equals(estadoCuota)) {
+                    mensaje = String.format(
+                        "Cuota vencida: Pago #%d de %s por %.2f. Fecha de pago: %s",
+                        idPago, nombreCliente, valorPago, fechaPago
+                    );
+                } else {
+                    mensaje = String.format(
+                        "Cuota próxima a vencer: Pago #%d de %s por %.2f. Fecha de pago: %s",
+                        idPago, nombreCliente, valorPago, fechaPago
+                    );
+                }
+                mensajes.add(mensaje);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener los pagos próximos: " + e.getMessage());
+        }
+
+        return mensajes;
+    }
+
+
 }

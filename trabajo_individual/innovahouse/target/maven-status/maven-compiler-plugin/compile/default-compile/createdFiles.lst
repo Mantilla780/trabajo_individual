@@ -94,6 +94,7 @@ Vista\MenuAdminProyectos\ActualizarInmueble$1.class
 Vista\MenuAdminProyectos\Inmuebles.class
 Vista\MenuAdminProyectos\ActualizarProyecto$3.class
 Modelo\TorreDAO.class
+Vista\MenuAsesor$10.class
 Vista\MenuAsesorProyectos\Clientes$1.class
 Vista\MenuAdministrador$5.class
 Vista\MenuAsesorProyectos\ActualizarVenta.class
