@@ -2,6 +2,7 @@ Vista\MenuAsesorProyectos\AnadirPago.class
 Modelo\Inmueble.class
 Vista\Login$3.class
 Vista\MenuAsesorProyectos\AnadirVenta$2.class
+Vista\MenuAsesor$11.class
 Modelo\Venta.class
 Vista\MenuAdminProyectos\ActualizarInmueble$2.class
 Vista\MenuAsesorProyectos\AnadirPago$1.class
@@ -41,7 +42,6 @@ Vista\MenuAsesorProyectos\Ventas$5.class
 Vista\MenuAdminProyectos\Inmuebles$1.class
 Vista\MenuAsesorProyectos\Ventas$1.class
 Vista\Login$8.class
-Vista\MenuAsesorProyectos\ActualizarVenta$1.class
 Vista\MenuAdministrador$4.class
 Vista\Login$1.class
 Vista\MenuAdminProyectos\Proyectos$6.class
@@ -97,7 +97,6 @@ Modelo\TorreDAO.class
 Vista\MenuAsesor$10.class
 Vista\MenuAsesorProyectos\Clientes$1.class
 Vista\MenuAdministrador$5.class
-Vista\MenuAsesorProyectos\ActualizarVenta.class
 Vista\Login$5.class
 Vista\MenuAsesorProyectos\Clientes$7.class
 Modelo\UsuarioDAO.class
