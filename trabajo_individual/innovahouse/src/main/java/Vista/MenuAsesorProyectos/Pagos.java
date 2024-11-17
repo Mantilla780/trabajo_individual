@@ -5,52 +5,20 @@
 package Vista.MenuAsesorProyectos;
 
 
-import Modelo.Pago;
-import Modelo.PagoDAO;
-import Controlador.ConexionBD;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.List;
-import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author omaci
  */
 public class Pagos extends javax.swing.JPanel {
+   private String idUsuario;
 
-    public Pagos() {
+    public Pagos(String idusuario) {
         initComponents();
-        cargarPagosEnTabla();
+        this.idUsuario=idusuario;
     }
     
-    // Método para cargar los pagos en la tabla
-    private void cargarPagosEnTabla() {
-        try (Connection conexion = ConexionBD.getInstancia().getConnection("Asesor")) {
-            PagoDAO pagoDAO = new PagoDAO(conexion);
-            List<Pago> pagos = pagoDAO.listarPagos();
-            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-
-            // Establecer nombres de columnas
-            model.setColumnIdentifiers(new String[]{
-                "ID Pago", "Fecha de Pago", "Valor del Pago", "Estado", "ID Venta", "Cédula Cliente"
-            });
-
-            model.setRowCount(0); // Limpiar la tabla antes de cargar los datos
-
-            for (Pago pago : pagos) {
-                model.addRow(new Object[]{
-                    pago.getIdPago(),
-                    pago.getFechaPago(),
-                    pago.getValorPago(),
-                    pago.getEstadoPago(),
-                    pago.getIdVenta(),
-                    pago.getCcCliente()
-                });
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -128,7 +96,7 @@ public class Pagos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     
     private void rButtonProyecto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto2MouseClicked
-        AnadirPago ap = new AnadirPago();
+        AnadirPago ap = new AnadirPago(idUsuario);
         ap.setVisible(true);
     }//GEN-LAST:event_rButtonProyecto2MouseClicked
 

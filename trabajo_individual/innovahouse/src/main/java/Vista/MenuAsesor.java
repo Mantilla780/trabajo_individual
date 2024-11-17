@@ -208,7 +208,7 @@ public class MenuAsesor extends javax.swing.JFrame {
             this.ButtonProyecto.setColorHover(new Color(39,33,105));
             this.ButtonProyecto.setColorPressed(new Color(76,69,153));
             
-            Pagos p3 = new Pagos();
+            Pagos p3 = new Pagos(idUsuario);
             p3.setSize(1190,620);
             p3.setLocation(20,20);
             jPanel3.removeAll();
