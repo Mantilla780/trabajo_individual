@@ -46,4 +46,12 @@ public class VentaService {
     public boolean eliminarVenta(int idVenta) {
         return ventaDAO.eliminarVenta(idVenta);
     }
+    
+    public List<String> obtenerVentasConCliente() {
+        return ventaDAO.obtenerVentasConCliente();
+    }
+    
+    public List<Venta> listarVentas(){
+        return ventaDAO.listarVentas();
+    }
 }
