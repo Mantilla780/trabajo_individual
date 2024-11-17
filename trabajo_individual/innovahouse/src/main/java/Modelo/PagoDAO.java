@@ -17,28 +17,63 @@ public class PagoDAO {
     }
 
     public boolean generarPagosPorVenta(int idVenta, int ccCliente, String fechaInicial, String idUsuario) {
-        String sql = "{ CALL proyecto.insertar_pagos_por_venta(?, ?, ?, ?) }";  // Agregar el parámetro idUsuario
-        try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
+        try {
+            // Verificar el número de pagos existentes para la venta
+            String sqlCountPagos = "SELECT COUNT(*) AS totalPagos FROM proyecto.pago WHERE idVenta = ?";
+            try (PreparedStatement stmtCount = conexion.prepareStatement(sqlCountPagos)) {
+                stmtCount.setInt(1, idVenta);
+                try (ResultSet rs = stmtCount.executeQuery()) {
+                    if (rs.next()) {
+                        int totalPagos = rs.getInt("totalPagos");
 
-            // Convertir la fecha de String a Date
-            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-            java.util.Date fechaUtil = formato.parse(fechaInicial); // Convierte el String a java.util.Date
-            java.sql.Date fechaSql = new java.sql.Date(fechaUtil.getTime()); // Convierte a java.sql.Date
+                        // Obtener el número de cuotas permitidas de la venta
+                        String sqlCuotas = "SELECT numerocuotas FROM proyecto.venta WHERE idventa = ?";
+                        try (PreparedStatement stmtCuotas = conexion.prepareStatement(sqlCuotas)) {
+                            stmtCuotas.setInt(1, idVenta);
+                            try (ResultSet rsCuotas = stmtCuotas.executeQuery()) {
+                                if (rsCuotas.next()) {
+                                    int numeroCuotas = rsCuotas.getInt("numerocuotas");
 
-            // Establecer los parámetros en el PreparedStatement
-            stmt.setInt(1, idVenta);
-            stmt.setInt(2, ccCliente);
-            stmt.setDate(3, fechaSql); // Usar java.sql.Date
-            stmt.setString(4, idUsuario); // Agregar el idUsuario como parámetro
+                                    // Verificar si ya se alcanzó el límite de cuotas
+                                    if (totalPagos >= numeroCuotas) {
+                                        System.err.println("No se pueden generar más pagos. Se alcanzó el número máximo de cuotas permitidas.");
+                                        return false;
+                                    }
+                                } else {
+                                    System.err.println("No se encontró la venta con ID: " + idVenta);
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
-            // Ejecutar la sentencia
-            stmt.execute();
-            return true;
+            // Lógica para insertar los nuevos pagos
+            String sql = "{ CALL proyecto.insertar_pagos_por_venta(?, ?, ?, ?) }"; // Agregar el parámetro idUsuario
+            try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
+
+                // Convertir la fecha de String a Date
+                SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+                java.util.Date fechaUtil = formato.parse(fechaInicial); // Convierte el String a java.util.Date
+                java.sql.Date fechaSql = new java.sql.Date(fechaUtil.getTime()); // Convierte a java.sql.Date
+
+                // Establecer los parámetros en el PreparedStatement
+                stmt.setInt(1, idVenta);
+                stmt.setInt(2, ccCliente);
+                stmt.setDate(3, fechaSql); // Usar java.sql.Date
+                stmt.setString(4, idUsuario); // Agregar el idUsuario como parámetro
+
+                // Ejecutar la sentencia
+                stmt.execute();
+                return true;
+            }
         } catch (SQLException | java.text.ParseException e) {
             System.err.println("Error al generar los pagos: " + e.getMessage());
             return false;
         }
     }
+
         // Método para listar todos los pagos
     public List<Pago> listarPagos() {
         List<Pago> pagos = new ArrayList<>();

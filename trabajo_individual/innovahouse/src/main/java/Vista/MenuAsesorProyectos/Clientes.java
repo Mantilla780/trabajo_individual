@@ -231,7 +231,7 @@ public class Clientes extends javax.swing.JPanel {
     }//GEN-LAST:event_rButtonProyecto1MouseClicked
 
     private void rButtonProyecto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto1ActionPerformed
-            int selectedRow = jTable2.getSelectedRow();
+        int selectedRow = jTable2.getSelectedRow();
 
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Por favor, selecciona un cliente para eliminar.", "Error", JOptionPane.WARNING_MESSAGE);
@@ -244,11 +244,12 @@ public class Clientes extends javax.swing.JPanel {
         if (confirmacion == JOptionPane.YES_OPTION) {
             try (Connection conexion = ConexionBD.getInstancia().getConnection("Asesor")) {
                 ClienteService clienteService = new ClienteService(conexion);
-                if (clienteService.eliminarCliente(cedula)) {
-                    JOptionPane.showMessageDialog(this, "Cliente eliminado con éxito.");
+                String mensaje = clienteService.eliminarCliente(cedula);
+
+                JOptionPane.showMessageDialog(this, mensaje);
+
+                if (mensaje.equals("Cliente eliminado con éxito.")) {
                     cargarClientesEnTabla(); // Actualizamos la tabla
-                } else {
-                    JOptionPane.showMessageDialog(this, "Error al eliminar el cliente. Inténtalo nuevamente.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

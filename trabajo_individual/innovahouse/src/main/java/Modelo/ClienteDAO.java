@@ -93,8 +93,6 @@ private boolean clienteExiste(int cedula) {
         }
         return clientes;
     }
- 
- 
     public boolean actualizarCliente(Cliente cliente) {
         String sqlUpdate = "UPDATE proyecto.CLIENTE SET NOMBRE = ?, SISBEN = ?, SUBSIDIOMINISTERIO = ?, DIRECCION = ?, TELEFONO = ?, CORREOELECTRONICO = ? WHERE CEDULA = ?";
 
@@ -123,25 +121,42 @@ private boolean clienteExiste(int cedula) {
             return false;
         }
     }
+    public String eliminarCliente(int cedula) {
+        if (clienteTieneVentas(cedula)) {
+            return "No se puede eliminar el cliente con cédula " + cedula + " porque tiene ventas registradas.";
+        }
 
- 
- 
+        String sqlDelete = "DELETE FROM proyecto.cliente WHERE cedula = ?";
 
-    public boolean eliminarCliente(int cedula) {
-       String sqlDelete = "DELETE FROM proyecto.cliente WHERE cedula = ?";
-       //String sqlDelete = "DELETE FROM IntegradorInnovahouse.cliente WHERE cedula = ?";
+        try (PreparedStatement psDelete = conexion.prepareStatement(sqlDelete)) {
+            psDelete.setInt(1, cedula);
 
-       try (PreparedStatement psDelete = conexion.prepareStatement(sqlDelete)) {
-           psDelete.setInt(1, cedula);
+            if (psDelete.executeUpdate() > 0) {
+                return "Cliente eliminado con éxito.";
+            } else {
+                return "No se encontró el cliente con cédula " + cedula + ".";
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al eliminar cliente con cédula " + cedula + ": " + e.getMessage());
+            return "Error al eliminar el cliente. Inténtalo nuevamente.";
+        }
+    }
 
-           // Ejecuta la eliminación y devuelve true si se eliminó al menos un registro
-           return psDelete.executeUpdate() > 0;
+    // Método para verificar si un cliente tiene ventas registradas
+    private boolean clienteTieneVentas(int cedula) {
+        String sqlCheckVentas = "SELECT COUNT(*) FROM proyecto.venta WHERE cccliente = ?";
+        // String sqlCheckVentas = "SELECT COUNT(*) FROM IntegradorInnovahouse.venta WHERE cccliente = ?";
 
-       } catch (SQLException e) {
-           System.err.println("Error al eliminar cliente con cédula " + cedula + ": " + e.getMessage());
-           return false;
-       }
-   }
-    
-    
+        try (PreparedStatement psCheckVentas = conexion.prepareStatement(sqlCheckVentas)) {
+            psCheckVentas.setInt(1, cedula);
+            ResultSet rs = psCheckVentas.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // Si hay al menos una venta, devuelve true
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al verificar ventas del cliente con cédula " + cedula + ": " + e.getMessage());
+        }
+        return false;
+    }
+
 }
