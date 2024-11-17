@@ -98,17 +98,19 @@ public class Inmuebles extends javax.swing.JPanel {
             List<Inmueble> inmuebles = inmuebleDAO.obtenerInmuebles();
             DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
 
-            model.setColumnIdentifiers(new String[]{"Matrícula", "Número Inmueble", "Valor Inmueble", "Tipo", "Área", "Número Torre"});
+            model.setColumnIdentifiers(new String[]{"Matrícula", "Número Inmueble", "Valor Inmueble", "Tipo", "Área", "Número Torre", "Vendido"});
             model.setRowCount(0);
 
             for (Inmueble inmueble : inmuebles) {
+                boolean vendido = inmuebleDAO.estaVendido(inmueble.getMatricula());
                 model.addRow(new Object[]{
                     inmueble.getMatricula(),
                     inmueble.getNumeroInmueble(),
                     inmueble.getValorInmueble(),
                     inmueble.getTipoInmueble(),
                     inmueble.getArea(),
-                    inmueble.getIdTorre()
+                    inmueble.getIdTorre(),
+                    vendido ? "Sí" : "No"
                 });
             }
         } catch (SQLException e) {

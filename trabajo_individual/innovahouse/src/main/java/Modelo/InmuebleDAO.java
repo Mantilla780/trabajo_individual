@@ -175,4 +175,16 @@ public class InmuebleDAO {
             return false;
         }
     }
+    
+    public boolean estaVendido(int matricula) {
+    String sql = "SELECT 1 FROM proyecto.VENTA WHERE MATINMUEBLE = ?";
+    try (PreparedStatement ps = conexion.prepareStatement(sql)) {
+        ps.setInt(1, matricula);
+        ResultSet rs = ps.executeQuery();
+        return rs.next(); // Si existe un registro, el inmueble está vendido
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false; // Asumir no vendido en caso de error
+    }
+}
 }
