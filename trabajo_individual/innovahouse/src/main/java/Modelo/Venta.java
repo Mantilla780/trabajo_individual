@@ -104,6 +104,4 @@ public class Venta {
     public void setNombreCliente(String nombreCliente) {
         this.nombreCliente = nombreCliente;
     }
-    
-    
 }

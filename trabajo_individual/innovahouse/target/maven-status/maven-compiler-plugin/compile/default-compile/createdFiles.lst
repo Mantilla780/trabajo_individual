@@ -7,7 +7,6 @@ Vista\MenuAdminProyectos\ActualizarInmueble$2.class
 Vista\MenuAsesorProyectos\AnadirPago$1.class
 Vista\MenuAdminProyectos\Proyectos$1.class
 Modelo\PagoDAO.class
-Vista\MenuAsesorProyectos\Ventas$7.class
 Vista\MenuAdminProyectos\ActualizarInmueble$5.class
 Vista\MenuAsesorProyectos\Clientes$3.class
 Vista\MenuAdminProyectos\ActualizarProyecto$2.class
@@ -63,7 +62,6 @@ Vista\MenuAsesorProyectos\Clientes$6.class
 Vista\MenuAdminProyectos\Torres$6.class
 Vista\MenuAsesor$3.class
 Vista\MenuAsesorProyectos\AnadirVenta$1.class
-Vista\MenuAsesorProyectos\Ventas$6.class
 Vista\MenuAsesorProyectos\Pagos$ButtonRenderer.class
 Vista\MenuAdminProyectos\CrearInmueble$3.class
 Vista\MenuAdminProyectos\Proyectos$7.class
