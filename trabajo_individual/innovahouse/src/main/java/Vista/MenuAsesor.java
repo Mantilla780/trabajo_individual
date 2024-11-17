@@ -123,8 +123,7 @@ public class MenuAsesor extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        RecargarMenu = new javax.swing.JButton();
 
         logout.setBackground(new java.awt.Color(0, 0, 0));
         logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/logout.png"))); // NOI18N
@@ -257,15 +256,16 @@ public class MenuAsesor extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/logo2.png"))); // NOI18N
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1315, 0, -1, -1));
 
-        jPanel4.setBackground(new java.awt.Color(39, 33, 105));
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(202, 232, 255));
-        jLabel3.setText("INOVAHOUSE");
-        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
-
-        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 80));
+        RecargarMenu.setBackground(new java.awt.Color(39, 33, 105));
+        RecargarMenu.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        RecargarMenu.setForeground(new java.awt.Color(202, 232, 255));
+        RecargarMenu.setText("INOVAHOUSE");
+        RecargarMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RecargarMenuActionPerformed(evt);
+            }
+        });
+        jPanel2.add(RecargarMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 80));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 80));
 
@@ -396,6 +396,15 @@ public class MenuAsesor extends javax.swing.JFrame {
         loginWindow.setVisible(true);
     }//GEN-LAST:event_logout1ActionPerformed
 
+    private void RecargarMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecargarMenuActionPerformed
+        // Cierra la ventana actual
+        this.dispose();
+
+        // Vuelve a crear y mostrar la ventana de MenuAsesor con el idUsuario actual
+        MenuAsesor menuAsesorWindow = new MenuAsesor(idUsuario);
+        menuAsesorWindow.setVisible(true);
+    }//GEN-LAST:event_RecargarMenuActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -443,13 +452,12 @@ public class MenuAsesor extends javax.swing.JFrame {
     private Vista.RSButtonMetro ButtonProyecto;
     private Vista.RSButtonMetro ButtonTorres;
     private javax.swing.JPanel MenuSliding;
+    private javax.swing.JButton RecargarMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable2;
     private javax.swing.JButton logout;
