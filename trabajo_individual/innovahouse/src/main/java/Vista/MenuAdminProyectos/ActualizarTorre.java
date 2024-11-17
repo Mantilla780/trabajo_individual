@@ -4,7 +4,7 @@
  */
 package Vista.MenuAdminProyectos;
 
-import Controlador.ConexionBD;
+import Modelo.ConexionBD;
 import Controlador.ProyectoService;
 import Modelo.Proyecto;
 import Modelo.ProyectoDAO;

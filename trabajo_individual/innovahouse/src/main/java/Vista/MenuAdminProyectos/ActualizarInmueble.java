@@ -4,7 +4,7 @@
  */
 package Vista.MenuAdminProyectos;
 
-import Controlador.ConexionBD;
+import Modelo.ConexionBD;
 import Controlador.ProyectoService;
 import Modelo.Inmueble;
 import Modelo.InmuebleDAO;
@@ -33,12 +33,15 @@ public class ActualizarInmueble extends javax.swing.JFrame {
 
     public ActualizarInmueble(int numeroInmueble) {
         initComponents();
-        this.numeroInmueble = numeroInmueble;
-        this.idProyecto = idProyecto;
-        cargarDatosInmueble();
+        
         // Cargar la imagen como icono de la ventana
         Image icono = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Vista/Imagenes/logo3.png"));
         setIconImage(icono);
+        
+        this.numeroInmueble = numeroInmueble;
+        this.idProyecto = idProyecto;
+        cargarDatosInmueble();
+        
     }
 
     private void cargarDatosInmueble() {

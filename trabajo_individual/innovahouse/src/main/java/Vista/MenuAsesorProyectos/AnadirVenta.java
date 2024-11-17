@@ -5,7 +5,7 @@
 package Vista.MenuAsesorProyectos;
 
 import Controlador.ClienteService;
-import Controlador.ConexionBD;
+import Modelo.ConexionBD;
 import Controlador.InmuebleService;
 import Controlador.VentaService;
 import Modelo.Cliente;

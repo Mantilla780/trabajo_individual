@@ -4,7 +4,7 @@
  */
 package Vista.MenuAdminProyectos;
 
-import Controlador.ConexionBD;
+import Modelo.ConexionBD;
 import Controlador.InmuebleService;
 import Modelo.Inmueble;
 import Modelo.InmuebleDAO;
@@ -178,7 +178,7 @@ public class Inmuebles extends javax.swing.JPanel {
         jTable2.setSelectionBackground(new java.awt.Color(39, 33, 105));
         jScrollPane2.setViewportView(jTable2);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1120, 600));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1120, 550));
 
         rButtonProyecto2.setBackground(new java.awt.Color(5, 10, 48));
         rButtonProyecto2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/agregar.png"))); // NOI18N
