@@ -6,6 +6,7 @@ package Controlador;
     
 import Modelo.Cliente;
 import Modelo.ClienteDAO;
+import Modelo.ConexionBD;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
