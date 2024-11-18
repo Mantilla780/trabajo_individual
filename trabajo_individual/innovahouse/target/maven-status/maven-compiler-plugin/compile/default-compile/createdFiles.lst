@@ -19,7 +19,6 @@ Vista\MenuAsesorProyectos\Ventas$4.class
 Controlador\PagoService.class
 Vista\MenuAdminProyectos\ActualizarTorre$2.class
 Vista\MenuAdminProyectos\CrearInmueble$2.class
-Vista\MenuAdminProyectos\Proyectos$9.class
 Vista\MenuAsesorProyectos\Ventas$2.class
 Modelo\ProyectoDAO.class
 Vista\MenuAsesor$8.class

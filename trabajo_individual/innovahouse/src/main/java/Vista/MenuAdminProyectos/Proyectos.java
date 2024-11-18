@@ -30,7 +30,6 @@ public class Proyectos extends javax.swing.JPanel {
     private String idProyecto;
     private String numerotorre;
     private ProyectoService proyectoService; 
-    private Timer timer;
     private Connection conexion; // Conexión mantenida durante la vida útil de la clase
 
     public Proyectos(String idUsuario) {
@@ -44,17 +43,6 @@ public class Proyectos extends javax.swing.JPanel {
 
         // Carga inicial de los datos en la tabla
         cargarProyectosEnTabla();
-    
-        // Configuración del temporizador para actualizar la tabla cada 5 segundos
-        timer = new Timer(4000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cargarProyectosEnTabla();
-            }
-        });
-    
-        // Iniciar el temporizador
-        timer.start();
         
         // Configurar renderer para colorear cada columna de la tabla
         jTable2.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
@@ -242,23 +230,17 @@ public class Proyectos extends javax.swing.JPanel {
     }//GEN-LAST:event_rButtonProyecto1MouseClicked
 
     private void rButtonProyecto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto1ActionPerformed
-           int selectedRow = jTable2.getSelectedRow(); // Supongamos que estás usando una JTable para mostrar proyectos
+    int selectedRow = jTable2.getSelectedRow();
     if (selectedRow != -1) {
-        // Obtener el ID del proyecto desde la tabla (supongamos que está en la primera columna)
         int idProyecto = (int) jTable2.getValueAt(selectedRow, 0);
-        
-        // Confirmar eliminación
+
         int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar este proyecto?", "Confirmación", JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.YES_OPTION) {
-            // Llamar al servicio para eliminar el proyecto
             String resultado = proyectoService.eliminarProyecto(idProyecto);
-            
-            // Mostrar el resultado en la interfaz gráfica
             JOptionPane.showMessageDialog(this, resultado);
-            
-            // Si se eliminó con éxito, podrías también actualizar la tabla, por ejemplo:
+
             if (resultado.equals("Proyecto eliminado con éxito.")) {
-                // Actualizar la tabla o realizar cualquier acción adicional
+                cargarProyectosEnTabla(); // Actualiza la tabla después de eliminar
             }
         }
     } else {
@@ -269,6 +251,8 @@ public class Proyectos extends javax.swing.JPanel {
     private void rButtonProyecto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto2MouseClicked
         CrearProyecto cp = new CrearProyecto(idUsuario);
         cp.setVisible(true);
+        
+        cargarProyectosEnTabla();
     }//GEN-LAST:event_rButtonProyecto2MouseClicked
 
     private void rButtonProyecto2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto2ActionPerformed
@@ -282,15 +266,15 @@ public class Proyectos extends javax.swing.JPanel {
     private void rButtonProyecto3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto3ActionPerformed
         int selectedRow = jTable2.getSelectedRow();
     if (selectedRow != -1) {
-        // Obtén los datos del proyecto seleccionado
         int idProyecto = (int) jTable2.getValueAt(selectedRow, 0);
         String nombreProyecto = (String) jTable2.getValueAt(selectedRow, 1);
         int numeroTorres = (int) jTable2.getValueAt(selectedRow, 2);
         String idUsuario = (String) jTable2.getValueAt(selectedRow, 3);
-        
-        // Abre el formulario de actualización
+
         ActualizarProyecto ap = new ActualizarProyecto(idProyecto, nombreProyecto, idUsuario, proyectoService);
         ap.setVisible(true);
+
+        
     } else {
         JOptionPane.showMessageDialog(this, "Selecciona un proyecto para editar.");
     }
