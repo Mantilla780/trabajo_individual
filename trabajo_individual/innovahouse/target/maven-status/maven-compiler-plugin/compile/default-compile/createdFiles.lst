@@ -59,6 +59,7 @@ Modelo\ClienteDAO.class
 Vista\MenuAdminProyectos\Torres$6.class
 Vista\MenuAsesor$3.class
 Vista\MenuAsesorProyectos\AnadirVenta$1.class
+Vista\MenuAsesorProyectos\Ventas$6.class
 Vista\MenuAsesorProyectos\Pagos$ButtonRenderer.class
 Vista\MenuAdminProyectos\CrearInmueble$3.class
 Vista\MenuAdminProyectos\Proyectos$7.class
