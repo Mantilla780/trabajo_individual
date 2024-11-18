@@ -145,4 +145,15 @@ public class VentaDAO {
 
         return lista;
     }
+    public boolean verificarInmuebleVendido(int matriculaInmueble) throws SQLException {
+        String query = "SELECT COUNT(*) FROM proyecto.venta WHERE matinmueble = ?";
+        try (PreparedStatement ps = conexion.prepareStatement(query)) {
+            ps.setInt(1, matriculaInmueble);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // Retorna true si ya hay al menos una venta asociada
+            }
+        }
+        return false;
+    }
 }

@@ -7,7 +7,6 @@ Modelo\Venta.class
 Vista\MenuAdminProyectos\ActualizarInmueble$2.class
 Vista\MenuAsesorProyectos\AnadirPago$1.class
 Vista\MenuAdminProyectos\Proyectos$1.class
-Modelo\PagoDAO.class
 Vista\MenuAdminProyectos\ActualizarInmueble$5.class
 Vista\MenuAsesorProyectos\Clientes$3.class
 Vista\MenuAdminProyectos\ActualizarProyecto$2.class
@@ -36,7 +35,6 @@ Vista\MenuAsesor$5.class
 Modelo\InmuebleDAO.class
 Vista\MenuAdminProyectos\Inmuebles$8.class
 Vista\MenuAdminProyectos\Torres$4.class
-Vista\MenuAsesorProyectos\Clientes$5.class
 Vista\MenuAsesorProyectos\Pagos$2.class
 Vista\MenuAsesorProyectos\Ventas$5.class
 Vista\MenuAdminProyectos\Inmuebles$1.class
@@ -58,7 +56,6 @@ Vista\MenuAdminProyectos\CrearProyecto.class
 Vista\MenuAdminProyectos\CrearInmueble.class
 Vista\MenuAdminProyectos\Inmuebles$7.class
 Modelo\ClienteDAO.class
-Vista\MenuAsesorProyectos\Clientes$6.class
 Vista\MenuAdminProyectos\Torres$6.class
 Vista\MenuAsesor$3.class
 Vista\MenuAsesorProyectos\AnadirVenta$1.class
@@ -98,14 +95,12 @@ Vista\MenuAsesor$10.class
 Vista\MenuAsesorProyectos\Clientes$1.class
 Vista\MenuAdministrador$5.class
 Vista\Login$5.class
-Vista\MenuAsesorProyectos\Clientes$7.class
 Modelo\UsuarioDAO.class
 Vista\MenuAsesorProyectos\ActualizarCliente$3.class
 Vista\MenuAdministrador$8.class
 Vista\Login$2.class
 Vista\MenuAdminProyectos\Proyectos$2.class
 Vista\MenuAsesorProyectos\AnadirVenta$3.class
-Vista\MenuAsesorProyectos\Clientes$4.class
 com\mycompany\innovahouse\Innovahouse.class
 Vista\MenuAdminProyectos\ActualizarInmueble$4.class
 Modelo\Proyecto.class
@@ -121,7 +116,6 @@ Vista\MenuAsesorProyectos\ActualizarCliente$2.class
 Vista\MenuAdminProyectos\Inmuebles$4.class
 Vista\MenuAsesorProyectos\Clientes$8.class
 Vista\MenuAdminProyectos\Torres.class
-Vista\MenuAsesorProyectos\Ventas.class
 Vista\PanelRound.class
 Vista\MenuAsesorProyectos\ActualizarCliente.class
 Vista\RSButtonMetro.class
@@ -135,12 +129,10 @@ Controlador\ProyectoService.class
 Vista\MenuAdminProyectos\ActualizarInmueble.class
 Vista\MenuAdminProyectos\Torres$2.class
 Vista\MenuAdminProyectos\ActualizarProyecto.class
-Modelo\VentaDAO.class
 Vista\MenuAsesor$7.class
 Vista\MenuAsesorProyectos\Clientes$2.class
 Vista\MenuAsesorProyectos\AnadirVenta.class
 Vista\MenuAdminProyectos\ActualizarTorre$4.class
 Vista\MenuAdminProyectos\Inmuebles$3.class
-Vista\MenuAsesorProyectos\Clientes.class
 Vista\MenuAdminProyectos\ActualizarProyecto$1.class
 Vista\MenuAdministrador.class

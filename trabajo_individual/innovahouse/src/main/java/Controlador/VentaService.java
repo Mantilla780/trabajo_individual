@@ -46,4 +46,8 @@ public class VentaService {
     public boolean eliminarVenta(int idVenta) {
         return ventaDAO.eliminarVenta(idVenta);
     }
+
+    public boolean esInmuebleVendido(int matinmueble) throws SQLException {
+        return ventaDAO.verificarInmuebleVendido(matinmueble);
+    }
 }
