@@ -4,7 +4,7 @@
  */
 package Vista.MenuAdminProyectos;
 
-import Controlador.ConexionBD;
+import Modelo.ConexionBD;
 import Controlador.ProyectoService;
 import Modelo.Proyecto;
 import Modelo.ProyectoDAO;
@@ -242,7 +242,7 @@ public class Proyectos extends javax.swing.JPanel {
     }//GEN-LAST:event_rButtonProyecto1MouseClicked
 
     private void rButtonProyecto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto1ActionPerformed
-            int selectedRow = jTable2.getSelectedRow(); // Supongamos que estás usando una JTable para mostrar proyectos
+           int selectedRow = jTable2.getSelectedRow(); // Supongamos que estás usando una JTable para mostrar proyectos
     if (selectedRow != -1) {
         // Obtener el ID del proyecto desde la tabla (supongamos que está en la primera columna)
         int idProyecto = (int) jTable2.getValueAt(selectedRow, 0);
@@ -251,12 +251,14 @@ public class Proyectos extends javax.swing.JPanel {
         int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar este proyecto?", "Confirmación", JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.YES_OPTION) {
             // Llamar al servicio para eliminar el proyecto
-            boolean resultado = proyectoService.eliminarProyecto(idProyecto);
+            String resultado = proyectoService.eliminarProyecto(idProyecto);
             
-            if (resultado) {
-                JOptionPane.showMessageDialog(this, "Proyecto eliminado con éxito.");
-            } else {
-                JOptionPane.showMessageDialog(this, "Error al eliminar el proyecto.");
+            // Mostrar el resultado en la interfaz gráfica
+            JOptionPane.showMessageDialog(this, resultado);
+            
+            // Si se eliminó con éxito, podrías también actualizar la tabla, por ejemplo:
+            if (resultado.equals("Proyecto eliminado con éxito.")) {
+                // Actualizar la tabla o realizar cualquier acción adicional
             }
         }
     } else {

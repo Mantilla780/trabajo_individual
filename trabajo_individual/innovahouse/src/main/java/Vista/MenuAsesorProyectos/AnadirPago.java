@@ -4,7 +4,7 @@
  */
 package Vista.MenuAsesorProyectos;
 
-import Controlador.ConexionBD;
+import Modelo.ConexionBD;
 import Modelo.PagoDAO;
 import Modelo.VentaDAO;
 import java.awt.Image;
@@ -135,7 +135,7 @@ public class AnadirPago extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void rSButtonMetro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rSButtonMetro1ActionPerformed
-      // Obtener el elemento seleccionado del JComboBox
+        // Obtener el elemento seleccionado del JComboBox
         String ventaSeleccionada = (String) jComboBox1.getSelectedItem();
 
         try {
@@ -164,7 +164,11 @@ public class AnadirPago extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Pago registrado exitosamente.");
                 dispose(); // Cerrar la ventana actual si todo es exitoso
             } else {
-                JOptionPane.showMessageDialog(this, "Error al registrar el pago.");
+                // Mensaje específico para cuotas excedidas
+                JOptionPane.showMessageDialog(this, 
+                    "No se pueden registrar más pagos. El número máximo de cuotas permitidas ya ha sido alcanzado.", 
+                    "Error de registro", 
+                    JOptionPane.WARNING_MESSAGE);
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Error: formato de venta o cliente no válido.");

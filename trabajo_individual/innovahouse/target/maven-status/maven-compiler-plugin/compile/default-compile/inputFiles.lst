@@ -1,4 +1,5 @@
 C:\Users\USER\Desktop\ESTUDIO PYTHON!!!\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Controlador\InmuebleService.java
+C:\Users\USER\Desktop\ESTUDIO PYTHON!!!\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Modelo\ConexionBD.java
 C:\Users\USER\Desktop\ESTUDIO PYTHON!!!\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Modelo\Inmueble.java
 C:\Users\USER\Desktop\ESTUDIO PYTHON!!!\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Modelo\InmuebleDAO.java
 C:\Users\USER\Desktop\ESTUDIO PYTHON!!!\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Modelo\UsuarioDAO.java
@@ -9,7 +10,6 @@ C:\Users\USER\Desktop\ESTUDIO PYTHON!!!\trabajo_individual\trabajo_individual\in
 C:\Users\USER\Desktop\ESTUDIO PYTHON!!!\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Vista\MenuAdminProyectos\Proyectos.java
 C:\Users\USER\Desktop\ESTUDIO PYTHON!!!\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Vista\MenuAdministrador.java
 C:\Users\USER\Desktop\ESTUDIO PYTHON!!!\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Vista\MenuAdminProyectos\CrearTorre.java
-C:\Users\USER\Desktop\ESTUDIO PYTHON!!!\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Controlador\ConexionBD.java
 C:\Users\USER\Desktop\ESTUDIO PYTHON!!!\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Vista\MenuAsesorProyectos\Ventas.java
 C:\Users\USER\Desktop\ESTUDIO PYTHON!!!\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Modelo\ClienteDAO.java
 C:\Users\USER\Desktop\ESTUDIO PYTHON!!!\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Modelo\TorreDAO.java
@@ -23,7 +23,6 @@ C:\Users\USER\Desktop\ESTUDIO PYTHON!!!\trabajo_individual\trabajo_individual\in
 C:\Users\USER\Desktop\ESTUDIO PYTHON!!!\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Modelo\VentaDAO.java
 C:\Users\USER\Desktop\ESTUDIO PYTHON!!!\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Vista\MenuAdminProyectos\Inmuebles.java
 C:\Users\USER\Desktop\ESTUDIO PYTHON!!!\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Vista\MenuAsesor.java
-C:\Users\USER\Desktop\ESTUDIO PYTHON!!!\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Vista\MenuAsesorProyectos\ActualizarVenta.java
 C:\Users\USER\Desktop\ESTUDIO PYTHON!!!\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Vista\MenuAdminProyectos\ActualizarProyecto.java
 C:\Users\USER\Desktop\ESTUDIO PYTHON!!!\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Modelo\Pago.java
 C:\Users\USER\Desktop\ESTUDIO PYTHON!!!\trabajo_individual\trabajo_individual\innovahouse\src\main\java\Vista\RSButtonMetro.java

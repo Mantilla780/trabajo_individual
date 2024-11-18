@@ -93,8 +93,6 @@ private boolean clienteExiste(int cedula) {
         }
         return clientes;
     }
- 
- 
     public boolean actualizarCliente(Cliente cliente) {
         String sqlUpdate = "UPDATE proyecto.CLIENTE SET NOMBRE = ?, SISBEN = ?, SUBSIDIOMINISTERIO = ?, DIRECCION = ?, TELEFONO = ?, CORREOELECTRONICO = ? WHERE CEDULA = ?";
 
@@ -123,10 +121,6 @@ private boolean clienteExiste(int cedula) {
             return false;
         }
     }
-
- 
- 
-
     public String eliminarCliente(int cedula) {
         if (clienteTieneVentas(cedula)) {
             return "No se puede eliminar el cliente con cédula " + cedula + " porque tiene ventas registradas.";
@@ -164,6 +158,5 @@ private boolean clienteExiste(int cedula) {
         }
         return false;
     }
-    
-    
+
 }

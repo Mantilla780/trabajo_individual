@@ -4,8 +4,8 @@
  */
 package Vista.MenuAsesorProyectos;
 
-import Controlador.ConexionBD;
 import Controlador.VentaService;
+import Modelo.ConexionBD;
 import Modelo.Venta;
 import Modelo.VentaDAO;
 import java.awt.Color;
@@ -164,7 +164,7 @@ public class Ventas extends javax.swing.JPanel {
         jTable2.setShowHorizontalLines(true);
         jScrollPane2.setViewportView(jTable2);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1120, 600));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 1120, 530));
 
         rButtonProyecto2.setBackground(new java.awt.Color(5, 10, 48));
         rButtonProyecto2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Imagenes/agregar.png"))); // NOI18N
@@ -209,7 +209,7 @@ public class Ventas extends javax.swing.JPanel {
     }//GEN-LAST:event_rButtonProyecto1MouseClicked
 
     private void rButtonProyecto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto1ActionPerformed
-        // Verificar que se haya seleccionado una fila
+            // Verificar que se haya seleccionado una fila
         int selectedRow = jTable2.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Por favor, selecciona una venta para eliminar.", "Error", JOptionPane.WARNING_MESSAGE);
@@ -237,13 +237,13 @@ public class Ventas extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(this, "Venta eliminada con éxito.");
                     cargarVentasEnTabla(); // Actualizar la tabla después de la eliminación
                 } else {
-                    JOptionPane.showMessageDialog(this, "No se puede eliminar la venta. Existe al menos un pago con estado 'PAG'.", "Error", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "No se puede eliminar la venta. Existe al menos un pago ya realizado.", "Error", JOptionPane.WARNING_MESSAGE);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Error de conexión a la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        }
+        }      
     }//GEN-LAST:event_rButtonProyecto1ActionPerformed
 
     private void rButtonProyecto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto2MouseClicked
