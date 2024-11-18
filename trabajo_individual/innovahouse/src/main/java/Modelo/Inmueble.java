@@ -108,6 +108,4 @@ public class Inmueble {
     public void setTipoInmueble(String tipoInmueble) {
         this.tipoInmueble = tipoInmueble;
     }
-    
-    
 }

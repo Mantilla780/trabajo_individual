@@ -92,14 +92,6 @@ public class AnadirVenta extends javax.swing.JFrame {
             e.printStackTrace(); // Manejo de la excepción
         }
     }
-
-
-
-
-
-
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -226,11 +218,19 @@ public class AnadirVenta extends javax.swing.JFrame {
     // Método para guardar la venta en la base de datos
     private boolean guardarVenta(Venta venta) {
         try {
+            // Verificar si el inmueble ya fue vendido
+            if (ventaService.esInmuebleVendido(venta.getMatinmueble())) {
+                JOptionPane.showMessageDialog(this, "El inmueble ya ha sido vendido. No se puede realizar otra venta.", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+
+            // Intentar guardar la venta
             return ventaService.agregarVenta(venta);
-        } catch (Exception e) {
+        }catch (SQLException e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Ocurrió un error al verificar el inmueble.", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
-        }  
+        }
     }
     
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed

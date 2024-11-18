@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package Vista.MenuAsesorProyectos;
-import Controlador.PagoService;
 import Modelo.ConexionBD;
 import Modelo.Pago;
 import Modelo.PagoDAO;
@@ -19,32 +18,24 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.AbstractCellEditor;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
     public class Pagos extends javax.swing.JPanel {
        private String idUsuario;
-       private PagoService pagoService;
 
         public Pagos(String idusuario) {
             initComponents();
-            this.idUsuario = idUsuario;
-
-            try (Connection conexion = ConexionBD.getInstancia().getConnection("Asesor")) {
-                this.pagoService = new PagoService(conexion);
-            } catch (SQLException e) {
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Error al conectar con la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-
+            this.idUsuario=idusuario;
             cargarPagosEnTabla();
         }
     private void cargarPagosEnTabla() {
-        try {
-            List<Pago> pagos = pagoService.listarPagos(); // Usando PagoService
+        try (Connection conexion = ConexionBD.getInstancia().getConnection("Asesor")) {
+            PagoDAO pagoDAO = new PagoDAO(conexion);
+            List<Pago> pagos = pagoDAO.listarPagos();
             DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
 
+            // Establecer nombres de columnas, incluyendo la nueva columna de botones
             model.setColumnIdentifiers(new String[]{
                 "ID Pago", "Fecha de Pago", "Valor del Pago", "Estado", "ID Venta", "Cédula Cliente", "Pagar"
             });
@@ -59,15 +50,15 @@ import javax.swing.table.DefaultTableModel;
                     pago.getEstadoPago(),
                     pago.getIdVenta(),
                     pago.getCcCliente(),
-                    "Pagar" // Placeholder para el botón
+                    "Pagar" // Placeholder para el botón 
                 });
             }
 
+            // Asignar el renderizador y editor a la columna de botones
             jTable2.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
             jTable2.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(jTable2));
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al cargar los pagos", "Error", JOptionPane.ERROR_MESSAGE);
         }
         // Configurar renderer para colorear cada columna de la tabla
         jTable2.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
@@ -143,62 +134,69 @@ import javax.swing.table.DefaultTableModel;
 
             @Override
         public void actionPerformed(ActionEvent e) {
-            int confirmacion = JOptionPane.showConfirmDialog(
+            int confirmacion = javax.swing.JOptionPane.showConfirmDialog(
                 null,
                 "¿Quieres completar el pago?",
                 "Confirmación de Pago",
-                JOptionPane.YES_NO_OPTION
+                javax.swing.JOptionPane.YES_NO_OPTION
             );
 
-            if (confirmacion == JOptionPane.YES_OPTION) {
+            if (confirmacion == javax.swing.JOptionPane.YES_OPTION) {
+                // Obtén el ID del Pago desde la fila seleccionada
                 int idPago = (int) jTable2.getValueAt(selectedRow, 0); // Columna 0: ID Pago
 
-                try {
-                    boolean actualizado = pagoService.actualizarEstadoPago(idPago, "PAG"); // Usando PagoService
+                try (Connection conexion = ConexionBD.getInstancia().getConnection("Asesor")) {
+                    PagoDAO pagoDAO = new PagoDAO(conexion);
+                    boolean actualizado = pagoDAO.actualizarEstadoPago(idPago, "PAG");
 
                     if (actualizado) {
+                        // Actualizar la tabla visualmente con la nueva fecha y estado
                         String fechaSistema = new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
-                        jTable2.setValueAt("PAG", selectedRow, 3); // Estado
-                        jTable2.setValueAt(fechaSistema, selectedRow, 1); // Fecha de Pago
+                        jTable2.setValueAt("PAG", selectedRow, 3); // Columna 3: Estado
+                        jTable2.setValueAt(fechaSistema, selectedRow, 1); // Columna 1: Fecha de Pago
 
-                        JOptionPane.showMessageDialog(
+                        javax.swing.JOptionPane.showMessageDialog(
                             null,
-                            "El estado del pago ha sido actualizado.",
+                            "El estado del pago ha sido actualizado a 'PAG' y la fecha de pago se actualizó a " + fechaSistema + ".",
                             "Pago Completado",
-                            JOptionPane.INFORMATION_MESSAGE
+                            javax.swing.JOptionPane.INFORMATION_MESSAGE
                         );
 
-                        int generarFactura = JOptionPane.showConfirmDialog(
+                        // Confirmar si se quiere generar la factura
+                        int generarFactura = javax.swing.JOptionPane.showConfirmDialog(
                             null,
                             "¿Deseas generar una factura para este pago?",
                             "Generar Factura",
-                            JOptionPane.YES_NO_OPTION
+                            javax.swing.JOptionPane.YES_NO_OPTION
                         );
 
-                        if (generarFactura == JOptionPane.YES_OPTION) {
+                        if (generarFactura == javax.swing.JOptionPane.YES_OPTION) {
+                            // Llama al método para generar la factura en PDF, pasando la fila seleccionada
                             generarFacturaPDF(idPago, selectedRow);
                         }
                     } else {
-                        JOptionPane.showMessageDialog(
+                        javax.swing.JOptionPane.showMessageDialog(
                             null,
                             "No se pudo completar el pago. Intenta nuevamente.",
                             "Error",
-                            JOptionPane.ERROR_MESSAGE
+                            javax.swing.JOptionPane.ERROR_MESSAGE
                         );
                     }
-                } catch (Exception ex) {
+                } catch (SQLException ex) {
                     ex.printStackTrace();
-                    JOptionPane.showMessageDialog(
+                    javax.swing.JOptionPane.showMessageDialog(
                         null,
                         "Ocurrió un error al completar el pago.",
                         "Error",
-                        JOptionPane.ERROR_MESSAGE
+                        javax.swing.JOptionPane.ERROR_MESSAGE
                     );
                 }
             }
-
-            fireEditingStopped();
+            cargarPagosEnTabla();
+            fireEditingStopped(); // Finaliza la edición del botón
         }
+
+
    }
     
     private void generarFacturaPDF(int idPago, int selectedRow) {
@@ -341,7 +339,14 @@ import javax.swing.table.DefaultTableModel;
     
     private void rButtonProyecto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto2MouseClicked
         AnadirPago ap = new AnadirPago(idUsuario);
+        ap.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent e) {
+                cargarPagosEnTabla(); // Refrescar la tabla con los datos actualizados
+            }
+        });
         ap.setVisible(true);
+
     }//GEN-LAST:event_rButtonProyecto2MouseClicked
 
     private void rButtonProyecto2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto2ActionPerformed

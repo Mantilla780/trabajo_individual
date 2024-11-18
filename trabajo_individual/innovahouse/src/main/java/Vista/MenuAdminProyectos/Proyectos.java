@@ -258,6 +258,7 @@ public class Proyectos extends javax.swing.JPanel {
             
             // Si se eliminó con éxito, podrías también actualizar la tabla, por ejemplo:
             if (resultado.equals("Proyecto eliminado con éxito.")) {
+                cargarProyectosEnTabla();
                 // Actualizar la tabla o realizar cualquier acción adicional
             }
         }
@@ -268,7 +269,14 @@ public class Proyectos extends javax.swing.JPanel {
 
     private void rButtonProyecto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto2MouseClicked
         CrearProyecto cp = new CrearProyecto(idUsuario);
-        cp.setVisible(true);
+    // Agrega un WindowListener para actualizar la tabla al cerrar CrearProyecto
+    cp.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent e) {
+            cargarProyectosEnTabla(); // Refresca la tabla
+        }
+    });
+    cp.setVisible(true);
     }//GEN-LAST:event_rButtonProyecto2MouseClicked
 
     private void rButtonProyecto2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto2ActionPerformed
@@ -280,20 +288,27 @@ public class Proyectos extends javax.swing.JPanel {
     }//GEN-LAST:event_rButtonProyecto3MouseClicked
 
     private void rButtonProyecto3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto3ActionPerformed
-        int selectedRow = jTable2.getSelectedRow();
-    if (selectedRow != -1) {
-        // Obtén los datos del proyecto seleccionado
-        int idProyecto = (int) jTable2.getValueAt(selectedRow, 0);
-        String nombreProyecto = (String) jTable2.getValueAt(selectedRow, 1);
-        int numeroTorres = (int) jTable2.getValueAt(selectedRow, 2);
-        String idUsuario = (String) jTable2.getValueAt(selectedRow, 3);
-        
-        // Abre el formulario de actualización
-        ActualizarProyecto ap = new ActualizarProyecto(idProyecto, nombreProyecto, idUsuario, proyectoService);
-        ap.setVisible(true);
-    } else {
-        JOptionPane.showMessageDialog(this, "Selecciona un proyecto para editar.");
-    }
+      int selectedRow = jTable2.getSelectedRow();
+        if (selectedRow != -1) {
+            // Obtén los datos del proyecto seleccionado
+            int idProyecto = (int) jTable2.getValueAt(selectedRow, 0);
+            String nombreProyecto = (String) jTable2.getValueAt(selectedRow, 1);
+            int numeroTorres = (int) jTable2.getValueAt(selectedRow, 2);
+            String idUsuario = (String) jTable2.getValueAt(selectedRow, 3);
+
+            // Abre el formulario de actualización
+            ActualizarProyecto ap = new ActualizarProyecto(idProyecto, nombreProyecto, idUsuario, proyectoService);
+            // Agrega un WindowListener para actualizar la tabla al cerrar ActualizarProyecto
+            ap.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent e) {
+                    cargarProyectosEnTabla(); // Refresca la tabla
+                }
+            });
+            ap.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecciona un proyecto para editar.");
+        }
     }//GEN-LAST:event_rButtonProyecto3ActionPerformed
 
 

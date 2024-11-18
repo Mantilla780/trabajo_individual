@@ -242,7 +242,13 @@ public class Ventas extends javax.swing.JPanel {
 
     private void rButtonProyecto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto2MouseClicked
         AnadirVenta v1 = new AnadirVenta(idUsuario);
-        System.out.println(idUsuario);
+        v1.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent e) {
+                cargarVentasEnTabla(); // Refresca los datos en la tabla o realiza la acción necesaria
+            }
+        });
+
         v1.setVisible(true);
     }//GEN-LAST:event_rButtonProyecto2MouseClicked
 

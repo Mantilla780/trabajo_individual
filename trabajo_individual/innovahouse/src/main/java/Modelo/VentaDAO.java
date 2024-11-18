@@ -81,7 +81,7 @@ public class VentaDAO {
         return lista;
     }
 
-    public boolean eliminarVenta(int idventa) {
+public boolean eliminarVenta(int idventa) {
         // Verificar si existen pagos con estado "PAG" para esta venta
         String sqlCheckPagos = "SELECT COUNT(*) AS pagosPagados " +
                                 "FROM proyecto.pago " +
@@ -112,7 +112,6 @@ public class VentaDAO {
             System.err.println("Error al eliminar los pagos de la venta con ID " + idventa + ": " + e.getMessage());
             return false;
         }
-
         // Eliminar la venta
         String sqlDeleteVenta = "DELETE FROM proyecto.venta WHERE idventa = ?";
 
@@ -144,5 +143,16 @@ public class VentaDAO {
         }
 
         return lista;
+    }
+    public boolean verificarInmuebleVendido(int matriculaInmueble) throws SQLException {
+        String query = "SELECT COUNT(*) FROM proyecto.venta WHERE matinmueble = ?";
+        try (PreparedStatement ps = conexion.prepareStatement(query)) {
+            ps.setInt(1, matriculaInmueble);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // Retorna true si ya hay al menos una venta asociada
+            }
+        }
+        return false;
     }
 }
