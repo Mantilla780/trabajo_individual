@@ -192,7 +192,7 @@ import javax.swing.table.DefaultTableModel;
                     );
                 }
             }
-
+            cargarPagosEnTabla();
             fireEditingStopped(); // Finaliza la edición del botón
         }
 
@@ -339,7 +339,14 @@ import javax.swing.table.DefaultTableModel;
     
     private void rButtonProyecto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto2MouseClicked
         AnadirPago ap = new AnadirPago(idUsuario);
+        ap.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent e) {
+                cargarPagosEnTabla(); // Refrescar la tabla con los datos actualizados
+            }
+        });
         ap.setVisible(true);
+
     }//GEN-LAST:event_rButtonProyecto2MouseClicked
 
     private void rButtonProyecto2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto2ActionPerformed

@@ -27,7 +27,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Torres extends javax.swing.JPanel {
     private TorreService torreService;
-    private Timer timer;
 
     /**
      * Creates new form Proyectos
@@ -37,16 +36,8 @@ public class Torres extends javax.swing.JPanel {
         this.torreService = torreService;
         cargarTorresEnTabla();
         
-        // Configuración del temporizador para actualizar la tabla cada 5 segundos
-        timer = new Timer(4000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cargarTorresEnTabla();
-            }
-        });
     
-        // Iniciar el temporizador
-        timer.start();
+        
         
         // Configurar renderer para colorear cada columna de la tabla
         jTable2.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
@@ -240,7 +231,18 @@ public class Torres extends javax.swing.JPanel {
 
     private void rButtonProyecto2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rButtonProyecto2ActionPerformed
         CrearTorre cp = new CrearTorre();
+        
+
+        // Agregar un WindowListener para detectar cuando se cierra la ventana CrearTorre
+        cp.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent e) {
+                cargarTorresEnTabla(); // Recargar la tabla de torres
+            }
+        });
+        
         cp.setVisible(true);
+        
     }//GEN-LAST:event_rButtonProyecto2ActionPerformed
 
     private void rButtonProyecto3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto3MouseClicked
@@ -253,8 +255,15 @@ public class Torres extends javax.swing.JPanel {
             int torreNumero = (Integer) jTable2.getValueAt(selectedRow, 0); // Asumiendo que 'Número Torre' es el primer campo
             int idProyecto = (Integer) jTable2.getValueAt(selectedRow, 1); // Obtener el ID del proyecto
 
-            // Abre la ventana de edición (aquí debes implementar la lógica para editar)
+            // Abre la ventana de edición
             ActualizarTorre editarTorre = new ActualizarTorre(torreNumero, idProyecto); // Pasar los datos necesarios
+                        // Agregar un WindowListener para detectar cuando se cierra la ventana ActualizarTorre
+            editarTorre.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosed(java.awt.event.WindowEvent e) {
+                    cargarTorresEnTabla(); // Recargar la tabla de torres
+                }
+            });
             editarTorre.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Selecciona una torre para editar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
