@@ -27,8 +27,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Inmuebles extends javax.swing.JPanel {
     private String idUsuario;
-    private InmuebleService inmuebleService; 
-    private Timer timer;
+    private InmuebleService inmuebleService;
     private Connection conexion; 
 
     public Inmuebles() {
@@ -43,16 +42,7 @@ public class Inmuebles extends javax.swing.JPanel {
         // Carga inicial de los datos en la tabla
         cargarInmueblesEnTabla();
     
-        // Configuración del temporizador para actualizar la tabla cada 5 segundos
-        timer = new Timer(4000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cargarInmueblesEnTabla();
-            }
-        });
-    
-        // Iniciar el temporizador
-        timer.start();
+        
         
         // Configurar renderer para colorear cada columna de la tabla
         jTable2.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
@@ -267,6 +257,13 @@ public class Inmuebles extends javax.swing.JPanel {
 
     private void rButtonProyecto2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rButtonProyecto2MouseClicked
         CrearInmueble crearinmuble = new CrearInmueble();
+        // Agrega un WindowListener para actualizar la tabla al cerrar ActualizarProyecto
+        crearinmuble.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent e) {
+                cargarInmueblesEnTabla(); // Refresca la tabla
+            }
+        });
         crearinmuble.setVisible(true);
         
     }//GEN-LAST:event_rButtonProyecto2MouseClicked
@@ -292,7 +289,14 @@ public class Inmuebles extends javax.swing.JPanel {
                     System.out.println(inmueble);
                     if (inmueble != null) {
                         // Mostrar la ventana de edición de inmueble con la matrícula
-                        ActualizarInmueble editarInmueble = new ActualizarInmueble(matriculaInmueble);
+                       ActualizarInmueble editarInmueble = new ActualizarInmueble(matriculaInmueble);
+                        // Agrega un WindowListener para actualizar la tabla al cerrar ActualizarProyecto
+                        editarInmueble.addWindowListener(new java.awt.event.WindowAdapter() {
+                            @Override
+                            public void windowClosed(java.awt.event.WindowEvent e) {
+                                cargarInmueblesEnTabla(); // Refresca la tabla
+                            }
+                        });                      
                         editarInmueble.setVisible(true);
                     } else {
                         // Si no se encuentra el inmueble
