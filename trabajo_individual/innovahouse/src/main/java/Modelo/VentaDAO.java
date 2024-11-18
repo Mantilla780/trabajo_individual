@@ -81,7 +81,7 @@ public class VentaDAO {
         return lista;
     }
 
-    public boolean eliminarVenta(int idventa) {
+public boolean eliminarVenta(int idventa) {
         // Verificar si existen pagos con estado "PAG" para esta venta
         String sqlCheckPagos = "SELECT COUNT(*) AS pagosPagados " +
                                 "FROM proyecto.pago " +
@@ -112,7 +112,6 @@ public class VentaDAO {
             System.err.println("Error al eliminar los pagos de la venta con ID " + idventa + ": " + e.getMessage());
             return false;
         }
-
         // Eliminar la venta
         String sqlDeleteVenta = "DELETE FROM proyecto.venta WHERE idventa = ?";
 

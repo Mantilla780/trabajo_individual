@@ -18,8 +18,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-
-
 /**
  *
  * @author omaci
@@ -35,8 +33,9 @@ public class Ventas extends javax.swing.JPanel {
     
     private void cargarVentasEnTabla() {
         try (Connection conexion = ConexionBD.getInstancia().getConnection("Asesor")) {
-            VentaDAO ventaDAO = new VentaDAO(conexion);
-            List<Venta> ventas = ventaDAO.listarVentas();
+            // Usar VentaService
+            VentaService ventaService = new VentaService(conexion);
+            List<Venta> ventas = ventaService.obtenerVentas();
             DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
 
             // Establecer las columnas
@@ -60,11 +59,6 @@ public class Ventas extends javax.swing.JPanel {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
-        
-        
-        
-        
         
         // Configurar renderer para colorear cada columna de la tabla
         jTable2.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {

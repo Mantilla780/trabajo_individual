@@ -38,5 +38,6 @@ public class ClienteService {
     public String eliminarCliente(int cedula) {
         return clienteDAO.eliminarCliente(cedula);
     }
+    
 }
 

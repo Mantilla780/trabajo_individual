@@ -3,9 +3,6 @@ package Controlador;
 import Modelo.ConexionBD;
 import Modelo.UsuarioDAO;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class LoginControlador {
