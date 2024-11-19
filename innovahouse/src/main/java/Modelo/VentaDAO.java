@@ -18,11 +18,12 @@ public class VentaDAO {
     // Método para insertar una nueva venta en la base de datos
     public boolean guardarVenta(Venta venta) {
         String sqlInsert = "INSERT INTO proyecto.venta (IDVENTA, PRECIOTOTALVENTA, NUMEROCUOTAS, INTERESES, IDUSUARIO, CCCLIENTE, MATINMUEBLE) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        //String sqlInsert = "INSERT INTO IntegradorInnovahouse.venta (IDVENTA, PRECIOTOTALVENTA, NUMEROCUOTAS, INTERESES, IDUSUARIO, CCCLIENTE, MATINMUEBLE) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement psInsert = conexion.prepareStatement(sqlInsert)) {
             // Obtener el IDVENTA a partir de la secuencia
             Statement stmt = conexion.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT proyecto.SEQ_IDVENTA.NEXTVAL FROM DUAL");
+            ResultSet rs = stmt.executeQuery("SELECT proyecto.SEQ_IDVENTA.NEXTVAL FROM DUAL"); //ResultSet rs = stmt.executeQuery("SELECT IntegradorInnovahouse.SEQ_IDVENTA.NEXTVAL FROM DUAL");
             if (rs.next()) {
                 int idVenta = rs.getInt(1);
                 venta.setIdventa(idVenta);
@@ -56,8 +57,10 @@ public class VentaDAO {
                      "       u.nombreUsuario AS nombreUsuario, " +
                      "       c.nombre AS nombreCliente " +
                      "FROM proyecto.venta v " +
+                     //"FROM IntegradorInnovahouse.venta v " +
                      "JOIN proyecto.usuario u ON v.idusuario = u.idUsuario " +
-                     "JOIN proyecto.cliente c ON v.cccliente = c.cedula " +
+                     //"JOIN IntegradorInnovahouse.usuario u ON v.idusuario = u.idUsuario " +
+                     "JOIN proyecto.cliente c ON v.cccliente = c.cedula " + //"JOIN IntegradorInnovahouse.cliente c ON v.cccliente = c.cedula " +//
                      "GROUP BY v.idventa, v.preciototalventa, v.numerocuotas, " +
                      "         v.intereses, v.matinmueble, u.nombreUsuario, c.nombre";
 
@@ -85,6 +88,7 @@ public boolean eliminarVenta(int idventa) {
         // Verificar si existen pagos con estado "PAG" para esta venta
         String sqlCheckPagos = "SELECT COUNT(*) AS pagosPagados " +
                                 "FROM proyecto.pago " +
+                                //"FROM IntegradorInnovahouse.pago " +
                                 "WHERE idventa = ? AND estadoPago = 'PAG'";
 
         try (PreparedStatement psCheck = conexion.prepareStatement(sqlCheckPagos)) {
@@ -104,6 +108,7 @@ public boolean eliminarVenta(int idventa) {
 
         // Eliminar los pagos relacionados con esta venta (si tienen estado 'PEN')
         String sqlDeletePagos = "DELETE FROM proyecto.pago WHERE idventa = ?";
+        //String sqlDeletePagos = "DELETE FROM IntegradorInnovahouse.pago WHERE idventa = ?";
 
         try (PreparedStatement psDeletePagos = conexion.prepareStatement(sqlDeletePagos)) {
             psDeletePagos.setInt(1, idventa);
@@ -114,6 +119,7 @@ public boolean eliminarVenta(int idventa) {
         }
         // Eliminar la venta
         String sqlDeleteVenta = "DELETE FROM proyecto.venta WHERE idventa = ?";
+        //String sqlDeleteVenta = "DELETE FROM IntegradorInnovahouse.venta WHERE idventa = ?";
 
         try (PreparedStatement psDeleteVenta = conexion.prepareStatement(sqlDeleteVenta)) {
             psDeleteVenta.setInt(1, idventa);
@@ -127,6 +133,7 @@ public boolean eliminarVenta(int idventa) {
     public List<String> obtenerVentasConCliente() {
         List<String> lista = new ArrayList<>();
         String sql = "SELECT IDVENTA, CCCLIENTE FROM proyecto.venta";
+        //String sql = "SELECT IDVENTA, CCCLIENTE FROM IntegradorInnovahouse.venta";
 
         try (PreparedStatement ps = conexion.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
@@ -146,6 +153,7 @@ public boolean eliminarVenta(int idventa) {
     }
     public boolean verificarInmuebleVendido(int matriculaInmueble) throws SQLException {
         String query = "SELECT COUNT(*) FROM proyecto.venta WHERE matinmueble = ?";
+        //String query = "SELECT COUNT(*) FROM IntegradorInnovahouse.venta WHERE matinmueble = ?";
         try (PreparedStatement ps = conexion.prepareStatement(query)) {
             ps.setInt(1, matriculaInmueble);
             ResultSet rs = ps.executeQuery();

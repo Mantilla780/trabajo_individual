@@ -95,6 +95,7 @@ private boolean clienteExiste(int cedula) {
     }
     public boolean actualizarCliente(Cliente cliente) {
         String sqlUpdate = "UPDATE proyecto.CLIENTE SET NOMBRE = ?, SISBEN = ?, SUBSIDIOMINISTERIO = ?, DIRECCION = ?, TELEFONO = ?, CORREOELECTRONICO = ? WHERE CEDULA = ?";
+        //String sqlUpdate = "UPDATE IntegradorInnovahouse.CLIENTE SET NOMBRE = ?, SISBEN = ?, SUBSIDIOMINISTERIO = ?, DIRECCION = ?, TELEFONO = ?, CORREOELECTRONICO = ? WHERE CEDULA = ?";
 
         try (PreparedStatement psUpdate = conexion.prepareStatement(sqlUpdate)) {
             // Asignar los valores al PreparedStatement
@@ -127,6 +128,7 @@ private boolean clienteExiste(int cedula) {
         }
 
         String sqlDelete = "DELETE FROM proyecto.cliente WHERE cedula = ?";
+        //String sqlDelete = "DELETE FROM IntegradorInnovahouse.cliente WHERE cedula = ?";
 
         try (PreparedStatement psDelete = conexion.prepareStatement(sqlDelete)) {
             psDelete.setInt(1, cedula);

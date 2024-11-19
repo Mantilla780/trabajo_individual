@@ -52,6 +52,7 @@ public class ProyectoDAO {
                  "FROM proyecto.PROYECTOVIVIENDA p " + 
                  //"FROM IntegradorInnovahouse.PROYECTOVIVIENDA p " +
                  "LEFT JOIN proyecto.TORRE t ON p.IDPROYECTO = t.IDPROYECTO " +
+                 //"LEFT JOIN IntegradorInnovahouse.TORRE t ON p.IDPROYECTO = t.IDPROYECTO " +
                  "GROUP BY p.IDPROYECTO, p.NOMBREPROYECTO,p.IDUSUARIO"; // Cambiar aquí
 
     try (PreparedStatement ps = conexion.prepareStatement(sql);
@@ -94,7 +95,7 @@ public class ProyectoDAO {
 
     // Método para actualizar un proyecto String sqlUpdate = "UPDATE IntegradorInnovahouse.PROYECTOVIVIENDA SET NOMBREPROYECTO = ?, IDUSUARIO = ? WHERE IDPROYECTO = ?";
     public boolean actualizarProyecto(Proyecto proyecto) {
-        String sqlUpdate = "UPDATE proyecto.PROYECTOVIVIENDA SET NOMBREPROYECTO = ?, IDUSUARIO = ? WHERE IDPROYECTO = ?";
+        String sqlUpdate = "UPDATE proyecto.PROYECTOVIVIENDA SET NOMBREPROYECTO = ?, IDUSUARIO = ? WHERE IDPROYECTO = ?"; ////String sqlUpdate = "UPDATE IntegradorInnovahouse.PROYECTOVIVIENDA SET NOMBREPROYECTO = ?, IDUSUARIO = ? WHERE IDPROYECTO = ?";
         
 
         try {
@@ -150,6 +151,7 @@ public String eliminarProyecto(int idProyecto) {
 
         // Finalmente, elimina el proyecto
         String sqlDelete = "DELETE FROM proyecto.PROYECTOVIVIENDA WHERE IDPROYECTO = ?";
+        //String sqlDelete = "DELETE FROM IntegradorInnovahouse.PROYECTOVIVIENDA WHERE IDPROYECTO = ?";
         try (PreparedStatement psDelete = conexion.prepareStatement(sqlDelete)) {
             psDelete.setInt(1, idProyecto);
             boolean proyectoEliminado = psDelete.executeUpdate() > 0;

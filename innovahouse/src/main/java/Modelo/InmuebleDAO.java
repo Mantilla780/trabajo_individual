@@ -41,7 +41,7 @@ public class InmuebleDAO {
     Inmueble inmueble = null;
     String sqlSelect = "SELECT i.MATRICULA, i.NUMEROINMUEBLE, i.VALORINMUEBLE, i.FECHAESCRITURA, i.AREA, i.IDTORRE, t.NUMEROTORRE, i.TIPOINMUEBLE " +
                        "FROM proyecto.INMUEBLE i JOIN proyecto.TORRE t ON i.IDTORRE = t.IDTORRE WHERE i.NUMEROINMUEBLE = ?";
-    //"FROM IntegradorInnovahouse.INMUEBLE i JOIN proyecto.TORRE t ON i.IDTORRE = t.IDTORRE WHERE i.NUMEROINMUEBLE = ?";
+                       //"FROM IntegradorInnovahouse.INMUEBLE i JOIN IntegradorInnovahouse.TORRE t ON i.IDTORRE = t.IDTORRE WHERE i.NUMEROINMUEBLE = ?";
 
     try (PreparedStatement psSelect = conexion.prepareStatement(sqlSelect)) {
         psSelect.setInt(1, numeroInmueble);
@@ -178,7 +178,9 @@ public class InmuebleDAO {
    public boolean existenVentasPorTorre(int idTorre) {
     String sql = "SELECT COUNT(*) AS TOTAL_VENTAS " +
                  "FROM proyecto.venta v " +
+                 //"FROM IntegradorInnovahouse.venta v " +
                  "JOIN proyecto.inmueble i ON v.MATINMUEBLE = i.MATRICULA " +
+                 //"JOIN IntegradorInnovahouse.inmueble i ON v.MATINMUEBLE = i.MATRICULA " +
                  "WHERE i.IDTORRE = ?";
     try (PreparedStatement ps = conexion.prepareStatement(sql)) {
         ps.setInt(1, idTorre); // Reemplaza el marcador de posición con el ID de la torre
@@ -196,6 +198,7 @@ public class InmuebleDAO {
    public boolean existeVentaPorTorre(int idTorre) throws SQLException {
     // SQL para contar ventas relacionadas con los inmuebles de la torre
     String sql = "SELECT COUNT(*) FROM proyecto.venta WHERE MATINMUEBLE IN (SELECT MATRICULA FROM proyecto.inmueble WHERE IDTORRE = ?)";
+    //String sql = "SELECT COUNT(*) FROM IntegradorInnovahouse.venta WHERE MATINMUEBLE IN (SELECT MATRICULA FROM IntegradorInnovahouse.inmueble WHERE IDTORRE = ?)";
     
     try (PreparedStatement ps = conexion.prepareStatement(sql)) {
         ps.setInt(1, idTorre);  // Establecemos el idTorre como parámetro
@@ -210,6 +213,7 @@ public class InmuebleDAO {
 }
     public boolean estaVendido(int matricula) {
         String sql = "SELECT 1 FROM proyecto.VENTA WHERE MATINMUEBLE = ?";
+        //String sql = "SELECT 1 FROM IntegradorInnovahouse.VENTA WHERE MATINMUEBLE = ?";
         try (PreparedStatement ps = conexion.prepareStatement(sql)) {
             ps.setInt(1, matricula);
             ResultSet rs = ps.executeQuery();

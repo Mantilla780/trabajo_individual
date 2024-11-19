@@ -20,6 +20,7 @@ public class PagoDAO {
         try {
             // Verificar el número de pagos existentes para la venta
             String sqlCountPagos = "SELECT COUNT(*) AS totalPagos FROM proyecto.pago WHERE idVenta = ?";
+            //String sqlCountPagos = "SELECT COUNT(*) AS totalPagos FROM IntegradorInnovahouse.pago WHERE idVenta = ?";
             try (PreparedStatement stmtCount = conexion.prepareStatement(sqlCountPagos)) {
                 stmtCount.setInt(1, idVenta);
                 try (ResultSet rs = stmtCount.executeQuery()) {
@@ -28,6 +29,7 @@ public class PagoDAO {
 
                         // Obtener el número de cuotas permitidas de la venta
                         String sqlCuotas = "SELECT numerocuotas FROM proyecto.venta WHERE idventa = ?";
+                        //String sqlCuotas = "SELECT numerocuotas FROM IntegradorInnovahouse.venta WHERE idventa = ?";
                         try (PreparedStatement stmtCuotas = conexion.prepareStatement(sqlCuotas)) {
                             stmtCuotas.setInt(1, idVenta);
                             try (ResultSet rsCuotas = stmtCuotas.executeQuery()) {
@@ -51,6 +53,7 @@ public class PagoDAO {
 
             // Lógica para insertar los nuevos pagos
             String sql = "{ CALL proyecto.insertar_pagos_por_venta(?, ?, ?, ?) }"; // Agregar el parámetro idUsuario
+            // String sql = "{ CALL IntegradorInnovahouse.insertar_pagos_por_venta(?, ?, ?, ?) }"; // Agregar el parámetro idUsuario
             try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
 
                 // Convertir la fecha de String a Date
@@ -78,6 +81,7 @@ public class PagoDAO {
     public List<Pago> listarPagos() {
         List<Pago> pagos = new ArrayList<>();
         String sqlSelect = "SELECT idPago, fechaPago, valorPago, estadoPago, idVenta, ccCliente FROM proyecto.pago";
+        //String sqlSelect = "SELECT idPago, fechaPago, valorPago, estadoPago, idVenta, ccCliente FROM IntegradorInnovahouse.pago";
 
         try (PreparedStatement psSelect = conexion.prepareStatement(sqlSelect);
              ResultSet rs = psSelect.executeQuery()) {
@@ -101,6 +105,7 @@ public class PagoDAO {
     
     public boolean actualizarEstadoPago(int idPago, String nuevoEstado) {
         String sql = "UPDATE proyecto.Pago SET EstadoPago = ?, FechaPago = CURRENT_DATE WHERE idPago = ?";
+        //String sql = "UPDATE IntegradorInnovahouse.Pago SET EstadoPago = ?, FechaPago = CURRENT_DATE WHERE idPago = ?";
         try (PreparedStatement ps = conexion.prepareStatement(sql)) {
             ps.setString(1, nuevoEstado);
             ps.setInt(2, idPago);
@@ -125,8 +130,10 @@ public class PagoDAO {
                 "END AS estadoCuota " +
             "FROM " +
                 "proyecto.pago p " +
+                //"IntegradorInnovahouse.pago p " +
             "INNER JOIN " +
                 "proyecto.cliente c ON p.ccCliente = c.cedula " +
+                //"IntegradorInnovahouse.cliente c ON p.ccCliente = c.cedula " +
             "WHERE " +
                 "p.estadoPago = 'PEN' AND " +  // Solo pagos pendientes
                 "(p.fechaPago < CURRENT_DATE OR " + // Cuotas vencidas

@@ -48,7 +48,7 @@ public class TorreDAO {
         List<Torre> torres = new ArrayList<>();
         String sql = "SELECT t.IDTORRE, t.NUMEROTORRE, t.IDPROYECTO, COUNT(i.MATRICULA) AS cantidad_inmuebles " +
                      "FROM proyecto.TORRE t LEFT JOIN proyecto.INMUEBLE i ON t.IDTORRE = i.IDTORRE " +
-                     //"FROM IntegradorInnovahouse.TORRE t LEFT JOIN proyecto.INMUEBLE i ON t.IDTORRE = i.IDTORRE " +
+                     //"FROM IntegradorInnovahouse.TORRE t LEFT JOIN IntegradorInnovahouse.INMUEBLE i ON t.IDTORRE = i.IDTORRE " +
                      "GROUP BY t.IDTORRE, t.NUMEROTORRE, t.IDPROYECTO ORDER BY t.NUMEROTORRE";
                     
 
@@ -206,6 +206,7 @@ public boolean eliminarTorre(int numeroTorre) {
 
         // Eliminar la torre
         String sqlDeleteTorre = "DELETE FROM proyecto.TORRE WHERE NUMEROTORRE = ?";
+        //String sqlDeleteTorre = "DELETE FROM IntegradorInnovahouse.TORRE WHERE NUMEROTORRE = ?";
         try (PreparedStatement psDeleteTorre = conexion.prepareStatement(sqlDeleteTorre)) {
             psDeleteTorre.setInt(1, numeroTorre);
             boolean torreEliminada = psDeleteTorre.executeUpdate() > 0;
